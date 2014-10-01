@@ -39,6 +39,12 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    ~~~ sh
    $ rbenv install 2.1.3
    ~~~
+   
+   If you already had `rbenv` installed, then you may need to rehash
+   
+   ~~~ sh
+   $ rbenv rehash
+   ~~~
 
 4. Install PostgreSQL
 
@@ -71,13 +77,14 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 6. Install the required Gems
 
-   We are going to use [bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.
+   We are going to use [bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
    
    **Note:** These commands (and the rest that follow) should be run from within the `<project_dir>/workshop` directory.
    
    ~~~ sh
    workshop $ gem install bundler
    workshop $ bundle install
+   workshop $ rbenv rehash
    ~~~
    
 7. Setup the database
