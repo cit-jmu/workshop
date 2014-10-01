@@ -1,5 +1,8 @@
-# Mac OS X Development Environment Setup
+# Workshop Registration Made Easy
 
+This app was created for the Faculty Development staff in [JMU's Center for Instructional Technology](http://cit.jmu.edu/) group to ease the burden of managing registrations for in-house workshop courses.  The goal is to create an application which is mostly self-service and requires minimal administrator support.
+
+## Development Setup (Mac OS X)
 
 1. Install [Homebrew](http://brew.sh/)
 
@@ -94,3 +97,4 @@
    ~~~
    
    You now be able to go to http://localhost:3000 in your browser and see the running app.
+
