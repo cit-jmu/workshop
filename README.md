@@ -20,7 +20,7 @@
    `rbenv` is a nice little utility for managing your installed Ruby versions
 
    ~~~ sh
-   $ brew install rbenv rbenv-build
+   $ brew install rbenv ruby-build
    ~~~
    
    When Homebrew has finished installing `rbenv`, add the following line to your `~/.bash_profile` script:
