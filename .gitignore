@@ -15,3 +15,6 @@
 /log/*.log
 /tmp
 
+# Ignore Sublime Text project files
+*.sublime-project
+*.sublime-workspace
