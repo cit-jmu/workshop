@@ -40,7 +40,7 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    $ rbenv install 2.1.3
    ~~~
    
-   If you already had `rbenv` installed, then you may need to rehash
+   If you already had `rbenv` installed, then you will need to rehash after installing a new ruby version
    
    ~~~ sh
    $ rbenv rehash
@@ -77,7 +77,7 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 6. Install the required Gems
 
-   We are going to use [bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
+   We are going to use [Bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
    
    **Note:** These commands (and the rest that follow) should be run from within the `<project_dir>/workshop` directory.
    
@@ -105,3 +105,17 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    
    You now be able to go to http://localhost:3000 in your browser and see the running app.
 
+## What's in the box?
+
+Aside from the standard gems that get installed with the default install of Rails, here's what else has been added:
+
+* [Official Sass port of Bootstrap](http://getbootstrap.com/css/#sass)
+  * gem [bootstrap-sass](https://rubygems.org/gems/bootstrap-sass)
+  * gem [autoprefixer-rails](https://rubygems.org/gems/autoprefixer-rails)
+* [Puma](http://puma.io/) (replaces WEBRick)
+  * gem [puma](https://rubygems.org/gems/puma)
+* [RSpec](https://github.com/rspec/rspec)
+  * gem [rspec-rails](https://rubygems.org/gems/rspec-rails)
+* [Cucumber](https://github.com/cucumber/cucumber)
+  * gem [cucumber-rails](https://rubygems.org/gems/cucumber-rails)
+  * gem [database_cleaner](https://rubygems.org/gems/database_cleaner)
