@@ -1,5 +1,8 @@
-# Mac OS X Development Environment Setup
+# Workshop Registration Made Easy
 
+This app was created for the Faculty Development staff in [JMU's Center for Instructional Technology](http://cit.jmu.edu/) group to ease the burden of managing registrations for in-house workshop courses.  The goal is to create an application which is mostly self-service and requires minimal administrator support.
+
+## Development Setup (Mac OS X)
 
 1. Install [Homebrew](http://brew.sh/)
 
@@ -36,6 +39,12 @@
    ~~~ sh
    $ rbenv install 2.1.3
    ~~~
+   
+   If you already had `rbenv` installed, then you will need to rehash after installing a new ruby version
+   
+   ~~~ sh
+   $ rbenv rehash
+   ~~~
 
 4. Install PostgreSQL
 
@@ -68,13 +77,14 @@
 
 6. Install the required Gems
 
-   We are going to use [bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.
+   We are going to use [Bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
    
    **Note:** These commands (and the rest that follow) should be run from within the `<project_dir>/workshop` directory.
    
    ~~~ sh
    workshop $ gem install bundler
    workshop $ bundle install
+   workshop $ rbenv rehash
    ~~~
    
 7. Setup the database
@@ -94,3 +104,18 @@
    ~~~
    
    You now be able to go to http://localhost:3000 in your browser and see the running app.
+
+## What's in the box?
+
+Aside from the standard gems that get installed with the default install of Rails, here's what else has been added:
+
+* [Official Sass port of Bootstrap](http://getbootstrap.com/css/#sass)
+  * gem [bootstrap-sass](https://rubygems.org/gems/bootstrap-sass)
+  * gem [autoprefixer-rails](https://rubygems.org/gems/autoprefixer-rails)
+* [Puma](http://puma.io/) (replaces WEBRick)
+  * gem [puma](https://rubygems.org/gems/puma)
+* [RSpec](https://github.com/rspec/rspec)
+  * gem [rspec-rails](https://rubygems.org/gems/rspec-rails)
+* [Cucumber](https://github.com/cucumber/cucumber)
+  * gem [cucumber-rails](https://rubygems.org/gems/cucumber-rails)
+  * gem [database_cleaner](https://rubygems.org/gems/database_cleaner)
