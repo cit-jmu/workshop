@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<p class="course-admin-actions pull-right">
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default' %>
+  <%= link_to 'Destroy', @course, method: :delete, class: 'btn btn-default',
+              data: { confirm: 'Are you sure?' } %>
+</p>
+
+<h1><%= @course.title %></h1>
+
+<ul class="list-unstyled">
+  <li><strong>Instructor:</strong> Herbert Menninger</li>
+  <li><strong>Duration:</strong> <%= pluralize(@course.duration, "minute") %><li>
+</ul>
+
+
+<p class="lead">
+  <%= @course.description %>
+</p>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Available sessions</h3>
+    </div>
+    <table class="table course-available-sessions">
+      <thead>
+        <tr>
+          <th>Date and Time</th>
+          <th>Location</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12/9/2014 @ 2:00pm</td>
+          <td>Carrier Library Room 37</td>
+          <td><a href="#" class="btn btn-default pull-right">Register</a></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
