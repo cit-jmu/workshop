@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<div id="notice" class="alert alert-success" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <%= notice %>
+</div>
+<% end %>
 
 <p class="admin-actions pull-right">
   <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default' %>
