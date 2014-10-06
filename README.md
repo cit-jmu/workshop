@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/cit-jmu/workshop.png?label=ready&title=Ready)](https://waffle.io/cit-jmu/workshop)
 # Workshop Registration Made Easy
 
 This app was created for the Faculty Development staff in [JMU's Center for Instructional Technology](http://cit.jmu.edu/) group to ease the burden of managing registrations for in-house workshop courses.  The goal is to create an application which is mostly self-service and requires minimal administrator support.
