@@ -43,6 +43,9 @@ gem 'puma'
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'autoprefixer-rails'
 
+# Use devise for authentication
+gem 'devise'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'cucumber-rails', :require => false

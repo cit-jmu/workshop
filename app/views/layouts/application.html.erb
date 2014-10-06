@@ -19,8 +19,10 @@
 <body>
   <div class="container">
     <%= render 'layouts/navbar' %>
-
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
+    <%= render 'layouts/user_widget' %>
   </div>
 </body>
 </html>
