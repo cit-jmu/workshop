@@ -17,7 +17,7 @@
 <h1><%= @course.title %></h1>
 
 <ul class="list-unstyled">
-  <li><strong>Instructor:</strong> Herbert Menninger</li>
+  <li><strong>Instructor:</strong> <%= @course.instructor %></li>
   <li><strong>Duration:</strong> <%= pluralize(@course.duration, "minute") %><li>
 </ul>
 
