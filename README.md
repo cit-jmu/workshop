@@ -115,8 +115,3 @@ Aside from the standard gems that get installed with the default install of Rail
   * gem [autoprefixer-rails](https://rubygems.org/gems/autoprefixer-rails)
 * [Puma](http://puma.io/) (replaces WEBRick)
   * gem [puma](https://rubygems.org/gems/puma)
-* [RSpec](https://github.com/rspec/rspec)
-  * gem [rspec-rails](https://rubygems.org/gems/rspec-rails)
-* [Cucumber](https://github.com/cucumber/cucumber)
-  * gem [cucumber-rails](https://rubygems.org/gems/cucumber-rails)
-  * gem [database_cleaner](https://rubygems.org/gems/database_cleaner)
