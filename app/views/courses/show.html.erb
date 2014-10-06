@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p class="course-admin-actions pull-right">
+<p class="admin-actions pull-right">
   <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-default' %>
   <%= link_to 'Destroy', @course, method: :delete, class: 'btn btn-default',
               data: { confirm: 'Are you sure?' } %>
@@ -20,9 +20,9 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Available sessions</h3>
+      <h3 class="panel-title">Available sections</h3>
     </div>
-    <table class="table course-available-sessions">
+    <table class="table available-sections">
       <thead>
         <tr>
           <th>Date and Time</th>

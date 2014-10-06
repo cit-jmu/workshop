@@ -2,8 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.course-available-sessions {
-  tbody tr td {
-    vertical-align: middle;
+.courses {
+  .available-sections {
+    tbody tr td {
+      vertical-align: middle;
+    }
   }
 }

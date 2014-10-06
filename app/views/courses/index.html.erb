@@ -2,8 +2,8 @@
 <h1>Available courses</h1>
 
 <% @courses.each do |course| %>
-<div class="course">
-  <p class="course-admin-actions pull-right">
+<div class="course-row">
+  <p class="admin-actions pull-right">
     <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm' %>
     <%= link_to 'Destroy', course, method: :delete, class: 'btn btn-default btn-sm',
                 data: { confirm: 'Are you sure?' } %>
