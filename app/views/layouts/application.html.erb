@@ -19,10 +19,10 @@
 <body class="<%= controller.controller_name %>">
   <div class="container">
     <%= render 'layouts/navbar' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'layouts/notifications' %>
+
     <%= yield %>
-    <%= render 'layouts/user_widget' %>
+    
   </div>
 </body>
 </html>
