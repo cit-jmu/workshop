@@ -1,8 +1,15 @@
+<ul class="nav navbar-nav navbar-right">
 <% if user_signed_in? %>
-  <p class="navbar-text">
-    Hello, <strong><a href="#" class="navbar-link"><%= current_user.email %></a></strong>
-  </p>
-  <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'btn btn-default navbar-btn' %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <%= current_user.full_name %> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Profile</a></li>
+      <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+    </ul>
+  </li>
 <% else %>
-  <%= link_to 'Login', new_user_session_path, class: 'btn btn-default navbar-btn' %>
+  <li><%= link_to 'Login', new_user_session_path %></li>
 <% end %>
+</ul>

@@ -13,9 +13,12 @@
 <% @courses.each do |course| %>
 <div class="course-row">
   <p class="admin-actions pull-right">
-    <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm' %>
-    <%= link_to 'Destroy', course, method: :delete, class: 'btn btn-default btn-sm',
-                data: { confirm: 'Are you sure?' } %>
+    <%= link_to edit_course_path(course), title: 'Edit', class: 'btn btn-default btn-sm' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to course, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm', data: { confirm: 'Are you sure?' } do %>
+      <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
   </p>
   <h3><%= link_to course.title, course %></h3>
   <p>
