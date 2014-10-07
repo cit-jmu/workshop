@@ -48,7 +48,6 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-<<<<<<< HEAD
     devise_ldap_authenticatable (0.8.1)
       devise (>= 3.0)
       net-ldap (>= 0.3.1, < 0.6.0)
@@ -59,10 +58,8 @@ GEM
       thor (~> 0.14)
     gherkin (2.12.2)
       multi_json (~> 1.3)
-=======
     erubis (2.7.0)
     execjs (2.2.1)
->>>>>>> 3c79e3f57bd3a69338d78582d7adee51593f9192
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.1.3)
@@ -78,13 +75,10 @@ GEM
     mime-types (2.3)
     minitest (5.4.2)
     multi_json (1.10.1)
-<<<<<<< HEAD
     multi_test (0.1.1)
     net-ldap (0.5.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
-=======
->>>>>>> 3c79e3f57bd3a69338d78582d7adee51593f9192
     orm_adapter (0.5.0)
     pg (0.17.1)
     puma (2.9.1)
