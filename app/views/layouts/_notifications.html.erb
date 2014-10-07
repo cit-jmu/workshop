@@ -1,0 +1,12 @@
+<% if alert %>
+  <%= render partial: 'layouts/bootstrap_alert', locals: {
+    bootstrap_alert_class: 'alert-danger',
+    message: alert
+  } %>
+<% end %>
+<% if notice %>
+  <%= render partial: 'layouts/bootstrap_alert', locals: {
+    bootstrap_alert_class: 'alert-success',
+    message: notice
+  } %>
+<% end %>
