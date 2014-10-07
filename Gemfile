@@ -45,6 +45,10 @@ gem 'autoprefixer-rails'
 
 # Use devise for authentication
 gem 'devise'
+gem 'devise_ldap_authenticatable'
+
+# Use figaro for app configuration
+gem 'figaro'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
