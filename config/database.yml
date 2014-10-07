@@ -81,6 +81,3 @@ test: &test
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-
-cucumber:
-  <<: *test
