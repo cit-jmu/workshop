@@ -49,10 +49,3 @@ gem 'devise_ldap_authenticatable'
 
 # Use figaro for app configuration
 gem 'figaro'
-
-group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
-  gem 'cucumber-rails', :require => false
-  # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
-end
