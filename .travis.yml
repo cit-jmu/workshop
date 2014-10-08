@@ -5,3 +5,7 @@ addons:
   postgresql: "9.3"
 before_script:
   - psql -c 'create database workshop_test;' -U postgres
+notifications:
+  hipchat:
+    rooms:
+      secure: "i58U0Wh1sX3AlD3VfFEMMcMoMwu0LBmrFDvnZw6DCd1GARto/GuK38myqFYXdyz3Z92m8lxte13X5lrMKYroijWE1iIubXnt5vh+TCp1EkkS+EF5tgWXODC+6gNgHNKavWqclIR749YYJkYxNJo7qkfO3Lt49APjulmnvdn5i60=" 

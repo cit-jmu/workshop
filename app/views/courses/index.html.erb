@@ -1,22 +1,34 @@
-<%= link_to 'Add new course', new_course_path, class: 'btn btn-default pull-right' %>
+<% if user_signed_in? %>
+<div class="admin-actions pull-right">
+  <%= link_to 'Add new course', new_course_path, class: 'btn btn-default' %>
+</div>
+<% end %>
+
 <h1>Available courses</h1>
 
 <% if @courses.empty? %>
 <p>
   There are no courses available at this time.
+  <% if user_signed_in? %>
   <span class="admin-actions">
     Consider <%= link_to "adding some courses", new_course_path %>.
   </span>
+  <% end %>
 <p>
 <% end %>
 
 <% @courses.each do |course| %>
 <div class="course-row">
-  <p class="admin-actions pull-right">
-    <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-default btn-sm' %>
-    <%= link_to 'Destroy', course, method: :delete, class: 'btn btn-default btn-sm',
-                data: { confirm: 'Are you sure?' } %>
-  </p>
+  <% if user_signed_in? %>
+  <div class="admin-actions pull-right">
+    <%= link_to edit_course_path(course), title: 'Edit', class: 'btn btn-default btn-sm' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to course, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm', data: { confirm: 'Are you sure?' } do %>
+      <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
+  </div>
+  <% end %>
   <h3><%= link_to course.title, course %></h3>
   <p>
     <%= course.description %><br>
