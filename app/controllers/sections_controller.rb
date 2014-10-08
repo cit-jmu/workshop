@@ -1,18 +1,21 @@
 class SectionsController < ApplicationController
+  before_action :set_course
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html, :json
+
   def index
-    @sections = Section.all
-    respond_with(@sections)
+    @sections = @course.sections
+    respond_with(@course, @sections)
   end
 
   def show
-    respond_with(@section)
+    respond_with(@course, @section)
   end
 
   def new
     @section = Section.new
-    respond_with(@section)
+    respond_with(@course, @section)
   end
 
   def edit
@@ -20,26 +23,31 @@ class SectionsController < ApplicationController
 
   def create
     @section = Section.new(section_params)
+    @section.course_id = @course.id
     @section.save
-    respond_with(@section)
+    respond_with(@course, @section)
   end
 
   def update
     @section.update(section_params)
-    respond_with(@section)
+    respond_with(@course, @section)
   end
 
   def destroy
     @section.destroy
-    respond_with(@section)
+    respond_with(@course, @section)
   end
 
   private
     def set_section
-      @section = Section.find(params[:id])
+      @section = @course.sections.find(params[:id])
+    end
+
+    def set_course
+      @course = Course.find(params[:course_id])
     end
 
     def section_params
-      params.require(:section).permit(:location, :seats, :starts_at, :course_id)
+      params.require(:section).permit(:location, :seats, :starts_at)
     end
 end

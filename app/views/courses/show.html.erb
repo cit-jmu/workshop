@@ -22,23 +22,48 @@
 </p>
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Available sections</h3>
+  <div class="panel-heading">
+    <% if user_signed_in? %>
+    <div class="admin-actions pull-right">
+      <%= link_to "Add section", new_course_section_path(@course) %>
     </div>
-    <table class="table available-sections">
-      <thead>
-        <tr>
-          <th>Date and Time</th>
-          <th>Location</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>12/9/2014 @ 2:00pm</td>
-          <td>Carrier Library Room 37</td>
-          <td><a href="#" class="btn btn-primary pull-right">Register</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <% end %>
+    <h3 class="panel-title">
+      <% if user_signed_in? %>
+        <%= link_to "Available sections", course_sections_path(@course) %>
+      <% else %>
+        Available sections
+      <% end %>
+    </h3>
+  </div>
+  <% if @course.sections.any? %>
+  <table class="table available-sections">
+    <thead>
+      <tr>
+        <th>Date and Time</th>
+        <th>Location</th>
+        <th>Open Seats</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @course.sections.each do |section| %>
+      <tr>
+        <td>
+          <%= section.date_and_time %>
+        </td>
+        <td><%= section.location %></td>
+        <td><%= section.open_seats %></td>
+        <td class="text-right">
+          <a href="#" class="btn btn-primary">Register</a>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <div class="panel-body">
+    There aren't any sections available at this time.  Please check back later.
+  </div>
+  <% end %>
 </div>

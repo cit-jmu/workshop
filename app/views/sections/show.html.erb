@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1><%= link_to @course.title, @course %></h1>
+<h2>Section details</h2>
 
 <p>
   <strong>Location:</strong>
@@ -15,10 +16,7 @@
   <%= @section.starts_at %>
 </p>
 
-<p>
-  <strong>Course:</strong>
-  <%= @section.course_id %>
-</p>
-
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+<div class="actions">
+  <%= link_to 'Edit', edit_course_section_path(@course, @section), class: 'btn btn-default' %>
+  <%= link_to 'Back', course_sections_path, class: 'btn btn-default' %>
+</div>
