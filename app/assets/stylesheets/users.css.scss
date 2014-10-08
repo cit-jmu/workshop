@@ -7,8 +7,16 @@
       margin-bottom: 0;
     }
     .profile-field-label {
-      width: 20%;
+      width: 30%;
       text-align: right;
+    }
+    .profile-input {
+      .profile-field-label {
+        vertical-align: middle;
+      }
+      .computer-preference {
+        width: 100px;
+      }
     }
   }
   .current-enrollments {

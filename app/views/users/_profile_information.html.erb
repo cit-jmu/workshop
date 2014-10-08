@@ -6,7 +6,10 @@
     <tbody>
       <tr>
         <th class="profile-field-label">Name:</th>
-        <td><%= current_user.full_name %></td>
+        <td>
+          <%= current_user.full_name %>
+          <%= "(#{current_user.nickname})" if current_user.nickname %>
+        </td>
       </tr>
       <tr>
         <th class="profile-field-label">JMU eID:</th>
@@ -19,6 +22,29 @@
       <tr>
         <th class="profile-field-label">Employee ID:</th>
         <td><%= current_user.employee_id %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">Phone Number:</th>
+        <td><%= current_user.phone_number %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">Mailbox:</th>
+        <td><%= current_user.mailbox %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">Department:</th>
+        <td><%= current_user.department %></td>
+      </tr>
+      <tr class="profile-input">
+        <th class="profile-field-label">Computer Preference:</th>
+        <td>
+          <form role="form">
+            <select class="form-control computer-preference">
+              <option>PC</option>
+              <option>Mac</option>
+            </select>
+          </form>
+        </td>
       </tr>
     </tbody>
   </table>
