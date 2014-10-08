@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  seats: 1
+  starts_at: 2014-10-08 13:58:45
+  course_id: 1
+
+two:
+  location: MyString
+  seats: 1
+  starts_at: 2014-10-08 13:58:45
+  course_id: 1

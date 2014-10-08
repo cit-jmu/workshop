@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+
   devise_for :users
-  resources :courses
+  resources :courses do
+    resources :sections
+  end
 
   get 'catalog/index'
   get 'users/profile', as: :user_profile
