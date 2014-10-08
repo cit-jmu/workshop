@@ -1,11 +1,13 @@
-<p class="admin-actions pull-right">
+<% if user_signed_in? %>
+<div class="admin-actions pull-right">
   <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-pencil"></span>
   <% end %>
   <%= link_to @course, method: :delete, title: 'Delete', class: 'btn btn-default', data: { confirm: 'Are you sure?' } do %>
     <span class="glyphicon glyphicon-trash"></span>
   <% end %>
-</p>
+</div>
+<% end %>
 
 <h1><%= @course.title %></h1>
 
