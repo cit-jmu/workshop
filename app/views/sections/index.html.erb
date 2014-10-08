@@ -1,0 +1,38 @@
+<h1><%= link_to @course.title, @course %></h1>
+<h2>
+  <% if user_signed_in? %>
+  <div class="admin-actions pull-right">
+    <%= link_to 'Add new section', new_course_section_path, class: 'btn btn-default' %>
+  </div>
+  <% end %>
+  Available sections
+</h2>
+
+<table class="table available-sections">
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Seats</th>
+      <th>Date and Time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.location %></td>
+        <td><%= section.seats %></td>
+        <td><%= section.date_and_time %></td>
+        <td>
+          <div class="admin-actions pull-right">
+            <%= link_to 'Show', [@course, section], class: 'btn btn-default' %>
+            <%= link_to 'Edit', edit_course_section_path(@course, section), class: 'btn btn-default' %>
+            <%= link_to 'Destroy', [@course, section], method: :delete,
+                        data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

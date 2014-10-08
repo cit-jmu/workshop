@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+carrier_rm37:
+  location: Carrier Library Room 37
+  seats: 5
+  starts_at: 2014-10-08 14:00:00
+  course: canvas101
+
+rose_rm5308:
+  location: Rose Library Room 5308
+  seats: 5
+  starts_at: 2014-10-08 09:00:00
+  course: canvas113

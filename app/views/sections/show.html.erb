@@ -1,0 +1,22 @@
+<h1><%= link_to @course.title, @course %></h1>
+<h2>Section details</h2>
+
+<p>
+  <strong>Location:</strong>
+  <%= @section.location %>
+</p>
+
+<p>
+  <strong>Seats:</strong>
+  <%= @section.seats %>
+</p>
+
+<p>
+  <strong>Starts at:</strong>
+  <%= @section.starts_at %>
+</p>
+
+<div class="actions">
+  <%= link_to 'Edit', edit_course_section_path(@course, @section), class: 'btn btn-default' %>
+  <%= link_to 'Back', course_sections_path, class: 'btn btn-default' %>
+</div>
