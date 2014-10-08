@@ -1,23 +1,23 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # devise modules
   devise :ldap_authenticatable, :registerable,
          :rememberable, :trackable
 
-  def ldap_set(ldap_attr)
+  # method to return an attribute from ldap
+  def ldap_get(ldap_attr)
     ldap_response = Devise::LDAP::Adapter.get_ldap_param(self.username,ldap_attr)
     return ldap_response.first unless ldap_response.nil?
   end
 
   def set_attributes
-    self.email = ldap_set(ENV['ldap_email'])
-    self.first_name = ldap_set(ENV['ldap_first_name'])
-    self.last_name = ldap_set(ENV['ldap_last_name'])
-    self.employee_id = ldap_set(ENV['ldap_employee_id'])
-    self.phone_number = ldap_set(ENV['ldap_phone_number'])
-    self.department = ldap_set(ENV['ldap_department'])
-    self.mailbox = ldap_set(ENV['ldap_mailbox'])
-    self.nickname = ldap_set(ENV['ldap_nickname'])
+    self.email = ldap_get(ENV['ldap_email'])
+    self.first_name = ldap_get(ENV['ldap_first_name'])
+    self.last_name = ldap_get(ENV['ldap_last_name'])
+    self.employee_id = ldap_get(ENV['ldap_employee_id'])
+    self.phone_number = ldap_get(ENV['ldap_phone_number'])
+    self.department = ldap_get(ENV['ldap_department'])
+    self.mailbox = ldap_get(ENV['ldap_mailbox'])
+    self.nickname = ldap_get(ENV['ldap_nickname'])
   end
 
   before_save :set_attributes

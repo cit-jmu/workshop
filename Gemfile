@@ -47,5 +47,8 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 
+# Use cancan for authorization
+gem 'cancancan', '~> 1.9'
+
 # Use figaro for app configuration
 gem 'figaro'
