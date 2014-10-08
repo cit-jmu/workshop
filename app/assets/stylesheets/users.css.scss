@@ -1,0 +1,19 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.users {
+  .profile-information {
+    .dl-horizontal {
+      margin-bottom: 0;
+    }
+    .profile-field-label {
+      width: 20%;
+      text-align: right;
+    }
+  }
+  .current-enrollments {
+    tbody tr td {
+      vertical-align: middle;
+    }
+  }
+}

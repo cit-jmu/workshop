@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+<div class="row">
+  <div class="col-md-8">
+    <%= render "profile_information" %>
+    <%= render "current_enrollments" %>
+  </div>
+  <div class="col-md-4">
+    <%= render "report_card" %>
+  </div>
+</div>
+<% else %>
+<p>
+  You are not logged in.  Please <%= link_to "login", new_user_session_path %>
+  to see your profile.
+</p>
+<% end %>

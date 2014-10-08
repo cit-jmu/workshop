@@ -1,0 +1,25 @@
+<div class="panel panel-default profile-information">
+  <div class="panel-heading">
+    <h3 class="panel-title">My Profile</h3>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th class="profile-field-label">Name:</th>
+        <td><%= current_user.full_name %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">JMU eID:</th>
+        <td><%= current_user.username %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">Email address:</th>
+        <td><%= current_user.email %></td>
+      </tr>
+      <tr>
+        <th class="profile-field-label">Employee ID:</th>
+        <td><%= current_user.employee_id %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

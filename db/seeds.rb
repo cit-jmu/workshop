@@ -43,3 +43,10 @@ Course.create!(title: %{Canvas 235: Educating with Grading: Rubrics, Feedback,
     rubrics, feedback, group assignments and peer review!},
   instructor: 'Elaine Roberts Kaye',
   duration: 180)
+# Canvas Content Worksession
+Course.create!(title: 'Canvas Content Worksession',
+  description: %{Now that you have completed the Canvas Creating and Managing
+    Content workshop, meet one-on-one with a CIT representative to get some
+    help adding content to your course.},
+  instructor: 'CIT Faculty Development',
+  duration: 60)

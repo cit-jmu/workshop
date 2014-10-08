@@ -1,0 +1,16 @@
+<div class="panel panel-default report-card">
+  <div class="panel-heading">
+    <h3 class="panel-title">My Report Card</h3>
+  </div>
+  <div class="panel-body">
+    <strong>6</strong> courses completed<br />
+    <strong>2</strong> current enrollments
+  </div>
+
+  <h4 class="text-center">Completed Courses</h4>
+  <div class="list-group">
+    <% @courses.each do |course| %>
+    <%= link_to course.title, course, class: 'list-group-item' %>
+    <% end %>
+  </div>
+</div>
