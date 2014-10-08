@@ -49,5 +49,3 @@ gem 'devise_ldap_authenticatable'
 
 # Use figaro for app configuration
 gem 'figaro'
-
-gem 'travis'
