@@ -46,4 +46,12 @@ class CourseTest < ActiveSupport::TestCase
     assert course.invalid?
     assert_equal ["has already been taken"], course.errors[:title]
   end
+
+  test "course description_html is parsed as markdown" do
+    course = Course.new(title: "Test Course",
+                        description: "Hang on to *your* **hat**",
+                        instructor: "Herbert Nenninger",
+                        duration: 5)
+    assert_equal "<p>Hang on to <em>your</em> <strong>hat</strong></p>\n", course.description_html 
+  end
 end
