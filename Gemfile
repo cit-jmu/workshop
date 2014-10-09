@@ -52,3 +52,6 @@ gem 'cancancan', '~> 1.9'
 
 # Use figaro for app configuration
 gem 'figaro'
+
+# Use redcarpet for parsing Markdown
+gem 'redcarpet'

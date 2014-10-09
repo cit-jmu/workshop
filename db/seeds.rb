@@ -12,9 +12,19 @@ Course.delete_all
 
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',
-  description: %{Canvas IS different! In this one hour session, you will
-    develop a roadmap for designing your course in a way that benefits you AND
-    your students.},
+  description: %{Canvas ***IS*** different! In this one hour session, you will
+develop a roadmap for designing your course in a way that benefits you AND
+your students.
+
+# Objectives
+At the completion of this workshop, you will be able to:
+
+- Understand how Canvas will benefit you
+- Discuss and apply instructional design principles related to building a course in Canvas
+- Construct an organizational plan for your course
+
+# Recommended Prerequisites
+- Canvas Orientation},
   instructor: 'Nicole Wilson',
   duration: 60)
 Section.create!([
@@ -35,8 +45,19 @@ Section.create!([
 # Canvas 113: Creating and Managing Content
 canvas113 = Course.create!(title: 'Canvas 113: Creating and Managing Content',
   description: %{Do you have course content files that need to make their way
-    into Canvas? In this session you will add and organize content in your
-    course.},
+into Canvas? In this session you will add and organize content in your
+course.
+
+# Objectives
+At the completion of this workshop, you will be able to:
+
+- Add files
+- Add modules
+- Create and populate course with content including: links, videos, wikis, and pages
+
+# Recommended Prerequisites
+- Canvas Orientation
+- Canvas 101: The Philosophy},
   instructor: 'Dave Stoops',
   duration: 60)
 Section.create!([
@@ -57,7 +78,20 @@ Section.create!([
 # Canvas 211: Communication
 canvas211 = Course.create!(title: 'Canvas 211: Communication',
   description: %{Explore the many avenues for interaction and communication:
-    instructor-student, student-student, and student-content.},
+instructor-student, student-student, and student-content.
+
+# Objectives
+At the completion of this workshop, you will be able to:
+
+- Create announcements
+- Send messages with the Inbox
+- Use the Chat feature
+- Use the Syllabus
+- Explore discussion board uses
+
+# Recommended Prerequisites
+- Canvas Orientation
+- Canvas 101: The Philosophy},
   instructor: 'Elaine Roberts',
   duration: 60)
 Section.create!([
@@ -79,7 +113,18 @@ Section.create!([
 canvas234 = Course.create!(title: %{Canvas 234: All Things Grading: Assignments,
   Assessments, Rubrics, and Speedgrader!},
   description: %{Speedgrader? Speedgrader indeed! Come to this workshop and
-    leave on the fast track to grading.},
+leave on the fast track to grading.
+
+# Objectives
+At the completion of this workshop, you will be able to:
+
+- Create various assessments
+- Build a rubric for assessment
+- Grade assignments with the speedgrader
+
+# Recommended Prerequisites
+- Canvas Orientation
+- Canvas 101: The Philosophy},
   instructor: 'Christie Liu',
   duration: 120)
 Section.create!([
@@ -101,17 +146,31 @@ Section.create!([
 canvas235 = Course.create!(title: %{Canvas 235: Educating with Grading: Rubrics, Feedback,
   Group Work and Peer Review},
   description: %{Effective assessment is educative (Angelo & Cross, 1993;
-    Wiggins, 1998). Many Canvas grading tools are available to inform students
-    and help improve their performance. Come learn about creating and using
-    rubrics, feedback, group assignments and peer review!},
+Wiggins, 1998). Many Canvas grading tools are available to inform students
+and help improve their performance. Come learn about creating and using
+rubrics, feedback, group assignments and peer review!
+
+# Objectives
+At the completion of this workshop, you will be able to:
+
+- Define features and types of a scoring rubric
+- Develop a customized rubric for a class
+- Provide feedback to students in Canvas
+- Create a group assignment
+- Create an assignment for peer review
+
+# Recommended Prerequisites
+- Canvas Orientation
+- Canvas 101: The Philosophy
+- Canvas 234: All Things Grading},
   instructor: 'Elaine Roberts Kaye',
   duration: 180)
 
 # Canvas Content Worksession
 canvas_content_worksession = Course.create!(title: 'Canvas Content Worksession',
   description: %{Now that you have completed the Canvas Creating and Managing
-    Content workshop, meet one-on-one with a CIT representative to get some
-    help adding content to your course.},
+Content workshop, meet one-on-one with a CIT representative to get some
+help adding content to your course.},
   instructor: 'CIT Faculty Development',
   duration: 60)
 

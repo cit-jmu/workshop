@@ -1,11 +1,15 @@
 // Place all the styles related to the Courses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 .courses {
+  .description {
+    margin-bottom: 20px;
+  }
   .available-sections {
-    tbody tr td {
-      vertical-align: middle;
+    .table {
+      tbody tr td {
+        vertical-align: middle;
+      }
     }
   }
 }

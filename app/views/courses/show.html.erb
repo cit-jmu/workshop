@@ -16,12 +16,11 @@
   <li><strong>Duration:</strong> <%= pluralize(@course.duration, "minute") %><li>
 </ul>
 
+<article class="markdown-body description">
+  <%= @course.description_html %>
+</article>
 
-<p class="lead">
-  <%= @course.description %>
-</p>
-
-<div class="panel panel-default">
+<div class="panel panel-default available-sections">
   <div class="panel-heading">
     <% if user_signed_in? %>
     <div class="admin-actions pull-right">
@@ -37,7 +36,7 @@
     </h3>
   </div>
   <% if @course.sections.any? %>
-  <table class="table available-sections">
+  <table class="table">
     <thead>
       <tr>
         <th>Date and Time</th>
