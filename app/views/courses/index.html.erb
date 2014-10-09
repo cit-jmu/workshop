@@ -4,7 +4,7 @@
     <%= link_to 'Add new course', new_course_path, class: 'btn btn-default' %>
   </div>
   <% end %>
-  Available courses
+  Available CIT Workshop courses
 </h1>
 
 <% if @courses.empty? %>
@@ -31,10 +31,10 @@
   </div>
   <% end %>
   <h3 class="title"><%= link_to course.title, course %></h3>
-  <!--
-  <p class="description">
-    <%= course.description %><br>
-  </p>
-  -->
+  <% if course.summary %>
+  <div class="markdown-body summary">
+    <%= course.summary_html %>
+  </div>
+  <% end %>
 </div>
 <% end %>

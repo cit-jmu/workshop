@@ -2,14 +2,16 @@
 
 canvas101:
   title: "Canvas 101: The Philosophy"
+  summary: "Canvas is different, learn how it will help you!"
   description: >
-    Canvas IS different! In this one hour session, you will develop a roadmap
+    Canvas **IS** different! In this one hour session, you will develop a roadmap
     designing your course in a way that benefits you AND your students.
   duration: 60
   instructor: "Nicole Wilson"
 
 canvas113:
   title: "Canvas 113: Creating and Managing Content"
+  summary: "Want to get your files into canvas?  We'll show you how!"
   description: >
     Do you have course content files that need to make their way into Canvas?
     In this session you will add and organize content in your course.
