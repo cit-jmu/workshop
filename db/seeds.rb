@@ -9,6 +9,7 @@
 # Clear out existing data
 Section.delete_all
 Course.delete_all
+User.delete_all
 
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',
@@ -206,3 +207,37 @@ Section.create!([
       course: canvas_content_worksession
     },
 ])
+
+# Set developer accounts as admins and create test users that locally authenticate
+User.create!([
+  {
+    username: 'shortjw',
+    role: 2,
+  },
+  {
+    username: 'shanklt',
+    role: 2,
+  },
+  {
+    username: 'admin',
+    first_name: 'Test',
+    last_name: 'Admin',
+    encrypted_password: '$2a$10$yh37UU21ksjRwF56K2vE6enfjveXxbgmX7JXNH6P9X7TODadBOBz2', # testadmin
+    role: 2,
+  },
+  {
+    username: 'instructor',
+    first_name: 'Test',
+    last_name: 'Instructor',
+    encrypted_password: '$2a$10$1sLJQ176FlCZzJOktW6dA.PJoNvjwfd5yDKA5jOCeGm9ILY0GU1PC', # testinstructor
+    role: 1,
+  },
+  {
+    username: 'user',
+    first_name: 'Test',
+    last_name: 'User',
+    encrypted_password: '$2a$10$wPHMVeU5uj.OTUKI4yIgwO6eBSUYsf6M5VGA8l2sLpaEu0PzSwzB.', # testuser
+    role: 0,
+  },
+ ])
+

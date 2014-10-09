@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   end
 
   # devise modules
-  devise :ldap_authenticatable, :registerable,
-         :rememberable, :trackable
+  devise :ldap_authenticatable, :database_authenticatable, :registerable, :rememberable, :trackable
 
   # method to return an attribute from ldap
   def ldap_get(ldap_attr)
