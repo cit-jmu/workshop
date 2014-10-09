@@ -220,22 +220,16 @@ User.create!([
   },
   {
     username: 'admin',
-    first_name: 'Test',
-    last_name: 'Admin',
     encrypted_password: '$2a$10$yh37UU21ksjRwF56K2vE6enfjveXxbgmX7JXNH6P9X7TODadBOBz2', # testadmin
     role: 2,
   },
   {
     username: 'instructor',
-    first_name: 'Test',
-    last_name: 'Instructor',
     encrypted_password: '$2a$10$1sLJQ176FlCZzJOktW6dA.PJoNvjwfd5yDKA5jOCeGm9ILY0GU1PC', # testinstructor
     role: 1,
   },
   {
     username: 'user',
-    first_name: 'Test',
-    last_name: 'User',
     encrypted_password: '$2a$10$wPHMVeU5uj.OTUKI4yIgwO6eBSUYsf6M5VGA8l2sLpaEu0PzSwzB.', # testuser
     role: 0,
   },
