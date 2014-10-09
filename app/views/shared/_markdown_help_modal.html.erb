@@ -1,0 +1,111 @@
+<div class="modal fade" id="markdownHelpModal" tabindex="-1" role="dialog" aria-labelledby="markdownHelpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" id="markdownHelpModalLabel">Markdown Help</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          We are using <a href="http://daringfireball.net/projects/markdown/" target="_blank">Markdown</a>
+          to format text and give you the flexibility to customize how your
+          text will look on the page. This guide will cover the most common
+          Markdown syntax, go here for the <a href="http://daringfireball.net/projects/markdown/" target="_blank">complete syntax</a>.
+        </p>
+        <h4>Headings</h4>
+        <p>
+          Use headings to structure your content.  Headings use 1-6 hash mark <code>#</code>
+          characters at the start of the line.  Multiple hash marks <code>##</code>
+          mean a smaller heading size.
+          <pre>
+# I'm a first-level heading
+## I'm a second-level heading
+...
+###### I'm a sixth-level heading</pre>
+        </p>
+
+        <h4>Bold &amp; Italics</h4>
+        <p>
+          To emphasis to your text, wrap it in asterisks <code>*</code> or underscores <code>_</code>.
+          <pre>
+*text in single asterisks will appear in italics*
+_single underscores also work if you prefer_
+
+**use double asterisks to make text bold**
+__double underscores work just as well__</pre>
+        </p>
+
+        <h4>Paragraphs</h4>
+        <p>
+          To start a new paragraph, just add a blank line in between sections of text.
+          <pre>
+This is the first paragraph.  Adjacent lines will be treated as part of the same
+paragraph.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+convallis eros at erat congue, et volutpat mi iaculis. Vestibulum ante ipsum.
+
+Start a new paragraph by separating it with a blank line.</pre>
+        </p>
+
+        <h4>Links</h4>
+        <p>
+          Any web links (e.g. 'http://www.google.com') in your Markdown will
+          automagically be turned into hyperlinks.  You can also customize the
+          text shown for the link by surrounding it in square brackets
+          <code>[link text]</code> and then placing the link in parenthesis
+          <code>(http://example.com)</code> following the link text.
+          <pre>
+http://www.google.com - will automatically become a link
+
+[Google](http://www.google.com) - will display the text 'Google' for the link</pre>
+        </p>
+
+        <h4>Lists</h4>
+        <p>
+          You can use Markdown to create ordered or unordered lists.  Ordered lists
+          start with a number at the beginning of the line, unordered lists start
+          with a dash <code>-</code> or an asterisk <code>*</code> and display
+          a bullet point.
+          <pre>
+This is an ordered list:
+
+1. First item
+2. Second item
+3. Third item
+
+This is an unordered list:
+
+- Use a dash at the beginning of the line for an unordered list item
+- You can add sub-points by putting two spaces before the dash
+  - Just like this
+  - And this
+- Then you can go back to your original level
+
+And alternatively,
+
+* Asterisks work for unordered lists
+* And sub-points work too
+  * here's one
+  * and here's another</pre>
+        </p>
+
+        <h4>Blockquotes</h4>
+        <p>
+          Quote text by putting an 'email-style' angled bracket <code>&gt;</code>
+          at the beginning of a line.
+          <pre>
+Talking about quotes, someone once said:
+
+> This is a blockquote!
+>
+> And this is a second paragraph in the same quote.</pre>
+        </p>
+
+        <h4>Strikethrough</h4>
+        <p>
+          Any word wrapped in two tildes <code>~~</code> will appear crossed out.
+          <pre>
+Look here, this is ~~crossed out~~</pre>
+      </div>
+    </div>
+  </div>
+</div>
