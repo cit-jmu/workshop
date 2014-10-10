@@ -1,4 +1,5 @@
 class Section < ActiveRecord::Base
+  has_many :enrollments
   belongs_to :course
 
   validates :location, :starts_at, :seats, :course, presence: true
@@ -6,14 +7,14 @@ class Section < ActiveRecord::Base
 
   def open_seats
     # TODO calculate the open seats by the # of total - enrolled
-    self.seats
+    seats - enrollments.count
   end
 
   def ends_at
-    Time.at(self.starts_at + (self.course.duration * 60))
+    Time.at(starts_at + (course.duration * 60))
   end
 
   def date_and_time
-    "#{self.starts_at.strftime("%-m/%-d/%Y %l:%M%P")} - #{self.ends_at.strftime("%l:%M%P")}"
+    "#{starts_at.strftime("%-m/%-d/%Y %l:%M%P")} - #{ends_at.strftime("%l:%M%P")}"
   end
 end

@@ -10,6 +10,7 @@
 Section.delete_all
 Course.delete_all
 User.delete_all
+Enrollment.delete_all
 
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',

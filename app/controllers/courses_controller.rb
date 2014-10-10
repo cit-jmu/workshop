@@ -11,6 +11,9 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    if current_user and current_user.is_enrolled? @course
+      @enrolled_section = current_user.enrollment_for_course(@course).section
+    end
   end
 
   # GET /courses/new
