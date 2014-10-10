@@ -118,6 +118,8 @@ Aside from the standard gems that get installed with the default install of Rail
 * [Devise](https://github.com/plataformatec/devise)
   * gem [devise](https://rubygems.org/gems/devise)
   * gem [devise_ldap_authenticatable](https://rubygems.org/gems/devise_ldap_authenticatable)
+* [CanCanCan](https://github.com/CanCanCommunity/cancancan)
+  * gem [cancancan](https://rubygems.org/gems/cancancan)
 * [Figaro](https://github.com/laserlemon/figaro)
   * gem [figaro](https://rubygems.org/gems/figaro)
 * [Redcarpet](https://github.com/vmg/redcarpet)

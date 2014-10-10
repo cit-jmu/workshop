@@ -4,14 +4,14 @@ class User < ActiveRecord::Base
 
   has_many :enrollments
 
-  enum role: [:user, :instructor, :admin]
+  enum role: [:participant, :instructor, :admin]
 
   # callbacks
   after_initialize :set_default_role, :if => :new_record?
-  before_save :set_attributes
+  before_create :set_attributes
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :participant
   end
 
   # method to return an attribute from ldap
@@ -21,14 +21,16 @@ class User < ActiveRecord::Base
   end
 
   def set_attributes
-    self.email = ldap_get(ENV['ldap_email'])
-    self.first_name = ldap_get(ENV['ldap_first_name'])
-    self.last_name = ldap_get(ENV['ldap_last_name'])
-    self.employee_id = ldap_get(ENV['ldap_employee_id'])
-    self.phone_number = ldap_get(ENV['ldap_phone_number'])
-    self.department = ldap_get(ENV['ldap_department'])
-    self.mailbox = ldap_get(ENV['ldap_mailbox'])
-    self.nickname = ldap_get(ENV['ldap_nickname'])
+    if !ldap_get(ENV['ldap_attribute']).nil?
+      self.email = ldap_get(ENV['ldap_email'])
+      self.first_name = ldap_get(ENV['ldap_first_name'])
+      self.last_name = ldap_get(ENV['ldap_last_name'])
+      self.employee_id = ldap_get(ENV['ldap_employee_id'])
+      self.phone_number = ldap_get(ENV['ldap_phone_number'])
+      self.department = ldap_get(ENV['ldap_department'])
+      self.mailbox = ldap_get(ENV['ldap_mailbox'])
+      self.nickname = ldap_get(ENV['ldap_nickname'])
+    end
   end
 
   def full_name
