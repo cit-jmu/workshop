@@ -18,11 +18,13 @@ class CoursesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    sign_in users(:admin)
     get :new
     assert_response :success
   end
 
   test "should create course" do
+    sign_in users(:admin)
     assert_difference('Course.count') do
       post :create, course: @update
     end
@@ -36,16 +38,19 @@ class CoursesControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    sign_in users(:admin)
     get :edit, id: @course
     assert_response :success
   end
 
   test "should update course" do
+    sign_in users(:admin)
     patch :update, id: @course, course: @update
     assert_redirected_to course_path(assigns(:course))
   end
 
   test "should destroy course" do
+    sign_in users(:admin)
     assert_difference('Course.count', -1) do
       delete :destroy, id: @course
     end

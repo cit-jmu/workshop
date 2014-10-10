@@ -1,0 +1,11 @@
+admin:
+  username: admin
+  role: 2
+
+instructor:
+  username: instructor
+  role: 1
+
+user:
+  username: user
+  role: 0
