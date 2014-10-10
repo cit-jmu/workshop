@@ -9,7 +9,12 @@
 </div>
 <% end %>
 
-<h1><%= @course.title %></h1>
+<h2>
+  <%= @course.title %>
+  <% if current_user and current_user.is_enrolled? @course %>
+    <span class="label label-success">Enrolled</span>
+  <% end %>
+</h2>
 
 <ul class="list-unstyled">
   <li><strong>Instructor:</strong> <%= @course.instructor %></li>
@@ -19,7 +24,6 @@
 <article class="markdown-body description">
   <%= @course.description_html %>
 </article>
-
 <div class="panel panel-default available-sections">
   <div class="panel-heading">
     <% if can? :add, @section %>
@@ -29,9 +33,9 @@
     <% end %>
     <h3 class="panel-title">
       <% if can? :add, @section %>
-        <%= link_to "Available sections", course_sections_path(@course) %>
+      <%= link_to "Available sections", course_sections_path(@course) %>
       <% else %>
-        Available sections
+      Available sections
       <% end %>
     </h3>
   </div>
@@ -46,18 +50,22 @@
       </tr>
     </thead>
     <tbody>
-    <% @course.sections.each do |section| %>
-      <tr>
+      <% @course.sections.each do |section| %>
+      <tr class="<%= css_class_for_section_row(section) %>">
         <td>
           <%= section.date_and_time %>
         </td>
         <td><%= section.location %></td>
         <td><%= section.open_seats %></td>
         <td class="text-right">
-          <a href="#" class="btn btn-primary">Register</a>
+        <% if @enrolled_section == section %>
+          <%= link_to 'Drop course', drop_course_section_path(@course, section), method: :delete, class: 'btn btn-default' %>
+        <% elsif @enrolled_section.nil? %>
+          <%= link_to 'Enroll', enroll_course_section_path(@course, section), method: :post, class: 'btn btn-primary' %>
+        <% end %>
         </td>
       </tr>
-    <% end %>
+      <% end %>
     </tbody>
   </table>
   <% else %>

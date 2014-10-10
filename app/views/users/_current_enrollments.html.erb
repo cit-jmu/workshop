@@ -2,6 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">My Current Enrollments</h3>
   </div>
+  <% if current_user.enrollments.any? %>
   <table class="table">
     <thead>
       <tr>
@@ -12,23 +13,22 @@
       </tr>
     </thead>
     <tbody>
+    <% current_user.enrollments.each do |enrollment| %>
       <tr>
-        <td><a href="#">Facilitating Collaborative Learning With Canvas</a></td>
-        <td>11/06/2014 @ 2:00pm</td>
-        <td>Carrier Library Room 37</td>
-        <td>
-          <a href="#" class="btn btn-default pull-right">Unregister</a>
+        <td><%= link_to enrollment.course.title, enrollment.course %></td>
+        <td><%= enrollment.section.date_and_time %></td>
+        <td><%= enrollment.section.location %></td>
+        <td class="text-right">
+          <%= link_to 'Drop course', drop_course_section_path(enrollment.course, enrollment.section), method: :delete, class: 'btn btn-default' %>
         </td>
       </tr>
-      <tr>
-        <td><a href="#">Canvas Grading Worksession</a></td>
-        <td>12/12/2014 @ 4:00pm</td>
-        <td>Carrier Library Room 37</td>
-        <td>
-          <a href="#" class="btn btn-default pull-right">Unregister</a>
-        </td>
-      </tr>
+    <% end %>
     </tbody>
-
   </table>
+  <% else %>
+  <div class="panel-body">
+    You don't have any current enrollments.  Why not
+    <%= link_to "find some courses to take", courses_path %>?
+  </div>
+  <% end %>
 </div>

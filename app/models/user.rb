@@ -1,13 +1,18 @@
 class User < ActiveRecord::Base
+  # devise modules
+  devise :ldap_authenticatable, :database_authenticatable, :registerable, :rememberable, :trackable
+
+  has_many :enrollments
+
   enum role: [:user, :instructor, :admin]
+
+  # callbacks
   after_initialize :set_default_role, :if => :new_record?
+  before_save :set_attributes
 
   def set_default_role
     self.role ||= :user
   end
-
-  # devise modules
-  devise :ldap_authenticatable, :database_authenticatable, :registerable, :rememberable, :trackable
 
   # method to return an attribute from ldap
   def ldap_get(ldap_attr)
@@ -26,9 +31,16 @@ class User < ActiveRecord::Base
     self.nickname = ldap_get(ENV['ldap_nickname'])
   end
 
-  before_save :set_attributes
-
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
+  end
+
+  def is_enrolled?(course)
+    not enrollment_for_course(course).nil?
+  end
+
+  def enrollment_for_course(course)
+    results = enrollments.select { |enrollment| enrollment.course == course }
+    results.first
   end
 end

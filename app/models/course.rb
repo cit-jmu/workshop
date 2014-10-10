@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   has_many :sections, dependent: :destroy
+  has_many :enrollments, through: :sections
 
   validates :title, :description, :duration, :instructor, presence: true
   validates :title, uniqueness: true
@@ -14,15 +15,14 @@ class Course < ActiveRecord::Base
   end
 
   private
-
-  def markdown
-    @@markdown ||= Redcarpet::Markdown.new(
-      Redcarpet::Render::HTML.new(escape_html: true),
-      autolink: true,
-      space_after_headers: true,
-      strikethrough: true,
-      no_intra_emphasis: true,
-      tables: true
-    )
-  end
+    def markdown
+      @@markdown ||= Redcarpet::Markdown.new(
+        Redcarpet::Render::HTML.new(escape_html: true),
+        autolink: true,
+        space_after_headers: true,
+        strikethrough: true,
+        no_intra_emphasis: true,
+        tables: true
+      )
+    end
 end

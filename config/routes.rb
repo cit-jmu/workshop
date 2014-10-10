@@ -2,7 +2,12 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :courses do
-    resources :sections
+    resources :sections do
+      member do
+        post 'enroll'
+        delete 'drop'
+      end
+    end
   end
 
   get 'catalog/index'
