@@ -44,4 +44,18 @@ class SectionTest < ActiveSupport::TestCase
     assert_equal Time.at(section.starts_at + (section.course.duration * 60)),
                  section.ends_at
   end
+
+  test "open seats in a section is decreased by number of enrollments" do
+    section = Section.create!(location: 'CIT Room 7',
+                          starts_at: Time.now,
+                          course: courses(:canvas101),
+                          seats: 5)
+    assert_equal section.seats, section.open_seats
+
+    section.enrollments << Enrollment.new(user: users(:george))
+    assert_equal section.seats - 1, section.open_seats
+
+    section.enrollments << Enrollment.new(user: users(:bill))
+    assert_equal section.seats - 2, section.open_seats
+  end
 end

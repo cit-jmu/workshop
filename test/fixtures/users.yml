@@ -9,3 +9,11 @@ instructor:
 user:
   username: user
   role: 0
+
+george:
+  username: george
+  role: 0
+
+bill:
+  username: bill
+  role: 0
