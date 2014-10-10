@@ -31,19 +31,17 @@ At the completion of this workshop, you will be able to:
 - Canvas Orientation},
   instructor: 'Nicole Wilson',
   duration: 60)
-Section.create!([
+canvas101.sections.create!([
     {
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-09 14:00:00',
-      seats: 25,
-      course: canvas101
+      seats: 25
     },
     {
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-16 09:00:00',
-      seats: 25,
-      course: canvas101
-    },
+      seats: 25
+    }
 ])
 
 # Canvas 113: Creating and Managing Content
@@ -67,19 +65,17 @@ At the completion of this workshop, you will be able to:
 - Canvas 101: The Philosophy},
   instructor: 'Dave Stoops',
   duration: 60)
-Section.create!([
+canvas113.sections.create!([
     {
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 14:00:00',
-      seats: 25,
-      course: canvas113
+      seats: 25
     },
     {
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 09:00:00',
-      seats: 25,
-      course: canvas113
-    },
+      seats: 25
+    }
 ])
 
 # Canvas 211: Communication
@@ -103,19 +99,17 @@ At the completion of this workshop, you will be able to:
 - Canvas 101: The Philosophy},
   instructor: 'Elaine Roberts',
   duration: 60)
-Section.create!([
+canvas211.sections.create!([
     {
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-11 14:00:00',
-      seats: 25,
-      course: canvas211
+      seats: 25
     },
     {
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-18 09:00:00',
-      seats: 25,
-      course: canvas211
-    },
+      seats: 25
+    }
 ])
 
 # Canvas 234: All Things Grading: Assignments, Assessments, Rubrics, and Speedgrader!
@@ -138,19 +132,17 @@ At the completion of this workshop, you will be able to:
 - Canvas 101: The Philosophy},
   instructor: 'Christie Liu',
   duration: 120)
-Section.create!([
+canvas234.sections.create!([
     {
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-12 14:00:00',
-      seats: 25,
-      course: canvas234
+      seats: 25
     },
     {
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-19 09:00:00',
-      seats: 25,
-      course: canvas234
-    },
+      seats: 25
+    }
 ])
 
 # Canvas 235: Educating with Grading: Rubrics, Feedback, Group Work and Peer Review
@@ -192,46 +184,54 @@ Content workshop, meet one-on-one with a CIT representative to get some
 help adding content to your course.},
   instructor: 'CIT Faculty Development',
   duration: 60)
-
-Section.create!([
+canvas_content_worksession.sections.create!([
     {
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 15:15:00',
-      seats: 25,
-      course: canvas_content_worksession
+      seats: 25
     },
     {
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 10:15:00',
-      seats: 25,
-      course: canvas_content_worksession
-    },
+      seats: 25
+    }
 ])
 
 # Set developer accounts as admins and create test users that locally authenticate
 User.create!([
   {
     username: 'shortjw',
-    role: 2,
+    role: :admin
   },
   {
     username: 'shanklt',
-    role: 2,
+    role: :admin
   },
   {
     username: 'admin',
-    encrypted_password: '$2a$10$yh37UU21ksjRwF56K2vE6enfjveXxbgmX7JXNH6P9X7TODadBOBz2', # testadmin
-    role: 2,
+    first_name: 'Test',
+    last_name: 'Admin',
+    email: 'test-admin@example.org',
+    password: 'testadmin',
+    password_confirmation: 'testadmin',
+    role: :admin
   },
   {
     username: 'instructor',
-    encrypted_password: '$2a$10$1sLJQ176FlCZzJOktW6dA.PJoNvjwfd5yDKA5jOCeGm9ILY0GU1PC', # testinstructor
-    role: 1,
+    first_name: 'Test',
+    last_name: 'Instructor',
+    email: 'test-instructor@example.org',
+    password: 'testinstructor',
+    password_confirmation: 'testinstructor',
+    role: :instructor
   },
   {
     username: 'user',
-    encrypted_password: '$2a$10$wPHMVeU5uj.OTUKI4yIgwO6eBSUYsf6M5VGA8l2sLpaEu0PzSwzB.', # testuser
-    role: 0,
-  },
+    first_name: 'Test',
+    last_name: 'User',
+    email: 'test-user@example.org',
+    password: 'testuser',
+    password_confirmation: 'testuser',
+    role: :user
+  }
  ])
-

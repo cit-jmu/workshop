@@ -120,5 +120,5 @@ Aside from the standard gems that get installed with the default install of Rail
   * gem [devise_ldap_authenticatable](https://rubygems.org/gems/devise_ldap_authenticatable)
 * [Figaro](https://github.com/laserlemon/figaro)
   * gem [figaro](https://rubygems.org/gems/figaro)
-* [Travis](https://travis-ci.org)
-  * gem [travis](https://rubygems.org/gems/travis)
+* [Redcarpet](https://github.com/vmg/redcarpet)
+  * gem [redcarpet](https://rubygems.org/gems/redcarpet)
