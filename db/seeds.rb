@@ -227,12 +227,12 @@ User.create!([
     role: :instructor
   },
   {
-    username: 'user',
+    username: 'participant',
     first_name: 'Test',
-    last_name: 'User',
-    email: 'test-user@example.org',
-    password: 'testuser',
-    password_confirmation: 'testuser',
-    role: :user
+    last_name: 'Participant',
+    email: 'test-participant@example.org',
+    password: 'testparticipant',
+    password_confirmation: 'testparticipant',
+    role: :participant
   }
  ])

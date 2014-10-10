@@ -5,8 +5,8 @@ class UsersControllerTest < ActionController::TestCase
     get :profile
     assert_response :success
   end
-  test "user should get profile" do
-    sign_in users(:user)
+  test "participant should get profile" do
+    sign_in users(:participant)
     get :profile
     assert_response :success
   end

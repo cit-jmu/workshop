@@ -6,6 +6,6 @@ instructor:
   username: instructor
   role: 1
 
-user:
-  username: user
+participant:
+  username: participant
   role: 0

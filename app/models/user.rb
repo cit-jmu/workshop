@@ -4,14 +4,14 @@ class User < ActiveRecord::Base
 
   has_many :enrollments
 
-  enum role: [:user, :instructor, :admin]
+  enum role: [:participant, :instructor, :admin]
 
   # callbacks
   after_initialize :set_default_role, :if => :new_record?
   before_create :set_attributes
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :participant
   end
 
   # method to return an attribute from ldap
