@@ -41,7 +41,7 @@ canvas101.sections.create!([
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-16 09:00:00',
       seats: 25
-    },
+    }
 ])
 
 # Canvas 113: Creating and Managing Content
@@ -75,7 +75,7 @@ canvas113.sections.create!([
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 09:00:00',
       seats: 25
-    },
+    }
 ])
 
 # Canvas 211: Communication
@@ -109,7 +109,7 @@ canvas211.sections.create!([
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-18 09:00:00',
       seats: 25
-    },
+    }
 ])
 
 # Canvas 234: All Things Grading: Assignments, Assessments, Rubrics, and Speedgrader!
@@ -142,7 +142,7 @@ canvas234.sections.create!([
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-19 09:00:00',
       seats: 25
-    },
+    }
 ])
 
 # Canvas 235: Educating with Grading: Rubrics, Feedback, Group Work and Peer Review
@@ -194,18 +194,18 @@ canvas_content_worksession.sections.create!([
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 10:15:00',
       seats: 25
-    },
+    }
 ])
 
 # Set developer accounts as admins and create test users that locally authenticate
 User.create!([
   {
     username: 'shortjw',
-    role: :admin,
+    role: :admin
   },
   {
     username: 'shanklt',
-    role: :admin,
+    role: :admin
   },
   {
     username: 'admin',
@@ -214,7 +214,7 @@ User.create!([
     email: 'test-admin@example.org',
     password: 'testadmin',
     password_confirmation: 'testadmin',
-    role: :admin,
+    role: :admin
   },
   {
     username: 'instructor',
@@ -223,15 +223,15 @@ User.create!([
     email: 'test-instructor@example.org',
     password: 'testinstructor',
     password_confirmation: 'testinstructor',
-    role: :instructor,
+    role: :instructor
   },
   {
     username: 'user',
     first_name: 'Test',
-    last_name: 'user',
+    last_name: 'User',
     email: 'test-user@example.org',
     password: 'testuser',
     password_confirmation: 'testuser',
-    role: :user,
-  },
+    role: :user
+  }
  ])
