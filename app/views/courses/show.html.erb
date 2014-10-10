@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if can? :add, @course %>
 <div class="admin-actions pull-right">
   <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-pencil"></span>
@@ -22,13 +22,13 @@
 
 <div class="panel panel-default available-sections">
   <div class="panel-heading">
-    <% if user_signed_in? %>
+    <% if can? :add, @section %>
     <div class="admin-actions pull-right">
       <%= link_to "Add section", new_course_section_path(@course) %>
     </div>
     <% end %>
     <h3 class="panel-title">
-      <% if user_signed_in? %>
+      <% if can? :add, @section %>
         <%= link_to "Available sections", course_sections_path(@course) %>
       <% else %>
         Available sections

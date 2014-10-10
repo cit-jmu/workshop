@@ -17,6 +17,8 @@
 </p>
 
 <div class="actions">
-  <%= link_to 'Edit', edit_course_section_path(@course, @section), class: 'btn btn-default' %>
+  <% if can? :edit, @section %>
+  	<%= link_to 'Edit', edit_course_section_path(@course, @section), class: 'btn btn-default' %>
+  <% end %>
   <%= link_to 'Back', course_sections_path, class: 'btn btn-default' %>
 </div>

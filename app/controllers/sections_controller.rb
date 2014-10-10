@@ -1,11 +1,10 @@
 class SectionsController < ApplicationController
-  before_action :set_course
-  before_action :set_section, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :course
+  load_and_authorize_resource :section, :through => :course
 
   respond_to :html, :json
 
   def index
-    @sections = @course.sections
     respond_with(@course, @sections)
   end
 
@@ -14,7 +13,6 @@ class SectionsController < ApplicationController
   end
 
   def new
-    @section = Section.new
     respond_with(@course, @section)
   end
 
@@ -22,8 +20,6 @@ class SectionsController < ApplicationController
   end
 
   def create
-    @section = Section.new(section_params)
-    @section.course_id = @course.id
     @section.save
     respond_with(@course, @section)
   end
