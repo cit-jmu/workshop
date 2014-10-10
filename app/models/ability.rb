@@ -9,7 +9,7 @@ class Ability
     else
       can :read, :all
       can :enroll, Section
-      can :unenroll, Section
+      can :drop, Section
       can :view_enrollments, Section do |section|
         section.try(:user) == user || user.role?(:instructor)
       end
