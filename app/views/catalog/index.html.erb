@@ -9,3 +9,10 @@
     <%= link_to 'Browse available courses', courses_path, class: 'btn btn-lg btn-primary' %>
   </p>
 </div>
+<% if user_signed_in? %>
+<div class="row">
+  <div class="col-md-12">
+    <%= render "users/current_enrollments" %>
+  </div>
+<% end %>
+</div>
