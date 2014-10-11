@@ -4,4 +4,6 @@ class Enrollment < ActiveRecord::Base
   has_one :course, through: :section
 
   validates :user, :section, presence: true
+  validates :user, uniqueness: { scope: :section,
+    message: "has already been enrolled in this section"}
 end
