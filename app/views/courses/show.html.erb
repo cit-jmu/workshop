@@ -45,6 +45,7 @@
       <tr>
         <th>Section</th>
         <th>Date and Time</th>
+        <th>Instructor</th>
         <th>Location</th>
         <th>Open Seats</th>
         <th></th>
@@ -55,6 +56,7 @@
       <tr class="<%= css_class_for_section_row(section) %>">
         <td><%= section.section_number %></td>
         <td><%= section.date_and_time %></td>
+        <td><%= section.instructor.full_name %></td>
         <td><%= section.location %></td>
         <td><%= section.open_seats %></td>
         <td class="text-right">

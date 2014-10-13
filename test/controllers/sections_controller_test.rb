@@ -7,6 +7,7 @@ class SectionsControllerTest < ActionController::TestCase
       section_number: '9999',
       location: 'CIT Room 7',
       starts_at: '2014-10-11 12:00:00',
+      instructor_id: users(:professor_wiseman).id,
       seats: 6
     }
   end

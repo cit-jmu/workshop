@@ -1,8 +1,9 @@
 class Section < ActiveRecord::Base
   has_many :enrollments
   belongs_to :course
+  belongs_to :instructor, class_name: 'User'
 
-  validates :location, :starts_at, :seats, :course, :section_number,
+  validates :location, :starts_at, :seats, :course, :section_number, :instructor,
             presence: true
   validates :section_number, uniqueness: { scope: :course,
     message: "has already been used for this course"}

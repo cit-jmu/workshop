@@ -1,2 +1,2 @@
 json.extract! @course, :id, :title, :description, :duration, :created_at,
-                       :updated_at, :course_number, :instructor, :summary
+                       :updated_at, :course_number, :summary

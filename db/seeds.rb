@@ -12,10 +12,50 @@ Course.delete_all
 User.delete_all
 Enrollment.delete_all
 
+# Set developer accounts as admins and create test users that locally authenticate
+User.create!([
+  {
+    username: 'shortjw',
+    role: :admin
+  },
+  {
+    username: 'shanklt',
+    role: :admin
+  }
+])
+# save these users into variables so we can use them in later seeds
+test_admin = User.create!(
+  username: 'admin',
+  first_name: 'Test',
+  last_name: 'Admin',
+  email: 'test-admin@example.org',
+  password: 'testadmin',
+  password_confirmation: 'testadmin',
+  role: :admin
+)
+test_instructor = User.create!(
+  username: 'instructor',
+  first_name: 'Test',
+  last_name: 'Instructor',
+  email: 'test-instructor@example.org',
+  password: 'testinstructor',
+  password_confirmation: 'testinstructor',
+  role: :instructor
+)
+test_participant = User.create!(
+  username: 'participant',
+  first_name: 'Test',
+  last_name: 'Participant',
+  email: 'test-participant@example.org',
+  password: 'testparticipant',
+  password_confirmation: 'testparticipant',
+  role: :participant
+)
+
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',
   course_number: 'CIT001',
-  summary: %{Canvas ***IS*** different! In this one hour session, you will
+  summary: %{Canvas is different! In this one hour session, you will
 develop a roadmap for designing your course in a way that benefits you AND
 your students.},
   description: %{Canvas ***IS*** different! In this one hour session, you will
@@ -31,17 +71,18 @@ At the completion of this workshop, you will be able to:
 
 # Recommended Prerequisites
 - Canvas Orientation},
-  instructor: 'Nicole Wilson',
   duration: 60)
 canvas101.sections.create!([
     {
       section_number: '0001',
+      instructor: test_instructor,
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-09 14:00:00',
       seats: 25
     },
     {
       section_number: '0002',
+      instructor: test_instructor,
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-16 09:00:00',
       seats: 25
@@ -68,17 +109,18 @@ At the completion of this workshop, you will be able to:
 # Recommended Prerequisites
 - Canvas Orientation
 - Canvas 101: The Philosophy},
-  instructor: 'Dave Stoops',
   duration: 60)
 canvas113.sections.create!([
     {
       section_number: '0001',
+      instructor: test_instructor,
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 14:00:00',
       seats: 25
     },
     {
       section_number: '0002',
+      instructor: test_instructor,
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 09:00:00',
       seats: 25
@@ -105,17 +147,18 @@ At the completion of this workshop, you will be able to:
 # Recommended Prerequisites
 - Canvas Orientation
 - Canvas 101: The Philosophy},
-  instructor: 'Elaine Roberts',
   duration: 60)
 canvas211.sections.create!([
     {
       section_number: '0001',
+      instructor: test_instructor,
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-11 14:00:00',
       seats: 25
     },
     {
       section_number: '0002',
+      instructor: test_instructor,
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-18 09:00:00',
       seats: 25
@@ -141,17 +184,18 @@ At the completion of this workshop, you will be able to:
 # Recommended Prerequisites
 - Canvas Orientation
 - Canvas 101: The Philosophy},
-  instructor: 'Christie Liu',
   duration: 120)
 canvas234.sections.create!([
     {
       section_number: '0001',
+      instructor: test_instructor,
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-12 14:00:00',
       seats: 25
     },
     {
       section_number: '0002',
+      instructor: test_instructor,
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-19 09:00:00',
       seats: 25
@@ -186,7 +230,6 @@ At the completion of this workshop, you will be able to:
 - Canvas Orientation
 - Canvas 101: The Philosophy
 - Canvas 234: All Things Grading},
-  instructor: 'Elaine Roberts Kaye',
   duration: 180)
 
 # Canvas Content Worksession
@@ -197,58 +240,20 @@ Content workshop, meet one-on-one with a CIT representative to get some},
   description: %{Now that you have completed the Canvas Creating and Managing
 Content workshop, meet one-on-one with a CIT representative to get some
 help adding content to your course.},
-  instructor: 'CIT Faculty Development',
   duration: 60)
 canvas_content_worksession.sections.create!([
     {
       section_number: '0001',
+      instructor: test_instructor,
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 15:15:00',
       seats: 25
     },
     {
       section_number: '0002',
+      instructor: test_instructor,
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 10:15:00',
       seats: 25
     }
 ])
-
-# Set developer accounts as admins and create test users that locally authenticate
-User.create!([
-  {
-    username: 'shortjw',
-    role: :admin
-  },
-  {
-    username: 'shanklt',
-    role: :admin
-  },
-  {
-    username: 'admin',
-    first_name: 'Test',
-    last_name: 'Admin',
-    email: 'test-admin@example.org',
-    password: 'testadmin',
-    password_confirmation: 'testadmin',
-    role: :admin
-  },
-  {
-    username: 'instructor',
-    first_name: 'Test',
-    last_name: 'Instructor',
-    email: 'test-instructor@example.org',
-    password: 'testinstructor',
-    password_confirmation: 'testinstructor',
-    role: :instructor
-  },
-  {
-    username: 'participant',
-    first_name: 'Test',
-    last_name: 'Participant',
-    email: 'test-participant@example.org',
-    password: 'testparticipant',
-    password_confirmation: 'testparticipant',
-    role: :participant
-  }
- ])
