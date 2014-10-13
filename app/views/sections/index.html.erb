@@ -30,6 +30,12 @@
         <td><%= section.seats %></td>
         <td>
           <div class="admin-actions pull-right">
+            <% if can? :manage, @section %>
+              <%= link_to roster_course_section_path(@course, section), class: 'btn btn-default' do %>
+                <span class="glyphicon glyphicon-list"></span>
+              <% end %>
+            <% end %>
+
             <% if can? :edit, @section %>
               <%= link_to edit_course_section_path(@course, section), class: 'btn btn-default' do %>
                 <span class="glyphicon glyphicon-pencil"></span>

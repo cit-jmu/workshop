@@ -3,6 +3,9 @@
   <div class="col-md-8">
     <%= render "profile_information" %>
     <%= render "current_enrollments" %>
+    <% if current_user.sections.any? %>
+      <%= render "instructor_sections" %>
+    <% end %>
   </div>
   <div class="col-md-4">
     <%= render "report_card" %>
