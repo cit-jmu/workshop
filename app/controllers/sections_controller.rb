@@ -65,6 +65,9 @@ class SectionsController < ApplicationController
     end
   end
 
+  def roster
+  end
+
   private
     def set_section
       @section = @course.sections.find(params[:id])

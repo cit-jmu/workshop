@@ -1,0 +1,29 @@
+<div class="panel panel-default instructor-sections">
+  <div class="panel-heading">
+    <h3 class="panel-title">My Course Sections</h3>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Date and Time</th>
+        <th>Location</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% current_user.sections.each do |section| %>
+      <tr>
+        <td><%= link_to section.course.title, section.course %></td>
+        <td><%= section.date_and_time %></td>
+        <td><%= section.location %></td>
+        <td class="text-right">
+          <%= link_to roster_course_section_path(section.course, section), class: 'btn btn-default' do %>
+            <span class="glyphicon glyphicon-list"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

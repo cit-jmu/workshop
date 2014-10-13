@@ -78,4 +78,10 @@ class SectionsControllerTest < ActionController::TestCase
     end
     assert_redirected_to course_path(@section.course)
   end
+
+  test "should show rosters to admins" do
+    sign_in users(:admin)
+    get :roster, id: @section, course_id: @section.course
+    assert_response :success
+  end
 end

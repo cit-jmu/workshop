@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :courses do
     resources :sections do
       member do
+        get 'roster'
         post 'enroll'
         delete 'drop'
       end
