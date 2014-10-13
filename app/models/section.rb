@@ -6,7 +6,7 @@ class Section < ActiveRecord::Base
             presence: true
   validates :section_number, uniqueness: { scope: :course,
     message: "has already been used for this course"}
-  validates :seats, numericality: {only_integer: true, greater_than: 0}
+  validates :seats, numericality: {only_integer: true, greater_than: 0, allow_blank: true}
 
   def open_seats
     # TODO calculate the open seats by the # of total - enrolled

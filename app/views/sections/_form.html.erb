@@ -41,7 +41,9 @@
     <div class="col-sm-9">
       <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
         <%= f.label :starts_at, class: 'control-label' %>
-        <%= f.datetime_select :starts_at, {ampm: true} %>
+        <div>
+          <%= f.datetime_select :starts_at, {ampm: true} %>
+        </div>
       </div>
     </div>
   </div>

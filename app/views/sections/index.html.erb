@@ -11,6 +11,7 @@
 <table class="table available-sections">
   <thead>
     <tr>
+      <th>Section No.</th>
       <th>Location</th>
       <th>Seats</th>
       <th>Date and Time</th>
@@ -21,18 +22,21 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
+        <td><%= link_to section.section_number, [@course, section] %></td>
         <td><%= section.location %></td>
         <td><%= section.seats %></td>
         <td><%= section.date_and_time %></td>
         <td>
           <div class="admin-actions pull-right">
-            <%= link_to 'Show', [@course, section], class: 'btn btn-default' %>
             <% if can? :edit, @section %>
-              <%= link_to 'Edit', edit_course_section_path(@course, section), class: 'btn btn-default' %>
+              <%= link_to edit_course_section_path(@course, section), class: 'btn btn-default' do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
             <% end %>
             <% if can? :destroy, @section %>
-              <%= link_to 'Destroy', [@course, section], method: :delete,
-                        data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+              <%= link_to [@course, section], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
+                <span class="glyphicon glyphicon-trash"></span>
+              <% end %>
             <% end %>
           </div>
         </td>

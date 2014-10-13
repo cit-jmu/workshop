@@ -11,10 +11,6 @@ class Course < ActiveRecord::Base
     markdown.render(description).html_safe
   end
 
-  def summary_html
-    markdown.render(summary).html_safe
-  end
-
   private
     def markdown
       @@markdown ||= Redcarpet::Markdown.new(

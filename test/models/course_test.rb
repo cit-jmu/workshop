@@ -60,16 +60,6 @@ class CourseTest < ActiveSupport::TestCase
     assert_equal "<p>Hang on to <em>your</em> <strong>hat</strong></p>\n", course.description_html
   end
 
-  test "course summary_html is the summary parsed as markdown to html" do
-    course = Course.new(title: "Test Course",
-                        course_number: "CITTEST",
-                        summary: "Be a *good* little monkey!",
-                        description: "zzz",
-                        instructor: "Herbert Nenninger",
-                        duration: 5)
-    assert_equal "<p>Be a <em>good</em> little monkey!</p>\n", course.summary_html
-  end
-
   test "course number must be unique" do
     course = Course.new(title: "Test Course",
                         course_number: courses(:canvas101).course_number,
