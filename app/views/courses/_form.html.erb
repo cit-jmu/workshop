@@ -21,25 +21,14 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="form-group<%= " has-error" if @course.errors[:summary].any? %>">
-    <%= render "shared/markdown_help_trigger" %>
-    <%= f.label :summary, class: 'control-label' %>
-    <%= f.text_field :summary, class: 'form-control' %>
-  </div>
-
-  <div class="form-group<%= " has-error" if @course.errors[:description].any? %>">
-    <%= render "shared/markdown_help_trigger" %>
-    <%= f.label :description, class: 'control-label'%>
-    <%= f.text_area :description, class: 'form-control', rows: 12 %>
-  </div>
-
   <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group<%= " has-error" if @course.errors[:instructor].any? %>">
-        <%= f.label :instructor, class: 'control-label' %>
-        <%= f.text_field :instructor, class: 'form-control' %>
+    <div class="col-sm-3">
+      <div class="form-group<%= " has-error" if @course.errors[:course_number].any? %>">
+        <%= f.label :course_number, class: 'control-label' %>
+        <%= f.text_field :course_number, class: 'form-control' %>
       </div>
     </div>
+
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @course.errors[:duration].any? %>">
         <%= f.label :duration, class: 'control-label' %>
@@ -49,6 +38,17 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="form-group<%= " has-error" if @course.errors[:summary].any? %>">
+    <%= f.label :summary, class: 'control-label' %>
+    <%= f.text_field :summary, class: 'form-control' %>
+  </div>
+
+  <div class="form-group<%= " has-error" if @course.errors[:description].any? %>">
+    <%= render "shared/markdown_help_trigger" %>
+    <%= f.label :description, class: 'control-label'%>
+    <%= f.text_area :description, class: 'form-control', rows: 16 %>
   </div>
 
   <div class="actions">

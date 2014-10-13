@@ -8,7 +8,7 @@
       </div>
       <div class="panel-body">
         <ul>
-        <% @course.errors.full_messages.each do |message| %>
+        <% @section.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
         </ul>
@@ -17,24 +17,38 @@
   <% end %>
 
   <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
-        <%= f.label :location, class: 'control-label' %><br>
-        <%= f.text_field :location, class: 'form-control' %>
+    <div class="col-sm-4">
+      <div class="form-group<%= " has-error" if @section.errors[:section_number].any? %>">
+        <%= f.label :section_number, class: 'control-label' %>
+        <%= f.text_field :section_number, class: 'form-control' %>
       </div>
     </div>
-
-    <div class="col-sm-3">
+    <div class="col-sm-4">
+      <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
+        <%= f.label :instructor_id, class: 'control-label' %>
+        <%= f.collection_select :instructor_id, User.all, :id, :full_name,
+                                {prompt: "Select instructor"},
+                                class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-4">
       <div class="form-group<%= " has-error" if @section.errors[:seats].any? %>">
-        <%= f.label :seats, class: 'control-label' %><br>
+        <%= f.label :seats, class: 'control-label' %>
         <%= f.number_field :seats, class: 'form-control' %>
       </div>
     </div>
   </div>
 
+  <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
+    <%= f.label :location, class: 'control-label' %>
+    <%= f.text_field :location, class: 'form-control' %>
+  </div>
+
   <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
-    <%= f.label :starts_at, class: 'control-label' %><br>
-    <%= f.datetime_select :starts_at, class: 'form-control' %>
+    <%= f.label :starts_at, class: 'control-label' %>
+    <div>
+      <%= f.datetime_select :starts_at, {ampm: true} %>
+    </div>
   </div>
 
   <div class="actions">

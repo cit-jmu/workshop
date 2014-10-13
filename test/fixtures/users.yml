@@ -17,3 +17,7 @@ george:
 bill:
   username: bill
   role: 0
+
+professor_wiseman:
+  username: wiseman
+  role: 1

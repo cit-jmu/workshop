@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   devise :ldap_authenticatable, :database_authenticatable, :registerable, :rememberable, :trackable
 
   has_many :enrollments
+  has_many :sections, foreign_key: 'instructor_id'
+  has_many :courses, -> { distinct }, through: :sections
 
   enum role: [:participant, :instructor, :admin]
 

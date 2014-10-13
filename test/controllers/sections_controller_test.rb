@@ -4,10 +4,11 @@ class SectionsControllerTest < ActionController::TestCase
   setup do
     @section = sections(:canvas101_carrier)
     @update = {
+      section_number: '9999',
       location: 'CIT Room 7',
       starts_at: '2014-10-11 12:00:00',
-      seats: 6,
-      course_id: @section.course_id
+      instructor_id: users(:professor_wiseman).id,
+      seats: 6
     }
   end
 
@@ -67,12 +68,14 @@ class SectionsControllerTest < ActionController::TestCase
     assert_redirected_to course_path(section.course)
   end
 
-  # TODO - get this test working, not sure why it isn't!
-  #test "should drop course sections" do
-  #  sign_in users(:bill)
-  #  assert_difference('Enrollment.count', -1) do
-  #    delete :drop, id: @section, course_id: @section.course
-  #  end
-  #  assert_redirected_to course_path(@section.course)
-  #end
+  test "should drop course sections" do
+    # set HTTP_REFERER since the sections#drop action uses :back as the
+    # redirect url
+    request.env["HTTP_REFERER"] = course_url(@section.course)
+    sign_in users(:bill)
+    assert_difference('Enrollment.count', -1) do
+      delete :drop, id: @section, course_id: @section.course
+    end
+    assert_redirected_to course_path(@section.course)
+  end
 end

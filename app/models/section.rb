@@ -1,9 +1,13 @@
 class Section < ActiveRecord::Base
   has_many :enrollments
   belongs_to :course
+  belongs_to :instructor, class_name: 'User'
 
-  validates :location, :starts_at, :seats, :course, presence: true
-  validates :seats, numericality: {only_integer: true, greater_than: 0}
+  validates :location, :starts_at, :seats, :course, :section_number, :instructor,
+            presence: true
+  validates :section_number, uniqueness: { scope: :course,
+    message: "has already been used for this course"}
+  validates :seats, numericality: {only_integer: true, greater_than: 0, allow_blank: true}
 
   def open_seats
     # TODO calculate the open seats by the # of total - enrolled
