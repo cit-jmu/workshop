@@ -2,8 +2,7 @@ class Course < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :enrollments, through: :sections
 
-  validates :title, :description, :duration, :instructor, :course_number,
-            presence: true
+  validates :title, :description, :duration, :course_number, presence: true
   validates :title, :course_number, uniqueness: true
   validates :duration, numericality: {only_integer: true, greater_than: 0}
 

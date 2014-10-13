@@ -7,8 +7,7 @@ class CoursesControllerTest < ActionController::TestCase
       title: "Teaching Monkeys to Sing",
       course_number: 'CITTEST',
       description: "Singing monkeys are the awesome!",
-      duration: 30,
-      instructor: "The Man with the Yellow Hat"
+      duration: 30
     }
   end
 
