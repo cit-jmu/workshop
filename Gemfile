@@ -55,3 +55,6 @@ gem 'figaro'
 
 # Use redcarpet for parsing Markdown
 gem 'redcarpet'
+
+# Use iCalendar to create calendar events in email
+gem 'icalendar'
