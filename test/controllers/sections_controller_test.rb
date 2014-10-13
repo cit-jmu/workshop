@@ -4,10 +4,10 @@ class SectionsControllerTest < ActionController::TestCase
   setup do
     @section = sections(:canvas101_carrier)
     @update = {
+      section_number: '9999',
       location: 'CIT Room 7',
       starts_at: '2014-10-11 12:00:00',
-      seats: 6,
-      course_id: @section.course_id
+      seats: 6
     }
   end
 

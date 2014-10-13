@@ -14,6 +14,7 @@ Enrollment.delete_all
 
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',
+  course_number: 'CIT001',
   summary: %{Canvas ***IS*** different! In this one hour session, you will
 develop a roadmap for designing your course in a way that benefits you AND
 your students.},
@@ -34,11 +35,13 @@ At the completion of this workshop, you will be able to:
   duration: 60)
 canvas101.sections.create!([
     {
+      section_number: '0001',
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-09 14:00:00',
       seats: 25
     },
     {
+      section_number: '0002',
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-16 09:00:00',
       seats: 25
@@ -47,6 +50,7 @@ canvas101.sections.create!([
 
 # Canvas 113: Creating and Managing Content
 canvas113 = Course.create!(title: 'Canvas 113: Creating and Managing Content',
+  course_number: 'CIT002',
   summary: %{Do you have course content files that need to make their way
 into Canvas? In this session you will add and organize content in your
 course.},
@@ -68,11 +72,13 @@ At the completion of this workshop, you will be able to:
   duration: 60)
 canvas113.sections.create!([
     {
+      section_number: '0001',
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 14:00:00',
       seats: 25
     },
     {
+      section_number: '0002',
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 09:00:00',
       seats: 25
@@ -81,6 +87,7 @@ canvas113.sections.create!([
 
 # Canvas 211: Communication
 canvas211 = Course.create!(title: 'Canvas 211: Communication',
+  course_number: 'CIT003',
   summary: %{Explore the many avenues for interaction and communication:
 instructor-student, student-student, and student-content.},
   description: %{Explore the many avenues for interaction and communication:
@@ -102,11 +109,13 @@ At the completion of this workshop, you will be able to:
   duration: 60)
 canvas211.sections.create!([
     {
+      section_number: '0001',
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-11 14:00:00',
       seats: 25
     },
     {
+      section_number: '0002',
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-18 09:00:00',
       seats: 25
@@ -116,6 +125,7 @@ canvas211.sections.create!([
 # Canvas 234: All Things Grading: Assignments, Assessments, Rubrics, and Speedgrader!
 canvas234 = Course.create!(title: %{Canvas 234: All Things Grading: Assignments,
   Assessments, Rubrics, and Speedgrader!},
+  course_number: 'CIT004',
   summary: %{Speedgrader? Speedgrader indeed! Come to this workshop and
 leave on the fast track to grading.},
   description: %{Speedgrader? Speedgrader indeed! Come to this workshop and
@@ -135,11 +145,13 @@ At the completion of this workshop, you will be able to:
   duration: 120)
 canvas234.sections.create!([
     {
+      section_number: '0001',
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-12 14:00:00',
       seats: 25
     },
     {
+      section_number: '0002',
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-19 09:00:00',
       seats: 25
@@ -149,6 +161,7 @@ canvas234.sections.create!([
 # Canvas 235: Educating with Grading: Rubrics, Feedback, Group Work and Peer Review
 canvas235 = Course.create!(title: %{Canvas 235: Educating with Grading: Rubrics, Feedback,
   Group Work and Peer Review},
+  course_number: 'CIT005',
   summary: %{Many Canvas grading tools are available to inform students
 and help improve their performance. Come learn about creating and using
 rubrics, feedback, group assignments and peer review!},
@@ -178,6 +191,7 @@ At the completion of this workshop, you will be able to:
 
 # Canvas Content Worksession
 canvas_content_worksession = Course.create!(title: 'Canvas Content Worksession',
+  course_number: 'CIT006',
   summary: %{Now that you have completed the Canvas Creating and Managing
 Content workshop, meet one-on-one with a CIT representative to get some},
   description: %{Now that you have completed the Canvas Creating and Managing
@@ -187,11 +201,13 @@ help adding content to your course.},
   duration: 60)
 canvas_content_worksession.sections.create!([
     {
+      section_number: '0001',
       location: 'Carrier Library Room 37',
       starts_at: '2014-12-10 15:15:00',
       seats: 25
     },
     {
+      section_number: '0002',
       location: 'Rose Library Room 5308',
       starts_at: '2014-12-17 10:15:00',
       seats: 25

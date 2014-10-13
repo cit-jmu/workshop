@@ -2,7 +2,10 @@ class Section < ActiveRecord::Base
   has_many :enrollments
   belongs_to :course
 
-  validates :location, :starts_at, :seats, :course, presence: true
+  validates :location, :starts_at, :seats, :course, :section_number,
+            presence: true
+  validates :section_number, uniqueness: { scope: :course,
+    message: "has already been used for this course"}
   validates :seats, numericality: {only_integer: true, greater_than: 0}
 
   def open_seats

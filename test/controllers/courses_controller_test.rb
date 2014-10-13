@@ -5,6 +5,7 @@ class CoursesControllerTest < ActionController::TestCase
     @course = courses(:canvas101)
     @update = {
       title: "Teaching Monkeys to Sing",
+      course_number: 'CITTEST',
       description: "Singing monkeys are the awesome!",
       duration: 30,
       instructor: "The Man with the Yellow Hat"
