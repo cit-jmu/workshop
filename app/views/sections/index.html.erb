@@ -27,7 +27,7 @@
         <td><%= section.date_and_time %></td>
         <td><%= section.instructor.full_name %></td>
         <td><%= section.location %></td>
-        <td><%= section.seats %></td>
+        <td><%= section.open_seats %>/<%= section.seats %></td>
         <td>
           <div class="admin-actions pull-right">
             <% if can? :manage, @section %>
