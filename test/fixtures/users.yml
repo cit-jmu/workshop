@@ -1,23 +1,29 @@
 admin:
   username: admin
+  email: admin@test.com
   role: 2
 
 instructor:
   username: instructor
+  email: instructor@test.com
   role: 1
 
 participant:
   username: participant
+  email: participant@test.com
   role: 0
 
 george:
   username: george
+  email: george@test.com
   role: 0
 
 bill:
   username: bill
+  email: bill@test.com
   role: 0
 
 professor_wiseman:
   username: wiseman
+  email: wiseman@test.com
   role: 1
