@@ -6,12 +6,12 @@
   <body>
     <p>
       Welcome, <%= @user.first_name %>!<br><br>
-      You have been enrolled in the CIT Workshop: <%= @section.course.title %><br>
+      You have been enrolled in the CIT Workshop: <%= @course.title %><br>
       Workshop time: <%= @section.date_and_time %>.<br>
     </p>
     <hr>
-    <h1><%= @section.course.title %></h1>
-    <p><strong>Duration:</strong> <%= @section.course.duration %> minutes</p>
-    <%= @section.course.description_html %>
+    <h1><%= @course.title %></h1>
+    <p><strong>Duration:</strong> <%= @course.duration %> minutes</p>
+    <%= @course.description_html %>
   </body>
 </html>
