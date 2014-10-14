@@ -39,7 +39,7 @@ class SectionsController < ApplicationController
       @section.enrollments << Enrollment.new(user: current_user)
       if @section.save
         redirect_to @course, notice: "You are now enrolled in <strong>#{@course.title}</strong>"
-        UserMailer.enroll_email(current_user, @section).deliver
+        #UserMailer.enroll_email(current_user, @section).deliver
       else
         redirect_to @course, alert: "There was a problem enrolling you in this course"
       end
