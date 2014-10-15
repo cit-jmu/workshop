@@ -1,0 +1,37 @@
+<h1>
+  <% if can? :add, @user %>
+  <div class="admin-actions pull-right">
+    <%= link_to 'Add new user', new_user_path, class: 'btn btn-default' %>
+  </div>
+  <% end %>
+  User list
+</h1>
+
+<% if @users.empty? %>
+<p>
+  There are no users available at this time.
+  <% if can? :add, @user %>
+  <span class="admin-actions">
+    Consider <%= link_to "adding some users", new_user_path %>.
+  </span>
+  <% end %>
+<p>
+<% end %>
+
+<% @users.each do |user| %>
+<div class="course-row">
+  <% if can? :edit, @user %>
+  <div class="admin-actions pull-right">
+    <%= link_to edit_user_path(user), title: 'Edit', class: 'btn btn-default btn-sm' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to user, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm', data: { confirm: 'Are you sure?' } do %>
+      <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
+  </div>
+  <% end %>
+  <h3 class="title">
+    <%= link_to user.username, user %>
+  </h3>
+</div>
+<% end %>

@@ -17,6 +17,9 @@
       <ul id="navbar_main" class="nav navbar-nav">
         <li><%= link_to 'Courses', courses_path %></li>
         <li><a href="#">Calendar</a></li>
+        <% if can? :edit, @user %>
+          <li><%= link_to 'Users', users_path %></li>
+        <% end %>
       </ul>
       <%= render 'layouts/user_widget' %>
     </div>

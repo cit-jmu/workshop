@@ -7,7 +7,9 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, :all
+      can :read, User, id: user.id
+      can :read, Section
+      can :read, Course
       can :enroll, Section
       can :drop, Section
       can :view_enrollments, Section do |section|
