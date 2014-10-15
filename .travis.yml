@@ -3,6 +3,9 @@ rvm:
   - "2.1.3"
 addons:
   postgresql: "9.3"
+  code_climate:
+    repo_token:
+      secure: "Ban3fjPj5S7qDUPV5K5xJQvvnRJm7zBqT/6bP0V5ImznWHafKnr841aWCV6pl5+caVhkHZsuYMpQISVsUY6TNvqu4JwN0e1lV6NqbWb3NNTfMgqEBjQ7nnjuo6j4asa10Ddv8IXJswR6FS0VHObhtuxwKD+EiHgTZm0fDetL/n8="
 before_script:
   - psql -c 'create database workshop_test;' -U postgres
 notifications:
