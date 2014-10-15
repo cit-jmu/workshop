@@ -14,7 +14,7 @@
         <th class="profile-field-label">Name:</th>
         <td>
           <%= @user.full_name %>
-          <%= "(#{@user.nickname})" if @user.nickname %>
+          <%= "(#{@user.nickname})" if @user.nickname.present? %>
         </td>
       </tr>
       <tr>
