@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">My Current Enrollments</h3>
   </div>
-  <% if current_user.enrollments.any? %>
+  <% if @user.enrollments.any? %>
   <table class="table">
     <thead>
       <tr>
@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-    <% current_user.enrollments.each do |enrollment| %>
+    <% @user.enrollments.each do |enrollment| %>
       <tr class="enrollment">
         <td class="course-title"><%= link_to enrollment.course.title, enrollment.course %></td>
         <td class="section-datetime"><%= enrollment.section.date_and_time %></td>

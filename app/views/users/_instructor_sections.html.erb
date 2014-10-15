@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-    <% current_user.sections.each do |section| %>
+    <% @user.sections.each do |section| %>
       <tr>
         <td><%= link_to section.course.title, section.course %></td>
         <td><%= section.date_and_time %></td>

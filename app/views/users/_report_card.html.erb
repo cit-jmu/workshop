@@ -3,8 +3,8 @@
     <h3 class="panel-title">My Report Card</h3>
   </div>
   <div class="panel-body">
-    <strong><%= current_user.enrollments.count %></strong>
-    current <%= "enrollment".pluralize(current_user.enrollments.count) %>
+    <strong><%= @user.enrollments.count %></strong>
+    current <%= "enrollment".pluralize(@user.enrollments.count) %>
 
     <br />
 

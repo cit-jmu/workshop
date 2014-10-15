@@ -1,43 +1,49 @@
 <div class="panel panel-default profile-information">
   <div class="panel-heading">
-    <h3 class="panel-title">My Profile</h3>
+    <h3 class="panel-title">
+      <% if @user == current_user %>
+        My Profile
+      <% else %>
+        User Profile
+      <% end %>
+    </h3>
   </div>
   <table class="table">
     <tbody>
       <tr>
         <th class="profile-field-label">Name:</th>
         <td>
-          <%= current_user.full_name %>
-          <%= "(#{current_user.nickname})" if current_user.nickname %>
+          <%= @user.full_name %>
+          <%= "(#{@user.nickname})" if @user.nickname %>
         </td>
       </tr>
       <tr>
         <th class="profile-field-label">JMU eID:</th>
-        <td><%= current_user.username %></td>
+        <td><%= @user.username %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Email address:</th>
-        <td><%= current_user.email %></td>
+        <td><%= @user.email %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Employee ID:</th>
-        <td><%= current_user.employee_id %></td>
+        <td><%= @user.employee_id %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Phone Number:</th>
-        <td><%= current_user.phone_number %></td>
+        <td><%= @user.phone_number %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Mailbox:</th>
-        <td><%= current_user.mailbox %></td>
+        <td><%= @user.mailbox %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Department:</th>
-        <td><%= current_user.department %></td>
+        <td><%= @user.department %></td>
       </tr>
       <tr>
         <th class="profile-field-label">Role:</th>
-        <td><%= current_user.role %></td>
+        <td><%= @user.role %></td>
       </tr>
       <tr class="profile-input">
         <th class="profile-field-label">Computer Preference:</th>
