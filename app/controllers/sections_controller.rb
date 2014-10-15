@@ -72,14 +72,6 @@ class SectionsController < ApplicationController
   end
 
   private
-    def set_section
-      @section = @course.sections.find(params[:id])
-    end
-
-    def set_course
-      @course = Course.find(params[:course_id])
-    end
-
     def section_params
       params.require(:section).permit(:location, :seats, :starts_at, :section_number, :instructor_id)
     end

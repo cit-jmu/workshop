@@ -23,3 +23,6 @@
 /config/application.yml
 
 .DS_Store
+
+# ignore code climate test coverate stats
+/coverage
