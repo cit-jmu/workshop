@@ -58,3 +58,6 @@ gem 'redcarpet'
 
 # Use iCalendar to create calendar events in email
 gem 'icalendar'
+
+# For CodeClimate test coverate analysis
+gem 'codeclimate-test-reporter', group: :test, require: nil
