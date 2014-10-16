@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   end
   # CanCan rescue
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: "Access denied."
+    redirect_to root_url, alert: exception.message
   end
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

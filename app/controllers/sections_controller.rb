@@ -52,7 +52,7 @@ class SectionsController < ApplicationController
 
   def drop
     if current_user
-      if current_user.is_enrolled? @course
+      if current_user.enrolled? @course
         enrollment = current_user.enrollment_for_course(@course)
         enrollment.destroy
         # redirect to :back since you can drop courses from multiple pages

@@ -1,12 +1,17 @@
-<h1><%= link_to @course.title, @course %></h1>
 <h2>
+  <%= link_to @course.title, @course %>
+  <% if current_user and current_user.enrolled? @course %>
+    <span class="label label-success">Enrolled</span>
+  <% end %>
+</h2>
+<h3>
   <% if can? :add, @section %>
   <div class="admin-actions pull-right">
     <%= link_to 'Add new section', new_course_section_path, class: 'btn btn-default' %>
   </div>
   <% end %>
   Available sections
-</h2>
+</h3>
 
 <table class="table available-sections">
   <thead>

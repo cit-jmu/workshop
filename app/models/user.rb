@@ -50,12 +50,17 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def is_enrolled?(course)
+  def enrolled?(course)
     not enrollment_for_course(course).nil?
   end
 
   def enrollment_for_course(course)
     results = enrollments.select { |enrollment| enrollment.course == course }
     results.first
+  end
+
+  def instructing?(course)
+    results = course.sections.select { |section| section.instructor_id == id }
+    results.any?
   end
 end

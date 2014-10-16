@@ -2,20 +2,40 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
-    
-    if user.admin?
+    @user = user || User.new
+
+    if @user.admin?
+      # admins get all the superpowers
       can :manage, :all
     else
-      cannot :index, User
-      can :show, User, id: user.id
-      can :read, Section
+      course_permissions
+      section_permissions
+      user_permissions
+    end
+  end
+
+  private
+    def course_permissions
+      # everyone can see courses
       can :read, Course
+
+      if @user.instructor?
+        # instructors can update courses they are teaching
+        can :update, Course, sections: { instructor_id: @user.id }
+      end
+    end
+
+    def section_permissions
+      can :read, Section
       can :enroll, Section
       can :drop, Section
       can :view_enrollments, Section do |section|
-        section.try(:user) == user || user.role?(:instructor)
+        section.try(:user) == @user || @user.role?(:instructor)
       end
     end
-  end
+
+    def user_permissions
+      # users can see themselves
+      can :show, User, id: @user.id
+    end
 end

@@ -1,17 +1,21 @@
-<% if can? :add, @course %>
+<% if can?(:update, @course) || can?(:destroy, @course) %>
 <div class="admin-actions pull-right">
-  <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
+  <% if can?(:update, @course) %>
+    <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
   <% end %>
-  <%= link_to @course, method: :delete, title: 'Delete', class: 'btn btn-default', data: { confirm: 'Are you sure?' } do %>
-    <span class="glyphicon glyphicon-trash"></span>
+  <% if can?(:destroy, @course) %>
+    <%= link_to @course, method: :delete, title: 'Delete', class: 'btn btn-default', data: { confirm: 'Are you sure?' } do %>
+      <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
   <% end %>
 </div>
 <% end %>
 
 <h2>
   <%= @course.title %>
-  <% if current_user and current_user.is_enrolled? @course %>
+  <% if current_user and current_user.enrolled? @course %>
     <span class="label label-success">Enrolled</span>
   <% end %>
 </h2>
@@ -26,13 +30,13 @@
 </article>
 <div class="panel panel-default available-sections">
   <div class="panel-heading">
-    <% if can? :add, @section %>
+    <% if can? :create, Section %>
     <div class="admin-actions pull-right">
       <%= link_to "Add section", new_course_section_path(@course) %>
     </div>
     <% end %>
     <h3 class="panel-title">
-      <% if can? :add, @section %>
+      <% if can? :read, Section %>
       <%= link_to "Available sections", course_sections_path(@course) %>
       <% else %>
       Available sections
@@ -54,7 +58,13 @@
     <tbody>
       <% @course.sections.each do |section| %>
       <tr class="<%= css_class_for_section_row(section) %>">
-        <td><%= section.section_number %></td>
+        <td>
+        <% if can? :update, section %>
+          <%= link_to section.section_number, edit_course_section_path(@course, section) %>
+        <% else %>
+          <%= section.section_number %>
+        <% end %>
+        </td>
         <td><%= section.date_and_time %></td>
         <td><%= section.instructor.full_name %></td>
         <td><%= section.location %></td>

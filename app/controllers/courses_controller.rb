@@ -9,7 +9,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    if current_user && current_user.is_enrolled?(@course)
+    if current_user && current_user.enrolled?(@course)
       @enrolled_section = current_user.enrollment_for_course(@course).section
     end
     respond_with(@course)
