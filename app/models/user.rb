@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
   has_many :sections, foreign_key: 'instructor_id'
   has_many :courses, -> { distinct }, through: :sections
 
+  validates :username, uniqueness: { message: "is already in use" }, presence: true
+  validates :first_name, :last_name, :email, presence: true
+  validates :employee_id, numericality: { only_integer: true, greater_than: 0, allow_blank: true }
+
   enum role: [:participant, :instructor, :admin]
 
   # callbacks
@@ -16,19 +20,21 @@ class User < ActiveRecord::Base
     self.role ||= :participant
   end
 
-   # method to return an attribute from ldap
+  def in_ldap
+    begin
+      Devise::LDAP::Adapter.get_ldap_entry(self.username)
+    rescue Net::LDAP::LdapError
+      nil
+    end
+  end
+
   def ldap_get(ldap_attr)
     ldap_response = Devise::LDAP::Adapter.get_ldap_param(self.username,ldap_attr)
     return ldap_response.first unless ldap_response.nil?
   end
 
   def sync_ldap_attributes
-    begin
-      ldap_user = Devise::LDAP::Adapter.get_ldap_entry(self.username)
-    rescue Net::LDAP::LdapError
-      ldap_user = nil
-    end
-    if ldap_user
+    if in_ldap
       self.email = ldap_get(ENV['ldap_email'])
       self.first_name = ldap_get(ENV['ldap_first_name'])
       self.last_name = ldap_get(ENV['ldap_last_name'])
