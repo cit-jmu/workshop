@@ -1,14 +1,17 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  #before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html, :json
 
   def index
     @users = User.order(:username)
+    respond_with(@users)
   end
 
   def show
     @user ||= current_user
     @courses = Course.all # this is temporary stub data
+    respond_with(@user)
   end
 
   def new
@@ -19,46 +22,23 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    @user.save
+    respond_with(@user)
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    @user.update(user_params)
+    respond_with(@user)
   end
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    respond_with(@user)
   end
 
   private
-    def set_user
-      @user = User.find(params[:id]) if params[:id]
-    end
     def user_params
       params.require(:user).permit(:first_name, :last_name, :nickname, :username,
               :email, :employee_id, :phone_number, :mailbox, :department, :role)
     end
-
-
 end
