@@ -69,6 +69,19 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    ~~~ sh
    $ postgres -D /usr/local/var/postgres
    ~~~
+   
+   **OS X 10.10 Yosemite**
+   If you previously installed PostgreSQL via Homebrew and then upgraded to Yosemite,
+   your database is probably going to complain when starting up and not work properly.
+   It seems to be due to some missing directories, and putting these directories back
+   fixes the issue.  Not sure why they got removed in the upgrade process, though.
+   
+   ~~~ sh
+   $ cd /usr/local/var/postgres
+   $ mkdir pg_stat_tmp pg_tblspc pg_twophase
+   ~~~
+   
+   With those directories back in place, it should start up for you again.
 
 
 5. Clone this repository from GitHub into your project directory
