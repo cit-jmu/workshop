@@ -1,0 +1,85 @@
+<div class="actions pull-right">
+  <% if current_user %>
+    <% if can?(:enroll, @section) && !(current_user.enrolled?(@section.course) || current_user.instructing?(@section)) %>
+      <%= link_to "Enroll", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
+    <% end %>
+    <% if can?(:drop, @section) && current_user.enrolled?(@section) %>
+      <%= link_to "Drop", drop_course_section_path(@course, @section), method: :delete, class:'btn btn-default' %>
+    <% end %>
+    <% if can? :update, @section %>
+      <%= link_to edit_course_section_path(@course, @section), class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+      <% end %>
+    <% end %>
+    <% if can? :destroy, @section %>
+      <%= link_to [@course, @section], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-trash"></span>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if can?(:enroll, @section) %>
+      <%= link_to "Enroll", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render partial: 'courses/title_heading', locals: { course: @course,
+                                                       link_title: true } %>
+
+<div class="summary">
+  <dl class="dl-horizontal">
+    <dt>Section:</dt>
+    <dd><%= @section.section_number %></dd>
+
+    <dt>Instructor:</dt>
+    <dd><%= @section.instructor.full_name %></dd>
+
+    <dt>Date and Time:</dt>
+    <dd><%= @section.date_and_time %></dd>
+
+    <dt>Location:</dt>
+    <dd><%= @section.location %></dd>
+
+    <dt>Seats:</dt>
+    <dd><%= @section.open_seats %> / <%= @section.seats %></dd>
+</div>
+
+<% if can? :view_enrollments, @section %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Enrollments</h3>
+  </div>
+  <% if @section.enrollments.any? %>
+  <table class="table roster-list">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Department</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @section.enrollments.each do |enrollment| %>
+      <tr>
+        <td><%= enrollment.user.full_name %></td>
+        <td><%= enrollment.user.email %></td>
+        <td><%= enrollment.user.phone_number %></td>
+        <td><%= enrollment.user.department %></td>
+        <td class="text-right">
+          <a href="#" class="btn btn-default">
+            <span class="glyphicon glyphicon-ok"></span>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <div class="panel-body">
+    There isn't anyone enrolled in this section.
+  </div>
+  <% end %>
+</div>
+<% end %>
