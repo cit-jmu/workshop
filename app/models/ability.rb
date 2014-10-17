@@ -26,11 +26,14 @@ class Ability
     end
 
     def section_permissions
+      # everyone can see sections and enroll/drop
       can :read, Section
       can :enroll, Section
       can :drop, Section
-      can :view_enrollments, Section do |section|
-        section.try(:user) == @user || @user.role?(:instructor)
+
+      if @user.instructor?
+        # instructors can view rosters for sections they are teaching
+        can :roster, Section, instructor_id: @user.id
       end
     end
 
