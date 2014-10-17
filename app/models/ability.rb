@@ -33,7 +33,7 @@ class Ability
 
       if @user.instructor?
         # instructors can view rosters for sections they are teaching
-        can :roster, Section, instructor_id: @user.id
+        can :view_enrollments, Section, instructor_id: @user.id
       end
     end
 

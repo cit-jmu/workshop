@@ -1,0 +1,11 @@
+<% link_title ||= false %>
+<h2>
+  <% if link_title %>
+    <%= link_to course.title, course %>
+  <% else %>
+    <%= course.title %>
+  <% end %>
+</h2>
+<div class="course-badges">
+  <%= render partial: 'courses/badges', locals: { course: course } %>
+</div>

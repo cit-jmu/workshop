@@ -1,12 +1,13 @@
 module CoursesHelper
   def css_class_for_section_row(section)
-    classes = []
+    return "" if !current_user
     case
-    when section == @enrolled_section
-      classes << "success"
-    when @enrolled_section
-      classes << "text-muted"
+    when current_user.enrolled?(section)
+      "success"
+    when current_user.instructing?(section)
+      "warning"
+    when current_user.enrolled?(section.course)
+      "text-muted"
     end
-    classes.join(' ')
   end
 end

@@ -72,15 +72,15 @@ class AbilityTest < ActiveSupport::TestCase
     end
   end
 
-  test "admins can see rosters for any section" do
+  test "admins can see enrollments for any section" do
     ability = Ability.new(users(:admin))
-    assert ability.can?(:roster, @section)
+    assert ability.can?(:view_enrollments, @section)
   end
 
-  test "instructors can only see the roster for sections they teach" do
+  test "instructors can only see the enrollments for sections they teach" do
     ability = Ability.new(users(:professor_wiseman))
-    assert ability.can?(:roster, @section)
-    assert ability.cannot?(:roster, sections(:canvas113_rose))
+    assert ability.can?(:view_enrollments, @section)
+    assert ability.cannot?(:view_enrollments, sections(:canvas113_rose))
   end
 
 end

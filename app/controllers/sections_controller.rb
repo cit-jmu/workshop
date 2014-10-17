@@ -53,7 +53,7 @@ class SectionsController < ApplicationController
   def drop
     if current_user
       if current_user.enrolled? @course
-        enrollment = current_user.enrollment_for_course(@course)
+        enrollment = current_user.enrollment_for(@course)
         enrollment.destroy
         # redirect to :back since you can drop courses from multiple pages
         # (e.g. course#show and users#profile both have the drop course feature)
@@ -66,9 +66,6 @@ class SectionsController < ApplicationController
       # TODO setup a redirect to login, then resume enrollment
       redirect_to @course, alert: "You must be logged in to drop a course"
     end
-  end
-
-  def roster
   end
 
   private

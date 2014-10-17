@@ -37,14 +37,7 @@
 
   <h3 class="title">
     <%= link_to course.title, course %>
-    <% if current_user %>
-      <% if current_user.enrolled?(course) %>
-        <span class="label label-success">Enrolled</span>
-      <% end %>
-      <% if current_user.instructing?(course) %>
-        <span class="label label-info">Instructing</span>
-      <% end %>
-    <% end %>
+    <%= render partial: 'badges', locals: { course: course } %>
   </h3>
   <% if course.summary %>
     <div class="summary">

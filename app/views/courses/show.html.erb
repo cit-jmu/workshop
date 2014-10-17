@@ -13,12 +13,7 @@
 </div>
 <% end %>
 
-<h2>
-  <%= @course.title %>
-  <% if current_user and current_user.enrolled? @course %>
-    <span class="label label-success">Enrolled</span>
-  <% end %>
-</h2>
+<%= render partial: 'title_heading', locals: { course: @course } %>
 
 <ul class="list-unstyled">
   <li><strong>Course Number:</strong> <%= @course.course_number %></li>
@@ -56,24 +51,24 @@
       </tr>
     </thead>
     <tbody>
-      <% @course.sections.each do |section| %>
+      <% @course.sections.order(:section_number).each do |section| %>
       <tr class="<%= css_class_for_section_row(section) %>">
         <td>
-        <% if can? :update, section %>
-          <%= link_to section.section_number, edit_course_section_path(@course, section) %>
-        <% else %>
-          <%= section.section_number %>
-        <% end %>
+          <%= link_to section.section_number, course_section_path(@course, section) %>
         </td>
         <td><%= section.date_and_time %></td>
         <td><%= section.instructor.full_name %></td>
         <td><%= section.location %></td>
         <td><%= section.open_seats %></td>
         <td class="text-right">
-        <% if @enrolled_section == section %>
-          <%= link_to 'Drop course', drop_course_section_path(@course, section), method: :delete, class: 'btn btn-default' %>
-        <% elsif @enrolled_section.nil? %>
-          <%= link_to 'Enroll', enroll_course_section_path(@course, section), method: :post, class: 'btn btn-primary' %>
+        <% if current_user %>
+          <% if current_user.enrolled?(section) %>
+            <%= link_to 'Drop', drop_course_section_path(@course, section), method: :delete, class: 'btn btn-default' %>
+          <% elsif !current_user.instructing?(section) && !current_user.enrolled?(section.course)  %>
+            <%= link_to 'Enroll', enroll_course_section_path(@course, section), method: :post, class: 'btn btn-primary' %>
+          <% end %>
+        <% else %>
+            <%= link_to 'Enroll', enroll_course_section_path(@course, section), method: :post, class: 'btn btn-primary' %>
         <% end %>
         </td>
       </tr>

@@ -50,17 +50,36 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def enrolled?(course)
-    not enrollment_for_course(course).nil?
+  def enrolled?(course_or_section)
+    !enrollment_for(course_or_section).nil?
   end
 
-  def enrollment_for_course(course)
-    results = enrollments.select { |enrollment| enrollment.course == course }
-    results.first
+  def enrollment_for(course_or_section)
+    case
+    when course_or_section.is_a?(Course)
+      course = course_or_section
+      results = enrollments.select { |enrollment| enrollment.course == course }
+      results.first
+    when course_or_section.is_a?(Section)
+      section = course_or_section
+      results = enrollments.select { |enrollment| enrollment.section == section }
+      results.first
+    else
+      nil
+    end
   end
 
-  def instructing?(course)
-    results = course.sections.select { |section| section.instructor_id == id }
-    results.any?
+  def instructing?(course_or_section)
+    case
+    when course_or_section.is_a?(Course)
+      course = course_or_section
+      results = course.sections.select { |section| section.instructor_id == id }
+      results.any?
+    when course_or_section.is_a?(Section)
+      section = course_or_section
+      section.instructor_id == id
+    else
+      false
+    end
   end
 end
