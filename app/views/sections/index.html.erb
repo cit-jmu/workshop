@@ -33,7 +33,7 @@
         <td>
           <div class="actions pull-right">
           <% if current_user %>
-            <% if can?(:enroll, section) && !(current_user.enrolled?(section.course) || current_user.instructing(section)) %>
+            <% if can?(:enroll, section) && !(current_user.enrolled?(section.course) || current_user.instructing?(section)) %>
               <%= link_to "Enroll", enroll_course_section_path(@course, section), method: :post, class:'btn btn-primary' %>
             <% end %>
             <% if can?(:drop, section) && current_user.enrolled?(section) %>

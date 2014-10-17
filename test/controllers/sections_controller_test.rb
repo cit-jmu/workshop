@@ -18,6 +18,13 @@ class SectionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:sections)
   end
 
+  test "should get index as a logged in user" do
+    sign_in users(:participant)
+    get :index, course_id: @section.course
+    assert_response :success
+    assert_not_nil assigns(:sections)
+  end
+
   test "should get new" do
     sign_in users(:admin)
     get :new, course_id: @section.course
