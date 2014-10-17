@@ -60,8 +60,11 @@ class SectionsControllerTest < ActionController::TestCase
   end
 
   test "should enroll in course sections" do
-    sign_in users(:george)
     section = sections(:canvas113_rose)
+    # set HTTP_REFERER since the sections#enroll action uses :back as the
+    # redirect url
+    request.env["HTTP_REFERER"] = course_url(section.course)
+    sign_in users(:george)
     assert_difference('section.enrollments.count') do
       post :enroll, id: section, course_id: section.course
     end
