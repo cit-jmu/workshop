@@ -23,16 +23,6 @@
         <%= f.text_field :section_number, class: 'form-control' %>
       </div>
     </div>
-    <!--
-    <div class="col-sm-4">
-      <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
-        <%= f.label :instructor_id, class: 'control-label' %>
-        <%= f.collection_select :instructor_id, User.all, :id, :full_name,
-                                {prompt: "Select instructor"},
-                                class: 'form-control' %>
-      </div>
-    </div>
-  -->
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:seats].any? %>">
         <%= f.label :seats, class: 'control-label' %>
@@ -40,20 +30,6 @@
       </div>
     </div>
   </div>
-
-  <!--
-  <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
-    <%= f.label :location, class: 'control-label' %>
-    <%= f.text_field :location, class: 'form-control' %>
-  </div>
-
-  <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
-    <%= f.label :starts_at, class: 'control-label' %>
-    <div>
-      <%= f.datetime_select :starts_at, {ampm: true} %>
-    </div>
-  </div>
-  -->
 
   <fieldset>
     <legend>Section parts</legend>

@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   devise :ldap_authenticatable, :database_authenticatable, :rememberable, :trackable
 
   has_many :enrollments
-  has_many :sections, foreign_key: 'instructor_id'
+  has_many :parts, foreign_key: 'instructor_id'
+  has_many :sections, -> { distinct }, through: :parts
   has_many :courses, -> { distinct }, through: :sections
 
   validates :username, uniqueness: { message: "is already in use" }, presence: true
