@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  # TODO: refactor this too...
   def enrolled?(course_or_section)
     !enrollment_for(course_or_section).nil?
   end
@@ -61,15 +62,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: refactor this!  I'm sure there's a cleaner way...
   def instructing?(course_or_section)
     case
     when course_or_section.is_a?(Course)
       course = course_or_section
-      results = course.sections.select { |section| section.instructor_id == id }
+      results = course.sections.select do |section|
+        r = section.parts.select { |part| part.instructor_id == id }
+        r.any?
+      end
       results.any?
     when course_or_section.is_a?(Section)
       section = course_or_section
-      section.instructor_id == id
+      results = section.parts.select { |part| part.instructor_id == id }
+      results.any?
     else
       false
     end

@@ -15,13 +15,21 @@
     <tbody>
     <% @user.enrollments.each do |enrollment| %>
       <tr class="enrollment">
-        <td class="course-title"><%= link_to enrollment.course.title, enrollment.course %></td>
-        <td class="section-datetime"><%= enrollment.section.date_and_time %></td>
-        <td class="section-location"><%= enrollment.section.location %></td>
-        <td class="actions text-right">
+        <td class="course-title" rowspan="<%= enrollment.section.parts.count %>">
+          <%= link_to enrollment.course.title, enrollment.course %>
+        </td>
+        <td class="section-datetime"><%= enrollment.section.parts.first.date_and_time %></td>
+        <td class="section-location"><%= enrollment.section.parts.first.location %></td>
+        <td class="actions text-right" rowspan"<%= enrollment.section.parts.count %>">
           <%= link_to 'Drop course', drop_course_section_path(enrollment.course, enrollment.section), method: :delete, class: 'btn btn-default' %>
         </td>
       </tr>
+      <% enrollment.section.parts[1..-1].each do |part| %>
+      <tr class="enrollment">
+        <td class="section-datetime"><%= part.date_and_time %></td>
+        <td class="section-location"><%= part.location %></td>
+      </tr>
+      <% end %>
     <% end %>
     </tbody>
   </table>

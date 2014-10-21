@@ -1,24 +1,19 @@
 class Section < ActiveRecord::Base
   has_many :enrollments
+  has_many :parts
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
 
-  validates :location, :starts_at, :seats, :course, :section_number, :instructor,
-            presence: true
+  accepts_nested_attributes_for :parts, allow_destroy: true, reject_if: ->(attributes){
+    attributes[:location].blank? and attributes[:instructor_id].blank?
+  }
+
+  validates :seats, :course, :section_number, presence: true
   validates :section_number, uniqueness: { scope: :course,
     message: "has already been used for this course"}
   validates :seats, numericality: {only_integer: true, greater_than: 0, allow_blank: true}
 
   def open_seats
-    # TODO calculate the open seats by the # of total - enrolled
     seats - enrollments.count
-  end
-
-  def ends_at
-    Time.at(starts_at + (course.duration * 60))
-  end
-
-  def date_and_time
-    "#{starts_at.strftime("%-m/%-d/%Y %l:%M%P")} - #{ends_at.strftime("%l:%M%P")}"
   end
 end

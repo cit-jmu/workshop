@@ -13,10 +13,12 @@ class SectionsController < ApplicationController
   end
 
   def new
+    @section.parts.build
     respond_with(@course, @section)
   end
 
   def edit
+    @section.parts.build
   end
 
   def create
@@ -72,6 +74,9 @@ class SectionsController < ApplicationController
 
   private
     def section_params
-      params.require(:section).permit(:location, :seats, :starts_at, :section_number, :instructor_id)
+      params.require(:section).permit(:seats, :section_number, parts_attributes: [
+                                        :id, :location, :instructor_id, :starts_at,
+                                        :_destroy
+                                      ])
     end
 end

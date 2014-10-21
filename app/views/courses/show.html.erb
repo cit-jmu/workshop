@@ -43,24 +43,24 @@
     <thead>
       <tr>
         <th>Section</th>
+        <th>Open Seats</th>
         <th>Date and Time</th>
         <th>Instructor</th>
         <th>Location</th>
-        <th>Open Seats</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <% @course.sections.order(:section_number).each do |section| %>
+    <% @course.sections.order(:section_number).each do |section| %>
       <tr class="<%= css_class_for_section_row(section) %>">
-        <td>
+        <td rowspan="<%= section.parts.count %>">
           <%= link_to section.section_number, course_section_path(@course, section) %>
         </td>
-        <td><%= section.date_and_time %></td>
-        <td><%= section.instructor.full_name %></td>
-        <td><%= section.location %></td>
-        <td><%= section.open_seats %></td>
-        <td class="text-right">
+        <td rowspan="<%= section.parts.count %>"><%= section.open_seats %></td>
+        <td><%= section.parts.first.date_and_time %></td>
+        <td><%= section.parts.first.instructor.full_name %></td>
+        <td><%= section.parts.first.location %></td>
+        <td class="text-right" rowspan="<%= section.parts.count %>">
         <% if current_user %>
           <% if current_user.enrolled?(section) %>
             <%= link_to 'Drop', drop_course_section_path(@course, section), method: :delete, class: 'btn btn-default' %>
@@ -72,7 +72,14 @@
         <% end %>
         </td>
       </tr>
+      <% section.parts[1..-1].each do |part| %>
+      <tr class="<%= css_class_for_section_row(section) %>">
+        <td><%= part.date_and_time %></td>
+        <td><%= part.instructor.full_name %></td>
+        <td><%= part.location %></td>
+      </tr>
       <% end %>
+    <% end %>
     </tbody>
   </table>
   <% else %>
