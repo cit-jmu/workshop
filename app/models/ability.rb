@@ -34,6 +34,8 @@ class Ability
       if @user.instructor?
         # instructors can view rosters for sections they are teaching
         can :view_enrollments, Section, parts: { instructor_id: @user.id }
+        # instructors can update sections they are teaching
+        can :update, Section, parts: { instructor_id: @user.id }
       end
     end
 

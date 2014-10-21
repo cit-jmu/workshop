@@ -10,60 +10,10 @@
   Available sections
 </h3>
 
-<table class="table available-sections">
-  <thead>
-    <tr>
-      <th>Section</th>
-      <th>Seats</th>
-      <th>Date and Time</th>
-      <th>Instructor</th>
-      <th>Location</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sections.order(:section_number).each do |section| %>
-      <tr class="<%= css_class_for_section_row(section) %>">
-        <td rowspan="<%= section.parts.count %>"><%= link_to section.section_number, [@course, section] %></td>
-        <td rowspan="<%= section.parts.count %>"><%= section.open_seats %>/<%= section.seats %></td>
-        <td><%= section.parts.first.date_and_time %></td>
-        <td><%= section.parts.first.instructor.full_name %></td>
-        <td><%= section.parts.first.location %></td>
-        <td rowspan="<%= section.parts.count %>">
-          <div class="actions pull-right">
-          <% if current_user %>
-            <% if can?(:enroll, section) && !(current_user.enrolled?(section.course) || current_user.instructing?(section)) %>
-              <%= link_to "Enroll", enroll_course_section_path(@course, section), method: :post, class:'btn btn-primary' %>
-            <% end %>
-            <% if can?(:drop, section) && current_user.enrolled?(section) %>
-              <%= link_to "Drop", drop_course_section_path(@course, section), method: :delete, class:'btn btn-default' %>
-            <% end %>
-            <% if can? :update, section %>
-              <%= link_to edit_course_section_path(@course, section), class: 'btn btn-default' do %>
-                <span class="glyphicon glyphicon-pencil"></span>
-              <% end %>
-            <% end %>
-            <% if can? :destroy, section %>
-              <%= link_to [@course, section], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' do %>
-                <span class="glyphicon glyphicon-trash"></span>
-              <% end %>
-            <% end %>
-          <% else %>
-            <% if can?(:enroll, section) %>
-              <%= link_to "Enroll", enroll_course_section_path(@course, section), method: :post, class:'btn btn-primary' %>
-            <% end %>
-          <% end %>
-          </div>
-        </td>
-      </tr>
-      <% section.parts[1..-1].each do |part| %>
-      <tr>
-        <td><%= part.date_and_time %></td>
-        <td><%= part.instructor.full_name %></td>
-        <td><%= part.location %></td>
-      </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<div class="available-sections">
+<% if @sections.any? %>
+  <%= render @sections %>
+<% else %>
+  There aren't any sections available at this time.  Please check back later.
+<% end %>
+</div>
