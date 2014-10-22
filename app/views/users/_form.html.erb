@@ -33,7 +33,7 @@
 
     <div class="col-sm-4">
       <div class="form-group<%= " has-error" if @user.errors[:employee_id].any? %>">
-       <%= f.label :employee_id, class: 'control-label' %>
+       <%= f.label :employee_id, "Employee ID", class: 'control-label' %>
        <%= f.number_field :employee_id, class: 'form-control' %>
       </div>
     </div>
