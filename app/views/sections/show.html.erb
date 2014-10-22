@@ -27,67 +27,55 @@
                                                        link_title: true } %>
 
 <div class="summary">
-  <dl class="dl-horizontal">
-    <dt>Section:</dt>
-    <dd><%= @section.section_number %></dd>
+  <ul class="list-unstyled">
+    <li>
+      <strong>Section Number:</strong>
+      <%= @section.section_number %>
+    </li>
 
-    <dt>Instructor:</dt>
-    <dd><%= @section.instructor.full_name %></dd>
+    <li>
+      <strong>Instructor:</strong>
+      <%= @section.instructor.full_name %>
+    </li>
 
-    <dt>Seats:</dt>
-    <dd><%= @section.open_seats %> / <%= @section.seats %></dd>
-  </dl>
+    <li>
+      <strong>Seats:</strong>
+      <%= @section.open_seats %> / <%= @section.seats %>
+    </li>
+  </ul>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Date and Time</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @section.parts.each do |part| %>
-      <tr>
-        <td><%= part.date_and_time %></td>
-        <td><%= part.location %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+  <%= render @section.parts %>
 </div>
 
 <% if can? :view_enrollments, @section %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Enrollments</h3>
+    <h3 class="panel-title">Course Roster</h3>
   </div>
   <% if @section.enrollments.any? %>
-  <table class="table roster-list">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Department</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @section.enrollments.each do |enrollment| %>
-      <tr>
-        <td><%= enrollment.user.full_name %></td>
-        <td><%= enrollment.user.email %></td>
-        <td><%= enrollment.user.phone_number %></td>
-        <td><%= enrollment.user.department %></td>
-        <td class="text-right">
-          <a href="#" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok"></span>
-          </a>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table roster-list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Department</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @section.enrollments.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.user.full_name %></td>
+          <td><%= enrollment.user.email %></td>
+          <td><%= enrollment.user.phone_number %></td>
+          <td><%= enrollment.user.department %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
   <% else %>
   <div class="panel-body">
     There isn't anyone enrolled in this section.

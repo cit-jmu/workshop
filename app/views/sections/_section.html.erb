@@ -10,18 +10,7 @@
     </p>
   </div>
 
-  <% section.parts.each do |part| %>
-  <div class="panel-body-section-row">
-    <div class="row">
-      <div class="col-sm-4">
-        <strong><%= part.date_and_time %></strong>
-      </div>
-      <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
-        <%= part.location %>
-      </div>
-    </div>
-  </div>
-  <% end %>
+  <%= render partial: 'parts/part', collection: section.parts, layout: 'parts/panel_body_section_row' %>
 
   <div class="actions">
     <% if current_user && current_user.instructing?(section) %>
