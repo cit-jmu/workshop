@@ -9,10 +9,8 @@
     font-size: 16px
   }
   .available-sections {
-    .table {
-      tbody tr td {
-        vertical-align: middle;
-      }
+    .panel-body {
+      padding-bottom: 0px;
     }
   }
 }

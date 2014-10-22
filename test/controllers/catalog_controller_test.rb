@@ -29,12 +29,12 @@ class CatalogControllerTest < ActionController::TestCase
     end
 
     assert_select '.current-enrollments .table tbody' do
-      assert_select '.enrollment', 1
+      assert_select '.enrollment', minimum: 1
       assert_select '.enrollment' do
         enrollment = enrollments(:george_canvas101_carrier)
         assert_select '.course-title', enrollment.course.title
-        assert_select '.section-datetime', enrollment.section.date_and_time
-        assert_select '.section-location', enrollment.section.location
+        assert_select '.section-datetime', enrollment.section.parts.first.date_and_time
+        assert_select '.section-location', enrollment.section.parts.first.location
         assert_select '.actions a', 'Drop course'
       end
     end

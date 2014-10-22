@@ -17,13 +17,13 @@
   <% end %>
 
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:section_number].any? %>">
         <%= f.label :section_number, class: 'control-label' %>
         <%= f.text_field :section_number, class: 'form-control' %>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
         <%= f.label :instructor_id, class: 'control-label' %>
         <%= f.collection_select :instructor_id, User.all, :id, :full_name,
@@ -31,7 +31,7 @@
                                 class: 'form-control' %>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:seats].any? %>">
         <%= f.label :seats, class: 'control-label' %>
         <%= f.number_field :seats, class: 'form-control' %>
@@ -39,17 +39,35 @@
     </div>
   </div>
 
-  <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
-    <%= f.label :location, class: 'control-label' %>
-    <%= f.text_field :location, class: 'form-control' %>
-  </div>
-
-  <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
-    <%= f.label :starts_at, class: 'control-label' %>
-    <div>
-      <%= f.datetime_select :starts_at, {ampm: true} %>
+  <fieldset>
+    <legend>Section parts</legend>
+    <%= f.fields_for :parts do |parts_form| %>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
+          <%= parts_form.label :location, class: 'control-label' %>
+          <%= parts_form.text_field :location, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
+          <%= parts_form.label :starts_at, class: 'control-label' %>
+          <div>
+            <%= parts_form.datetime_select :starts_at, {ampm: true} %>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1">
+          <div class="checkbox" style="margin-top:25px;">
+            <label>
+              <%= parts_form.check_box :_destroy %>
+              Remove?
+            </label>
+          </div>
+      </div>
     </div>
-  </div>
+    <% end %>
+  </fieldset>
 
   <div class="actions">
     <%= f.submit class: 'btn btn-primary' %>

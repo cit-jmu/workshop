@@ -8,7 +8,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "user provides enrollment for course if enrolled" do
     user = users(:george)
-    enrollment = user.enrollment_for_course courses(:canvas101)
+    enrollment = user.enrollment_for(courses(:canvas101))
     assert_equal enrollments(:george_canvas101_carrier), enrollment
   end
 

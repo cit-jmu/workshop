@@ -44,11 +44,11 @@ class UserMailer < ActionMailer::Base
       cal.ip_method = "REQUEST"
   	  cal.event do |e|
         e.uid = @enrollment.ical_event_uid
-  		  e.dtstart = @section.starts_at.strftime("%Y%m%dT%H%M%S")
-  		  e.dtend = @section.ends_at.strftime("%Y%m%dT%H%M%S")
+  		  e.dtstart = @section.parts.first.starts_at.strftime("%Y%m%dT%H%M%S")
+  		  e.dtend = @section.parts.first.ends_at.strftime("%Y%m%dT%H%M%S")
   		  e.summary = @course.title
   		  e.description = @course.summary
-  		  e.location = @section.location
+  		  e.location = @section.parts.first.location
         e.status = "CONFIRMED"
   		  e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
                         cn: "Center for Instructional Technology")
@@ -67,9 +67,9 @@ class UserMailer < ActionMailer::Base
       cal.ip_method = "CANCEL"
   	  cal.event do |e|
         e.uid = @enrollment.ical_event_uid
-  		  e.dtstart = @section.starts_at.strftime("%Y%m%dT%H%M%S")
-  		  e.dtend = @section.ends_at.strftime("%Y%m%dT%H%M%S")
-  		  e.location = @section.location
+  		  e.dtstart = @section.parts.first.starts_at.strftime("%Y%m%dT%H%M%S")
+  		  e.dtend = @section.parts.first.ends_at.strftime("%Y%m%dT%H%M%S")
+  		  e.location = @section.parts.first.location
         e.status = "CANCELLED"
   		  e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
                         cn: "Center for Instructional Technology")

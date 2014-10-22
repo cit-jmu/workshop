@@ -13,19 +13,12 @@ class User < ActiveRecord::Base
   enum role: [:participant, :instructor, :admin]
 
   # callbacks
-  after_initialize :set_default_role, :if => :new_record?
-  before_create :sync_ldap_attributes
+  after_initialize :setup_user_attributes, if: :new_record?
 
-  def set_default_role
-    self.role ||= :participant
-  end
-
-  def in_ldap
-    begin
-      Devise::LDAP::Adapter.get_ldap_entry(self.username)
-    rescue Net::LDAP::LdapError
-      nil
-    end
+  def in_ldap?
+    @in_ldap ||= Devise::LDAP::Adapter.get_ldap_entry(username).present?
+  rescue Net::LDAP::LdapError
+    false
   end
 
   def ldap_get(ldap_attr)
@@ -34,33 +27,62 @@ class User < ActiveRecord::Base
   end
 
   def sync_ldap_attributes
-    if in_ldap
-      self.email = ldap_get(ENV['ldap_email'])
-      self.first_name = ldap_get(ENV['ldap_first_name'])
-      self.last_name = ldap_get(ENV['ldap_last_name'])
-      self.employee_id = ldap_get(ENV['ldap_employee_id'])
-      self.phone_number = ldap_get(ENV['ldap_phone_number'])
-      self.department = ldap_get(ENV['ldap_department'])
-      self.mailbox = ldap_get(ENV['ldap_mailbox'])
-      self.nickname = ldap_get(ENV['ldap_nickname'])
-    end
+    return unless in_ldap?
+    self.email = ldap_get(ENV['ldap_email'])
+    self.first_name = ldap_get(ENV['ldap_first_name'])
+    self.last_name = ldap_get(ENV['ldap_last_name'])
+    self.employee_id = ldap_get(ENV['ldap_employee_id'])
+    self.phone_number = ldap_get(ENV['ldap_phone_number'])
+    self.department = ldap_get(ENV['ldap_department'])
+    self.mailbox = ldap_get(ENV['ldap_mailbox'])
+    self.nickname = ldap_get(ENV['ldap_nickname'])
   end
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
-  def enrolled?(course)
-    not enrollment_for_course(course).nil?
+  # TODO: refactor this too...
+  def enrolled?(course_or_section)
+    !enrollment_for(course_or_section).nil?
   end
 
-  def enrollment_for_course(course)
-    results = enrollments.select { |enrollment| enrollment.course == course }
-    results.first
+  def enrollment_for(course_or_section)
+    case
+    when course_or_section.is_a?(Course)
+      course = course_or_section
+      results = enrollments.select { |enrollment| enrollment.course == course }
+      results.first
+    when course_or_section.is_a?(Section)
+      section = course_or_section
+      results = enrollments.select { |enrollment| enrollment.section == section }
+      results.first
+    else
+      nil
+    end
   end
 
-  def instructing?(course)
-    results = course.sections.select { |section| section.instructor_id == id }
-    results.any?
+  # TODO: refactor this!  I'm sure there's a cleaner way...
+  def instructing?(course_or_section)
+    case
+    when course_or_section.is_a?(Course)
+      course = course_or_section
+      results = course.sections.select { |section| section.instructor_id == id }
+      results.any?
+    when course_or_section.is_a?(Section)
+      section = course_or_section
+      section.instructor_id == id
+    else
+      false
+    end
   end
+
+  protected
+    def setup_user_attributes
+      # set default role
+      self.role = :participant if role.blank?
+
+      # sync w/ LDAP
+      sync_ldap_attributes if in_ldap?
+    end
 end

@@ -1,7 +1,11 @@
 Welcome, <%= @user.first_name %>!
 
 You have been enrolled in the CIT Workshop: <%= @course.title %>
-Workshop time: <%= @section.date_and_time %>.
+
+Workshop dates and times:
+<% @section.parts.each do |part| %>
+  - <%= part.date_and_time %>
+<% end %>
 
 ======================================================================
 <%= @course.title %>

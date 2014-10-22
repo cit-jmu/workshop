@@ -13,10 +13,12 @@ class SectionsController < ApplicationController
   end
 
   def new
+    @section.parts.build
     respond_with(@course, @section)
   end
 
   def edit
+    @section.parts.build
   end
 
   def create
@@ -40,7 +42,9 @@ class SectionsController < ApplicationController
       @section.enrollments << enrollment
       if @section.save
         UserMailer.enroll_email(enrollment).deliver
-        redirect_to @course, notice: "You are now enrolled in <strong>#{@course.title}</strong>"
+        # redirect to :back since you can enroll in courses from multiple pages
+        # makes it cleaner to stay on the page you were on
+        redirect_to :back, notice: "You are now enrolled in <strong>#{@course.title}</strong>"
       else
         redirect_to @course, alert: "There was a problem enrolling you in this course"
       end
@@ -53,11 +57,11 @@ class SectionsController < ApplicationController
   def drop
     if current_user
       if current_user.enrolled? @course
-        enrollment = current_user.enrollment_for_course(@course)
+        enrollment = current_user.enrollment_for(@course)
         enrollment.destroy
-        # redirect to :back since you can drop courses from multiple pages
-        # (e.g. course#show and users#profile both have the drop course feature)
         UserMailer.unenroll_email(enrollment).deliver
+        # redirect to :back since you can drop courses from multiple pages
+        # makes it cleaner to stay on the page you were on
         redirect_to :back, notice: "You have successfully dropped <strong>#{@course.title}</strong>"
       else
         redirect_to @course, alert: "You can't drop a course unless you are enrolled in it"
@@ -68,11 +72,9 @@ class SectionsController < ApplicationController
     end
   end
 
-  def roster
-  end
-
   private
     def section_params
-      params.require(:section).permit(:location, :seats, :starts_at, :section_number, :instructor_id)
+      params.require(:section).permit(:seats, :section_number, :instructor_id,
+                                      parts_attributes: [:id, :location, :starts_at, :_destroy])
     end
 end

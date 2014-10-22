@@ -4,10 +4,15 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
+    <p><strong>Welcome, <%= @user.first_name %>!</strong></p>
     <p>
-      Welcome, <%= @user.first_name %>!<br><br>
-      You have been enrolled in the CIT Workshop: <%= @course.title %><br>
-      Workshop time: <%= @section.date_and_time %>.<br>
+      You have been enrolled in the CIT Workshop: <%= @course.title %>.<br />
+      Workshop dates and times:
+      <ul>
+      <% @section.parts.each do |part| %>
+        <li><%= part.date_and_time %></li>
+      <% end %>
+      </ul>
     </p>
     <hr>
     <h1><%= @course.title %></h1>

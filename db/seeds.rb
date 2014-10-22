@@ -7,10 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Clear out existing data
+Enrollment.delete_all
+Part.delete_all
 Section.delete_all
 Course.delete_all
 User.delete_all
-Enrollment.delete_all
 
 # Set developer accounts as admins and create test users that locally authenticate
 User.create!([
@@ -75,17 +76,28 @@ At the completion of this workshop, you will be able to:
 canvas101.sections.create!([
     {
       section_number: '0001',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Carrier Library Room 37',
-      starts_at: '2014-12-09 14:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-09 14:00:00'
+      },
+      {
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-11 09:00:00'
+      }]
     },
     {
       section_number: '0002',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Rose Library Room 5308',
-      starts_at: '2014-12-16 09:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-16 09:00:00'
+      },{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-17 14:00:00'
+      }]
     }
 ])
 
@@ -113,17 +125,21 @@ At the completion of this workshop, you will be able to:
 canvas113.sections.create!([
     {
       section_number: '0001',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Carrier Library Room 37',
-      starts_at: '2014-12-10 14:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-10 14:00:00'
+      }]
     },
     {
       section_number: '0002',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Rose Library Room 5308',
-      starts_at: '2014-12-17 09:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-17 09:00:00',
+      }]
     }
 ])
 
@@ -151,17 +167,21 @@ At the completion of this workshop, you will be able to:
 canvas211.sections.create!([
     {
       section_number: '0001',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Carrier Library Room 37',
-      starts_at: '2014-12-11 14:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-11 14:00:00'
+      }]
     },
     {
       section_number: '0002',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Rose Library Room 5308',
-      starts_at: '2014-12-18 09:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-18 09:00:00'
+      }]
     }
 ])
 
@@ -188,17 +208,21 @@ At the completion of this workshop, you will be able to:
 canvas234.sections.create!([
     {
       section_number: '0001',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Carrier Library Room 37',
-      starts_at: '2014-12-12 14:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-12 14:00:00'
+      }]
     },
     {
       section_number: '0002',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Rose Library Room 5308',
-      starts_at: '2014-12-19 09:00:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-19 09:00:00'
+      }]
     }
 ])
 
@@ -244,16 +268,20 @@ help adding content to your course.},
 canvas_content_worksession.sections.create!([
     {
       section_number: '0001',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Carrier Library Room 37',
-      starts_at: '2014-12-10 15:15:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Carrier Library Room 37',
+        starts_at: '2014-12-10 15:15:00'
+      }]
     },
     {
       section_number: '0002',
+      seats: 25,
       instructor: test_instructor,
-      location: 'Rose Library Room 5308',
-      starts_at: '2014-12-17 10:15:00',
-      seats: 25
+      parts_attributes: [{
+        location: 'Rose Library Room 5308',
+        starts_at: '2014-12-17 10:15:00'
+      }]
     }
 ])

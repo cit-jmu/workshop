@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/cit-jmu/workshop.svg?branch=master)](https://travis-ci.org/cit-jmu/workshop)
 [![Code Climate](https://codeclimate.com/github/cit-jmu/workshop/badges/gpa.svg)](https://codeclimate.com/github/cit-jmu/workshop)
+[![Test Coverage](https://codeclimate.com/github/cit-jmu/workshop/badges/coverage.svg)](https://codeclimate.com/github/cit-jmu/workshop)
 
 This app was created for the Faculty Development staff in [JMU's Center for Instructional Technology](http://cit.jmu.edu/) group to ease the burden of managing registrations for in-house workshop courses.  The goal is to create an application which is mostly self-service and requires minimal administrator support.
 
@@ -69,6 +70,19 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    ~~~ sh
    $ postgres -D /usr/local/var/postgres
    ~~~
+   
+   **OS X 10.10 Yosemite**
+   If you previously installed PostgreSQL via Homebrew and then upgraded to Yosemite,
+   your database is probably going to complain when starting up and not work properly.
+   It seems to be due to some missing directories, and putting these directories back
+   fixes the issue.  Not sure why they got removed in the upgrade process, though.
+   
+   ~~~ sh
+   $ cd /usr/local/var/postgres
+   $ mkdir pg_stat_tmp pg_tblspc pg_twophase
+   ~~~
+   
+   With those directories back in place, it should start up for you again.
 
 
 5. Clone this repository from GitHub into your project directory

@@ -4,8 +4,6 @@ class SectionTest < ActiveSupport::TestCase
   test "section attributes must not be empty" do
     section = Section.new
     assert section.invalid?
-    assert section.errors[:location].any?
-    assert section.errors[:starts_at].any?
     assert section.errors[:seats].any?
     assert section.errors[:course].any?
     assert section.errors[:instructor].any?
@@ -13,11 +11,9 @@ class SectionTest < ActiveSupport::TestCase
   end
 
   test "number of seats in a section must be positive" do
-    section = Section.new(location: 'CIT Room 7',
-                          section_number: '9999',
-                          starts_at: Time.now,
-                          course: courses(:canvas101),
-                          instructor: users(:professor_wiseman))
+    section = Section.new(section_number: '9999',
+                          instructor: users(:instructor),
+                          course: courses(:canvas101))
     section.seats = -1
     assert section.invalid?
     assert_equal ["must be greater than 0"], section.errors[:seats]
@@ -31,35 +27,20 @@ class SectionTest < ActiveSupport::TestCase
   end
 
   test "number of seats in a section must be an integer" do
-    section = Section.new(location: 'CIT Room 7',
-                          section_number: '9999',
-                          starts_at: Time.now,
-                          course: courses(:canvas101),
-                          instructor: users(:professor_wiseman))
+    section = Section.new(section_number: '9999',
+                          instructor: users(:instructor),
+                          course: courses(:canvas101))
 
     section.seats = 0.01
     assert section.invalid?
     assert_equal ["must be an integer"], section.errors[:seats]
   end
 
-  test "section ends_at time is starts_at time plus course duration" do
-    section = Section.new(location: 'CIT Room 7',
-                          section_number: '9999',
-                          starts_at: Time.now,
-                          course: courses(:canvas101),
-                          instructor: users(:professor_wiseman),
-                          seats: 6)
-    assert_equal Time.at(section.starts_at + (section.course.duration * 60)),
-                 section.ends_at
-  end
-
   test "open seats in a section is decreased by number of enrollments" do
-    section = Section.create!(location: 'CIT Room 7',
-                          starts_at: Time.now,
-                          section_number: '9999',
-                          course: courses(:canvas101),
-                          instructor: users(:professor_wiseman),
-                          seats: 5)
+    section = Section.create!(section_number: '9999',
+                              instructor: users(:instructor),
+                              course: courses(:canvas101),
+                              seats: 5)
     assert_equal section.seats, section.open_seats
 
     section.enrollments << Enrollment.new(user: users(:george))
@@ -70,12 +51,10 @@ class SectionTest < ActiveSupport::TestCase
   end
 
   test "section number must be unique" do
-    section = Section.new(location: 'CIT Room 7',
-                              section_number: sections(:canvas101_carrier).section_number,
-                              course: courses(:canvas101),
-                              seats: 5,
-                              instructor: users(:professor_wiseman),
-                              starts_at: Time.now)
+    section = Section.new(section_number: sections(:canvas101_carrier).section_number,
+                          instructor: users(:instructor),
+                          course: courses(:canvas101),
+                          seats: 5)
     assert section.invalid?
     assert_equal ['has already been used for this course'], section.errors[:section_number]
   end

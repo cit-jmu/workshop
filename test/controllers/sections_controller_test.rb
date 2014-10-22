@@ -18,6 +18,13 @@ class SectionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:sections)
   end
 
+  test "should get index as a logged in user" do
+    sign_in users(:participant)
+    get :index, course_id: @section.course
+    assert_response :success
+    assert_not_nil assigns(:sections)
+  end
+
   test "should get new" do
     sign_in users(:admin)
     get :new, course_id: @section.course
@@ -60,8 +67,11 @@ class SectionsControllerTest < ActionController::TestCase
   end
 
   test "should enroll in course sections" do
-    sign_in users(:george)
     section = sections(:canvas113_rose)
+    # set HTTP_REFERER since the sections#enroll action uses :back as the
+    # redirect url
+    request.env["HTTP_REFERER"] = course_url(section.course)
+    sign_in users(:george)
     assert_difference('section.enrollments.count') do
       post :enroll, id: section, course_id: section.course
     end
@@ -77,11 +87,5 @@ class SectionsControllerTest < ActionController::TestCase
       delete :drop, id: @section, course_id: @section.course
     end
     assert_redirected_to course_path(@section.course)
-  end
-
-  test "should show rosters to admins" do
-    sign_in users(:admin)
-    get :roster, id: @section, course_id: @section.course
-    assert_response :success
   end
 end

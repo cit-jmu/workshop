@@ -1,17 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 canvas101_carrier:
-  section_number: 0001
-  location: Carrier Library Room 37
-  seats: 5
-  starts_at: 2014-10-08 14:00:00
   course: canvas101
   instructor: professor_wiseman
+  section_number: 0001
+  seats: 5
 
 canvas113_rose:
-  section_number: 0001
-  location: Rose Library Room 5308
-  seats: 5
-  starts_at: 2014-10-08 09:00:00
   course: canvas113
-  instructor: professor_wiseman
+  instructor: instructor
+  section_number: 0001
+  seats: 5
