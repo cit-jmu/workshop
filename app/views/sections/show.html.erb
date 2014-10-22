@@ -1,4 +1,4 @@
-<div class="actions pull-right">
+<div class="actions pull-right hidden-print">
   <% if current_user %>
     <% if can?(:enroll, @section) && !(current_user.enrolled?(@section.course) || current_user.instructing?(@section)) %>
       <%= link_to "Enroll", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
@@ -44,7 +44,14 @@
     </li>
   </ul>
 
-  <%= render @section.parts %>
+  <div class="hidden-print">
+    <%= render @section.parts %>
+  </div>
+  <div class="visible-print-block">
+  <% @section.parts.each do |part| %>
+    <strong><%= part.date_and_time %></strong> &mdash; <%= part.location %><br />
+  <% end %>
+  </div>
 </div>
 
 <% if can? :view_enrollments, @section %>

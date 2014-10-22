@@ -1,11 +1,12 @@
 <% link_title ||= false %>
-<h2>
+<h2 class="hidden-print">
   <% if link_title %>
     <%= link_to course.title, course %>
   <% else %>
     <%= course.title %>
   <% end %>
 </h2>
-<div class="course-badges">
+<h2 class="visible-print-block"><%= course.title %></h2>
+<div class="course-badges hidden-print">
   <%= render partial: 'courses/badges', locals: { course: course } %>
 </div>
