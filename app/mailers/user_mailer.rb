@@ -1,8 +1,9 @@
 class UserMailer < ActionMailer::Base
   default from: "no-reply@jmu.edu"
 
-  def enroll_email(enrollment)
+  def enroll_email(enrollment, part)
     @enrollment = enrollment
+    @part = part
     @user = enrollment.user
     @section = enrollment.section
     @course = enrollment.section.course
@@ -19,8 +20,9 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def unenroll_email(enrollment)
+  def unenroll_email(enrollment, part)
     @enrollment = enrollment
+    @part = part
     @user = enrollment.user
     @section = enrollment.section
     @course = enrollment.section.course
@@ -43,12 +45,12 @@ class UserMailer < ActionMailer::Base
       cal.prodid = "-//James Madison University//CIT Workshop//EN"
       cal.ip_method = "REQUEST"
   	  cal.event do |e|
-        e.uid = @enrollment.ical_event_uid
-  		  e.dtstart = @section.parts.first.starts_at.strftime("%Y%m%dT%H%M%S")
-  		  e.dtend = @section.parts.first.ends_at.strftime("%Y%m%dT%H%M%S")
+        e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}@cit.jmu.edu"
+  		  e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
+  		  e.dtend = @part.ends_at.strftime("%Y%m%dT%H%M%S")
   		  e.summary = @course.title
   		  e.description = @course.summary
-  		  e.location = @section.parts.first.location
+  		  e.location = @part.location
         e.status = "CONFIRMED"
   		  e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
                         cn: "Center for Instructional Technology")
@@ -66,10 +68,10 @@ class UserMailer < ActionMailer::Base
       cal.prodid = "-//James Madison University//CIT Workshop//EN"
       cal.ip_method = "CANCEL"
   	  cal.event do |e|
-        e.uid = @enrollment.ical_event_uid
-  		  e.dtstart = @section.parts.first.starts_at.strftime("%Y%m%dT%H%M%S")
-  		  e.dtend = @section.parts.first.ends_at.strftime("%Y%m%dT%H%M%S")
-  		  e.location = @section.parts.first.location
+        e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}@cit.jmu.edu"
+  		  e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
+  		  e.dtend = @part.ends_at.strftime("%Y%m%dT%H%M%S")
+  		  e.location = @part.location
         e.status = "CANCELLED"
   		  e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
                         cn: "Center for Instructional Technology")

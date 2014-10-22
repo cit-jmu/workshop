@@ -41,7 +41,7 @@ class SectionsController < ApplicationController
       enrollment = Enrollment.new(user: current_user)
       @section.enrollments << enrollment
       if @section.save
-        UserMailer.enroll_email(enrollment).deliver
+        @section.parts.each { |part| UserMailer.enroll_email(enrollment, part).deliver }
         # redirect to :back since you can enroll in courses from multiple pages
         # makes it cleaner to stay on the page you were on
         redirect_to :back, notice: "You are now enrolled in <strong>#{@course.title}</strong>"
@@ -59,7 +59,7 @@ class SectionsController < ApplicationController
       if current_user.enrolled? @course
         enrollment = current_user.enrollment_for(@course)
         enrollment.destroy
-        UserMailer.unenroll_email(enrollment).deliver
+        @section.parts.each { |part| UserMailer.unenroll_email(enrollment, part).deliver }
         # redirect to :back since you can drop courses from multiple pages
         # makes it cleaner to stay on the page you were on
         redirect_to :back, notice: "You have successfully dropped <strong>#{@course.title}</strong>"

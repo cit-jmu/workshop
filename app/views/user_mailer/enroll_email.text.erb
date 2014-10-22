@@ -1,14 +1,17 @@
-Welcome, <%= @user.first_name %>!
+Hi, <%= @user.first_name %>!
 
 You have been enrolled in the CIT Workshop: <%= @course.title %>
 
-Workshop dates and times:
-<% @section.parts.each do |part| %>
-  - <%= part.date_and_time %>
-<% end %>
+<%= @part.date_and_time %> (<%= @part.location %>)
+
+* If this is a multi-part course, then you will receive individual emails for
+each part.
 
 ======================================================================
 <%= @course.title %>
 Duration: <%= @course.duration %>
+<% @section.parts.each do |part| %>
+  - <%= part.date_and_time %> (<%= part.location %>)
+<% end %>
 ----------------------------------------------------------------------
 <%= @course.description %>

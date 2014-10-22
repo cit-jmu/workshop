@@ -4,19 +4,30 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><strong>Welcome, <%= @user.first_name %>!</strong></p>
+    <p><strong>Hi, <%= @user.first_name %>!</strong></p>
     <p>
-      You have been enrolled in the CIT Workshop: <%= @course.title %>.<br />
-      Workshop dates and times:
-      <ul>
-      <% @section.parts.each do |part| %>
-        <li><%= part.date_and_time %></li>
-      <% end %>
-      </ul>
+      You have been enrolled in the CIT Workshop: <%= @course.title %>.
     </p>
-    <hr>
+    <p>
+      <strong><%= @part.date_and_time %> (<%= @part.location %>)</strong>
+      <br />
+      <em>
+        * If this is a multi-part course, then you will receive individual
+        emails for each part.
+      </em>
+    </p>
+
+    <hr />
+
     <h1><%= @course.title %></h1>
     <p><strong>Duration:</strong> <%= @course.duration %> minutes</p>
+    <ul>
+    <% @section.parts.each do |part| %>
+      <li>
+        <strong><%= part.date_and_time %></strong> (<%= part.location %>)
+      </li>
+    <% end %>
+    </ul>
     <%= @course.description_html %>
   </body>
 </html>
