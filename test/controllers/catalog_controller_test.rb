@@ -7,7 +7,7 @@ class CatalogControllerTest < ActionController::TestCase
 
     assert_select '#navbar' do
       assert_select '#navbar_main a', minimum: 2
-      assert_select '#user_widget a', 'Login'
+      assert_select '#user_widget a', 'Sign in'
     end
 
     assert_select '.curent-enrollments', false,
@@ -22,9 +22,8 @@ class CatalogControllerTest < ActionController::TestCase
     assert_select '#navbar' do
       assert_select '#navbar_main a', minimum: 2
       assert_select '#user_widget' do
-        assert_select '.user-label', users(:george).full_name
-        assert_select '.user-menu a', 'Profile'
-        assert_select '.user-menu a', 'Logout'
+        assert_select 'a', users(:george).full_name
+        assert_select 'a', 'Sign out'
       end
     end
 
