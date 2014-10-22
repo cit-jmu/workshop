@@ -24,6 +24,14 @@
       </div>
     </div>
     <div class="col-sm-3">
+      <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
+        <%= f.label :instructor_id, class: 'control-label' %>
+        <%= f.collection_select :instructor_id, User.all, :id, :full_name,
+                                {prompt: "Select instructor"},
+                                class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:seats].any? %>">
         <%= f.label :seats, class: 'control-label' %>
         <%= f.number_field :seats, class: 'form-control' %>
@@ -39,14 +47,6 @@
         <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
           <%= parts_form.label :location, class: 'control-label' %>
           <%= parts_form.text_field :location, class: 'form-control' %>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
-          <%= parts_form.label :instructor_id, class: 'control-label' %>
-          <%= parts_form.collection_select :instructor_id, User.all, :id, :full_name,
-                                  {prompt: "Select instructor"},
-                                  class: 'form-control' %>
         </div>
       </div>
       <div class="col-sm-4">

@@ -6,11 +6,13 @@ class SectionTest < ActiveSupport::TestCase
     assert section.invalid?
     assert section.errors[:seats].any?
     assert section.errors[:course].any?
+    assert section.errors[:instructor].any?
     assert section.errors[:section_number].any?
   end
 
   test "number of seats in a section must be positive" do
     section = Section.new(section_number: '9999',
+                          instructor: users(:instructor),
                           course: courses(:canvas101))
     section.seats = -1
     assert section.invalid?
@@ -26,6 +28,7 @@ class SectionTest < ActiveSupport::TestCase
 
   test "number of seats in a section must be an integer" do
     section = Section.new(section_number: '9999',
+                          instructor: users(:instructor),
                           course: courses(:canvas101))
 
     section.seats = 0.01
@@ -35,6 +38,7 @@ class SectionTest < ActiveSupport::TestCase
 
   test "open seats in a section is decreased by number of enrollments" do
     section = Section.create!(section_number: '9999',
+                              instructor: users(:instructor),
                               course: courses(:canvas101),
                               seats: 5)
     assert_equal section.seats, section.open_seats
@@ -48,6 +52,7 @@ class SectionTest < ActiveSupport::TestCase
 
   test "section number must be unique" do
     section = Section.new(section_number: sections(:canvas101_carrier).section_number,
+                          instructor: users(:instructor),
                           course: courses(:canvas101),
                           seats: 5)
     assert section.invalid?

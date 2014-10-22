@@ -3,8 +3,7 @@ class User < ActiveRecord::Base
   devise :ldap_authenticatable, :database_authenticatable, :rememberable, :trackable
 
   has_many :enrollments
-  has_many :parts, foreign_key: 'instructor_id'
-  has_many :sections, -> { distinct }, through: :parts
+  has_many :sections, foreign_key: 'instructor_id'
   has_many :courses, -> { distinct }, through: :sections
 
   validates :username, uniqueness: { message: "is already in use" }, presence: true
@@ -68,15 +67,11 @@ class User < ActiveRecord::Base
     case
     when course_or_section.is_a?(Course)
       course = course_or_section
-      results = course.sections.select do |section|
-        r = section.parts.select { |part| part.instructor_id == id }
-        r.any?
-      end
+      results = course.sections.select { |section| section.instructor_id == id }
       results.any?
     when course_or_section.is_a?(Section)
       section = course_or_section
-      results = section.parts.select { |part| part.instructor_id == id }
-      results.any?
+      section.instructor_id == id
     else
       false
     end

@@ -74,9 +74,7 @@ class SectionsController < ApplicationController
 
   private
     def section_params
-      params.require(:section).permit(:seats, :section_number, parts_attributes: [
-                                        :id, :location, :instructor_id, :starts_at,
-                                        :_destroy
-                                      ])
+      params.require(:section).permit(:seats, :section_number, :instructor_id,
+                                      parts_attributes: [:id, :location, :starts_at, :_destroy])
     end
 end

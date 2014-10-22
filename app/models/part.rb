@@ -1,8 +1,8 @@
 class Part < ActiveRecord::Base
   belongs_to :section
-  belongs_to :instructor, class_name: 'User'
 
-  validates :location, :starts_at, :instructor, presence: true
+
+  validates :location, :starts_at, presence: true
 
   def ends_at
     Time.at(starts_at + (section.course.duration * 60))

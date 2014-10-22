@@ -2,10 +2,12 @@
 
 canvas101_carrier:
   course: canvas101
+  instructor: professor_wiseman
   section_number: 0001
   seats: 5
 
 canvas113_rose:
   course: canvas113
+  instructor: instructor
   section_number: 0001
   seats: 5

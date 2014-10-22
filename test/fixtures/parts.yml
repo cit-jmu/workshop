@@ -4,16 +4,13 @@ canvas101_carrier_part1:
   section: canvas101_carrier
   location: Carrier Library Room 37
   starts_at: 2014-10-08 14:00:00
-  instructor: professor_wiseman
 
 canvas101_carrier_part2:
   section: canvas101_carrier
   location: Carrier Library Room 37
   starts_at: 2014-10-12 09:00:00
-  instructor: professor_wiseman
 
 canvas113_rose_part1:
   section: canvas113_rose
   location: Rose Library Room 5308
   starts_at: 2014-10-08 09:00:00
-  instructor: instructor

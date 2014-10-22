@@ -21,7 +21,7 @@ class Ability
 
       if @user.instructor?
         # instructors can update courses they are teaching
-        can :update, Course, sections: { parts: { instructor_id: @user.id } }
+        can :update, Course, sections: { instructor_id: @user.id }
       end
     end
 
@@ -33,9 +33,9 @@ class Ability
 
       if @user.instructor?
         # instructors can view rosters for sections they are teaching
-        can :view_enrollments, Section, parts: { instructor_id: @user.id }
+        can :view_enrollments, Section, instructor_id: @user.id
         # instructors can update sections they are teaching
-        can :update, Section, parts: { instructor_id: @user.id }
+        can :update, Section, instructor_id: @user.id
       end
     end
 

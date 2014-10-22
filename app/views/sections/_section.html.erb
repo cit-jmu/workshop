@@ -1,60 +1,70 @@
 <div class="section-row <%= css_classes_for_section_row(section) %>">
   <div class="row section-heading">
-    <div class="col-xs-4 col-sm-5">
+    <div class="col-sm-2">
       <p>
         <strong>
-          <%= link_to section.section_number, course_section_path(section.course, section) %>
+          <%= link_to "Section #{section.section_number}", course_section_path(section.course, section) %>
         </strong>
       </p>
     </div>
-    <div class="col-xs-8 col-sm-5">
-      <p class="text-right">
-        <strong>Open Seats:</strong>
-        <%= section.open_seats %>
+    <div class="col-sm-6">
+      <p>
+        <strong>Instructor:</strong> <%= section.instructor.full_name %>
       </p>
     </div>
-    <div class="col-xs-12 col-sm-2">
-    <% if current_user && current_user.instructing?(section) %>
-      <%= link_to 'View', course_section_path(section.course, section),
-          class: 'btn btn-primary btn-block' %>
-    <% elsif current_user && current_user.enrolled?(section) %>
-      <%= link_to 'Drop', drop_course_section_path(section.course, section),
-          method: :delete, class: 'btn btn-default btn-block' %>
-    <% elsif !current_user || (current_user && !current_user.enrolled?(section.course)) %>
-      <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
-          method: :post, class: 'btn btn-primary btn-block' %>
-    <% end %>
+    <div class="col-sm-4">
+      <p class="text-right hidden-xs">
+        <strong>Open Seats:</strong> <%= section.open_seats %>
+      </p>
+      <p class="visible-xs-block">
+        <strong>Open Seats:</strong> <%= section.open_seats %>
+      </p>
     </div>
   </div>
   <% section.parts.each do |part| %>
   <div class="section-part">
-    <div class="row <%= "text-success" if current_user && part.instructor_id == current_user.id %>">
+    <div class="row">
       <div class="col-sm-4">
         <strong><%= part.date_and_time %></strong>
       </div>
       <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
         <%= part.location %>
       </div>
-      <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
-        <strong>Instructor:</strong> <%= part.instructor.full_name %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <div class="row">
+      <div class="col-sm-2">
+      <% if current_user && current_user.instructing?(section) %>
+        <%= link_to 'View', course_section_path(section.course, section),
+            class: 'btn btn-primary btn-block' %>
+      <% elsif current_user && current_user.enrolled?(section) %>
+        <%= link_to 'Drop', drop_course_section_path(section.course, section),
+            method: :delete, class: 'btn btn-default btn-block' %>
+      <% elsif !current_user || (current_user && !current_user.enrolled?(section.course)) %>
+        <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
+            method: :post, class: 'btn btn-primary btn-block' %>
+      <% end %>
       </div>
+
+      <% if user_signed_in? && (can?(:update, section) || can?(:destroy, section)) %>
+      <div class="col-sm-10">
+        <div class="btn-group">
+        <% if can? :update, section %>
+          <%= link_to edit_course_section_path(section.course, section), class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Edit
+          <% end %>
+        <% end %>
+        <% if can? :destroy, section %>
+          <%= link_to [section.course, section], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-trash"></span> Delete
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
-  <% end %>
-  <% if user_signed_in? && (can?(:update, section) || can?(:destroy, section)) %>
-  <div class="admin-actions">
-    <div class="btn-group">
-    <% if can? :update, section %>
-      <%= link_to edit_course_section_path(section.course, section), class: "btn btn-sm btn-default" do %>
-        <span class="glyphicon glyphicon-pencil"></span> Edit
-      <% end %>
-    <% end %>
-    <% if can? :destroy, section %>
-      <%= link_to [section.course, section], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" do %>
-        <span class="glyphicon glyphicon-trash"></span> Delete
-      <% end %>
-    <% end %>
-    </div>
-  </div>
-  <% end %>
 </div>

@@ -31,6 +31,9 @@
     <dt>Section:</dt>
     <dd><%= @section.section_number %></dd>
 
+    <dt>Instructor:</dt>
+    <dd><%= @section.instructor.full_name %></dd>
+
     <dt>Seats:</dt>
     <dd><%= @section.open_seats %> / <%= @section.seats %></dd>
   </dl>
@@ -38,17 +41,15 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Location</th>
         <th>Date and Time</th>
-        <th>Instructor</th>
+        <th>Location</th>
       </tr>
     </thead>
     <tbody>
     <% @section.parts.each do |part| %>
       <tr>
-        <td><%= part.location %></td>
         <td><%= part.date_and_time %></td>
-        <td><%= part.instructor.full_name %></td>
+        <td><%= part.location %></td>
       </tr>
     <% end %>
     </tbody>

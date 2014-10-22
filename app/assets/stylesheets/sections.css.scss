@@ -43,7 +43,6 @@
   .section-heading {
     p {
       font-size: 16px;
-      line-height: 34px;
       margin: 0;
     }
   }
@@ -52,10 +51,7 @@
     margin-top: 8px;
   }
 
-  .admin-actions {
+  .actions {
     padding-top: 15px;
-    .list-inline {
-      margin-bottom: 0;
-    }
   }
 }
