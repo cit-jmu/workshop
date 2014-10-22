@@ -2,41 +2,14 @@
   <div class="panel-heading">
     <h3 class="panel-title">My Current Enrollments</h3>
   </div>
-  <% if @user.enrollments.any? %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Course Name</th>
-        <th>Date and Time</th>
-        <th>Location</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @user.enrollments.each do |enrollment| %>
-      <tr class="enrollment">
-        <td class="course-title" rowspan="<%= enrollment.section.parts.count %>">
-          <%= link_to enrollment.course.title, enrollment.course %>
-        </td>
-        <td class="section-datetime"><%= enrollment.section.parts.first.date_and_time %></td>
-        <td class="section-location"><%= enrollment.section.parts.first.location %></td>
-        <td class="actions text-right" rowspan"<%= enrollment.section.parts.count %>">
-          <%= link_to 'Drop course', drop_course_section_path(enrollment.course, enrollment.section), method: :delete, class: 'btn btn-default' %>
-        </td>
-      </tr>
-      <% enrollment.section.parts[1..-1].each do |part| %>
-      <tr class="enrollment">
-        <td class="section-datetime"><%= part.date_and_time %></td>
-        <td class="section-location"><%= part.location %></td>
-      </tr>
-      <% end %>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
   <div class="panel-body">
-    You don't have any current enrollments.  Why not
-    <%= link_to "find some courses to take", courses_path %>?
-  </div>
+  <% if @user.enrollments.any? %>
+    <%= render @user.enrollments %>
+  <% else %>
+    <p>
+      You don't have any current enrollments.  Why not
+      <%= link_to "find some courses to take", courses_path %>?
+    </p>
   <% end %>
+</div>
 </div>

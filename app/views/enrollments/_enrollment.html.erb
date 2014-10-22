@@ -1,0 +1,29 @@
+<div class="panel-body-section enrollment">
+  <div class="panel-body-section-heading">
+    <h4 class="panel-body-section-title course-title">
+      <%= link_to enrollment.course.title, course_path(enrollment.course) %>
+    </h4>
+    <p>
+      <strong>Instructor:</strong>
+      <%= enrollment.section.instructor.full_name %>
+    </p>
+  </div>
+
+  <% enrollment.section.parts.each do |part| %>
+  <div class="panel-body-section-row">
+    <div class="row">
+      <div class="col-sm-4 section-datetime">
+        <strong><%= part.date_and_time %></strong>
+      </div>
+      <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0 section-location">
+        <%= part.location %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= link_to 'Drop course', drop_course_section_path(enrollment.course, enrollment.section),
+        method: :delete, class: 'btn btn-primary btn-default' %>
+  </div>
+</div>

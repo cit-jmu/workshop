@@ -27,7 +27,7 @@ class CatalogControllerTest < ActionController::TestCase
       end
     end
 
-    assert_select '.current-enrollments .table tbody' do
+    assert_select '.current-enrollments' do
       assert_select '.enrollment', minimum: 1
       assert_select '.enrollment' do
         enrollment = enrollments(:george_canvas101_carrier)

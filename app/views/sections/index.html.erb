@@ -1,19 +1,4 @@
 <%= render partial: "courses/title_heading", locals: { course: @course,
                                                        link_title: true } %>
 
-<h3>
-  <% if can? :add, @section %>
-  <div class="admin-actions pull-right">
-    <%= link_to 'Add new section', new_course_section_path, class: 'btn btn-default' %>
-  </div>
-  <% end %>
-  Available sections
-</h3>
-
-<div class="available-sections">
-<% if @sections.any? %>
-  <%= render @sections %>
-<% else %>
-  There aren't any sections available at this time.  Please check back later.
-<% end %>
-</div>
+<%= render 'courses/available_sections' %>
