@@ -55,6 +55,7 @@ test_participant = User.create!(
 
 # Canvas 101: The Philosophy
 canvas101 = Course.create!(title: 'Canvas 101: The Philosophy',
+  short_title: 'Canvas 101',
   course_number: 'CIT001',
   summary: %{Canvas is different! In this one hour session, you will
 develop a roadmap for designing your course in a way that benefits you AND
@@ -104,6 +105,7 @@ canvas101.sections.create!([
 # Canvas 113: Creating and Managing Content
 canvas113 = Course.create!(title: 'Canvas 113: Creating and Managing Content',
   course_number: 'CIT002',
+  short_title: 'Canvas 113',
   summary: %{Do you have course content files that need to make their way
 into Canvas? In this session you will add and organize content in your
 course.},
@@ -146,6 +148,7 @@ canvas113.sections.create!([
 # Canvas 211: Communication
 canvas211 = Course.create!(title: 'Canvas 211: Communication',
   course_number: 'CIT003',
+  short_title: 'Canvas 211',
   summary: %{Explore the many avenues for interaction and communication:
 instructor-student, student-student, and student-content.},
   description: %{Explore the many avenues for interaction and communication:
@@ -188,6 +191,7 @@ canvas211.sections.create!([
 # Canvas 234: All Things Grading: Assignments, Assessments, Rubrics, and Speedgrader!
 canvas234 = Course.create!(title: %{Canvas 234: All Things Grading: Assignments,
   Assessments, Rubrics, and Speedgrader!},
+  short_title: 'Canvas 234',
   course_number: 'CIT004',
   summary: %{Speedgrader? Speedgrader indeed! Come to this workshop and
 leave on the fast track to grading.},
@@ -230,6 +234,7 @@ canvas234.sections.create!([
 canvas235 = Course.create!(title: %{Canvas 235: Educating with Grading: Rubrics, Feedback,
   Group Work and Peer Review},
   course_number: 'CIT005',
+  short_title: 'Canvas 235',
   summary: %{Many Canvas grading tools are available to inform students
 and help improve their performance. Come learn about creating and using
 rubrics, feedback, group assignments and peer review!},
@@ -259,6 +264,7 @@ At the completion of this workshop, you will be able to:
 # Canvas Content Worksession
 canvas_content_worksession = Course.create!(title: 'Canvas Content Worksession',
   course_number: 'CIT006',
+  short_title: 'Canvas Content Worksession',
   summary: %{Now that you have completed the Canvas Creating and Managing
 Content workshop, meet one-on-one with a CIT representative to get some},
   description: %{Now that you have completed the Canvas Creating and Managing

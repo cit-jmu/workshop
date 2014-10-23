@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>CIT Workshop Calendar</h2>
+</div>
+
+<div class="cal">
+  <%= month_calendar table: { class: 'table table-bordered' },
+                     title: cal_title,
+                     previous_link: cal_previous_link,
+                     next_link: cal_next_link,
+                     events: @parts do |date, parts| %>
+    <div class="cal-date"><%= date.day %></div>
+
+    <% if parts.any? %>
+      <div class="cal-events">
+      <% parts.each do |part| %>
+        <div class="cal-event <%= css_classes_for_cal_event(part.section) %>">
+          <span class="start-time text-muted"><%= part.start_time %></span>
+          <%= link_to part.section.course.short_title,
+                      [part.section.course, part.section],
+                      class: 'event-name' %>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

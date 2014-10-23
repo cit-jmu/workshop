@@ -1,4 +1,7 @@
 class Part < ActiveRecord::Base
+  extend SimpleCalendar
+  has_calendar
+
   belongs_to :section
 
 
@@ -10,5 +13,9 @@ class Part < ActiveRecord::Base
 
   def date_and_time
     "#{starts_at.strftime("%-m/%-d/%Y %l:%M%P")} - #{ends_at.strftime("%l:%M%P")}"
+  end
+
+  def start_time
+    starts_at.to_s(:time_12h)
   end
 end
