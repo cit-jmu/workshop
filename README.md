@@ -142,3 +142,5 @@ Aside from the standard gems that get installed with the default install of Rail
   * gem [redcarpet](https://rubygems.org/gems/redcarpet)
 * [iCalendar](https://github.com/icalendar/icalendar)
   * gem [icalendar](http://rubygems.org/gems/icalendar)
+* [Simple Calendar](https://github.com/excid3/simple_calendar)
+  * gem [simple_calendar](https://rubygems.org/gems/simple_calendar)
