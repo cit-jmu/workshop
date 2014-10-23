@@ -1,3 +1,4 @@
+<% content_for :course_title_actions do %>
 <div class="actions pull-right hidden-print">
   <% if current_user %>
     <% if can?(:enroll, @section) && !(current_user.enrolled?(@section.course) || current_user.instructing?(@section)) %>
@@ -22,6 +23,7 @@
     <% end %>
   <% end %>
 </div>
+<% end %>
 
 <%= render partial: 'courses/title_heading', locals: { course: @course,
                                                        link_title: true } %>

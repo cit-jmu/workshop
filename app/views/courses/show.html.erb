@@ -1,16 +1,18 @@
-<% if can?(:update, @course) || can?(:destroy, @course) %>
-<div class="admin-actions pull-right">
-  <% if can?(:update, @course) %>
-    <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-pencil"></span>
-    <% end %>
+<% content_for :course_title_actions do %>
+  <% if can?(:update, @course) || can?(:destroy, @course) %>
+    <div class="actions hidden-print pull-right">
+      <% if can?(:update, @course) %>
+        <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>
+      <% end %>
+      <% if can?(:destroy, @course) %>
+        <%= link_to @course, method: :delete, title: 'Delete', class: 'btn btn-default', data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-trash"></span>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
-  <% if can?(:destroy, @course) %>
-    <%= link_to @course, method: :delete, title: 'Delete', class: 'btn btn-default', data: { confirm: 'Are you sure?' } do %>
-      <span class="glyphicon glyphicon-trash"></span>
-    <% end %>
-  <% end %>
-</div>
 <% end %>
 
 <%= render partial: 'title_heading', locals: { course: @course } %>

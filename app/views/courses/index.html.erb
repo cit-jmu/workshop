@@ -1,19 +1,19 @@
-<h1>
-  <% if can? :create, Course %>
-  <div class="admin-actions pull-right">
-    <%= link_to 'Add new course', new_course_path, class: 'btn btn-default' %>
-  </div>
-  <% end %>
-  Available courses
-</h1>
+<div class="page-header">
+  <h1>
+    <% if can? :create, Course %>
+    <div class="actions pull-right">
+      <%= link_to 'Add new course', new_course_path, class: 'btn btn-default' %>
+    </div>
+    <% end %>
+    Available courses
+  </h1>
+</div>
 
 <% if @courses.empty? %>
 <p>
   There are no courses available at this time.
   <% if can? :create, Course %>
-  <span class="admin-actions">
     Consider <%= link_to "adding some courses", new_course_path %>.
-  </span>
   <% end %>
 <p>
 <% end %>
