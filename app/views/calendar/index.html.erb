@@ -11,16 +11,35 @@
     <div class="cal-date"><%= date.day %></div>
 
     <% if parts.any? %>
-      <div class="cal-events">
+      <ul class="list-unstyled">
       <% parts.each do |part| %>
-        <div class="cal-event <%= css_classes_for_cal_event(part.section) %>">
-          <span class="start-time text-muted"><%= part.start_time %></span>
+        <li class="cal-event <%= css_classes_for_cal_event(part.section) %>">
+          <% if @user %>
+            <%= render 'enrolled_icon' if @user.enrolled? part.section %>
+            <%= render 'instructing_icon' if @user.instructing? part.section %>
+          <% end %>
+          <span class="start-time"><%= part.start_time %></span>
           <%= link_to part.section.course.short_title,
                       [part.section.course, part.section],
                       class: 'event-name' %>
-        </div>
+        </li>
       <% end %>
-      </div>
+    </ul>
     <% end %>
   <% end %>
+  <!-- calendar icon legend -->
+  <ul class="list-inline">
+    <li class="enrolled">
+      <%= render "enrolled_icon" %> Enrolled
+    </li>
+    <li class="waiting">
+      <%= render "waiting_icon" %> Wait List
+    </li>
+    <li class="completed">
+      <%= render "completed_icon" %> Completed
+    </li>
+    <li class="instructing">
+      <%= render "instructing_icon" %> Instructing
+    </li>
+  </ul>
 </div>

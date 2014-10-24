@@ -3,9 +3,9 @@ module CalendarHelper
     return "" if !current_user
     case
     when current_user.enrolled?(section)
-      "enrolled bg-success"
+      "enrolled"
     when current_user.instructing?(section)
-      "instructing bg-warning"
+      "instructing"
     end
   end
 

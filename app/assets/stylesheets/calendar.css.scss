@@ -18,7 +18,7 @@
       width: 14%;
       height: 120px;
 
-      &.wday-0, &.wday-6 {
+      &.wday-0, &.wday-6, &.past {
         background-color: #f4f4f4;
       }
 
@@ -28,36 +28,42 @@
         }
       }
 
-      &.current-month {
-        &.wday-0, &.wday-6 {
-          .cal-date {
-            font-weight: normal;
-          }
-        }
+      &.today{
         .cal-date {
           font-weight: bold;
+          color: darken(#428bca, 5%);
         }
       }
 
-      .cal-events {
+      .cal-event {
         margin-top: 4px;
-        margin-bottom: -9px;
+        font-size: 0.92em;
 
-        .cal-event {
-          padding: 4px 8px;
-
-          &.enrolled, &.instructing {
-            border-top: 1px solid #dedede;
-            border-bottom: 1px solid #dedede;
-            padding-top: 8px;
-          }
-
-          margin-right: -8px;
-          margin-left: -8px;
-
-          font-size: 0.92em;
+        .start-time {
+          color: #777;
         }
       }
+    }
+  }
+
+  .instructing {
+    .status-mark {
+      color: gold;
+    }
+  }
+  .enrolled {
+    .status-mark {
+      color: dodgerblue;
+    }
+  }
+  .completed {
+    .status-mark {
+      color: forestgreen;
+    }
+  }
+  .waiting {
+    .status-mark {
+      color: dimgrey;
     }
   }
 }
