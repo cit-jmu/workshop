@@ -7,8 +7,10 @@
       text-align: center;
       padding-bottom: 8px;
 
+      .cal-title, .cal-link {
+        font-size: 24px;
+      }
       .cal-title {
-        font-size: 16px;
         font-weight: bold;
         padding-left: 8px;
         padding-right: 8px;
@@ -44,6 +46,76 @@
         }
       }
     }
+  }
+
+  .cal-list-header {
+    border-bottom: 1px solid #ddd;
+
+    .visible-xs-block {
+      font-size: 24px;
+    }
+  }
+  .cal-list {
+    .cal-list-item {
+      margin-top: 16px;
+    }
+    .cal-date {
+      text-align: center;
+      .month {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        background-color: #428bca;
+        color: ghostwhite;
+        font-size: 16px;
+      }
+      .day {
+        font-size: 24px;
+        font-weight: bold;
+        color: slategray;
+        border-left: 1px solid #428bca;
+        border-right: 1px solid #428bca;
+        border-bottom: 1px solid #428bca;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+
+    .course-detail, .course-actions {
+      margin-left: -15px;
+    }
+    .course-detail {
+
+      p {
+        margin-bottom: 0;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .summary {
+        margin-bottom: 4px;
+      }
+      .date-and-time {
+        font-weight: bold;
+      }
+      .location {
+
+      }
+      .instructor {
+
+      }
+    }
+    .course-actions {
+
+    }
+    .cal-legend-xs {
+      margin-top: 8px;
+      border-top: 1px solid #ddd;
+      padding-top: 8px;
+    }
+
   }
 
   .instructing {

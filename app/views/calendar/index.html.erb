@@ -1,8 +1,8 @@
-<div class="page-header">
-  <h2>CIT Workshop Calendar</h2>
+<div class="page-header hidden-xs">
+  <h1>Workshop Calendar</h1>
 </div>
 
-<div class="cal">
+<div class="cal hidden-xs">
   <%= month_calendar table: { class: 'table table-bordered' },
                      title: cal_title,
                      previous_link: cal_previous_link,
@@ -42,4 +42,112 @@
       <%= render "instructing_icon" %> Instructing
     </li>
   </ul>
+</div>
+
+<div class="cal-list-header">
+  <h2 class="cal-list-title hidden-xs"><%= @start_date.strftime("%B %Y") %></h2>
+  <h2 class="cal-list-title text-center visible-xs-block">
+    <%= link_to url_for(start_date: @start_date.last_month.to_date) do %>
+      <span class="glyphicon glyphicon-circle-arrow-left"></span>
+    <% end %>
+    <%= @start_date.strftime("%B %Y") %>
+    <%= link_to url_for(start_date: @start_date.next_month.to_date) do %>
+      <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    <% end %>
+  </h2>
+</div>
+
+<div class="cal-list">
+<% if @parts_this_month.any? %>
+  <% @parts_this_month.each do |part| %>
+  <div class="row cal-list-item <%= css_classes_for_cal_event(part.section) %>">
+    <div class="col-xs-3 col-sm-2 col-md-1">
+      <div class="cal-date">
+        <div class="month">
+          <%= part.starts_at.strftime("%b") %>
+        </div>
+        <div class="day">
+          <%= part.starts_at.day %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-9 col-sm-10 col-md-11">
+      <div class="course-detail">
+        <p class="title">
+          <% if @user %>
+            <%= render 'enrolled_icon' if @user.enrolled? part.section %>
+            <%= render 'instructing_icon' if @user.instructing? part.section %>
+          <% end %>
+          <%= link_to part.section.course.title, [part.section.course, part.section] %>
+        </p>
+        <p class="summary"><%= part.section.course.summary %></p>
+        <p class="date-and-time"><%= part.date_and_time %></p>
+        <p class="location">
+          <strong>Location:</strong> <%= part.location %>
+        </p>
+        <p class="instructor">
+          <strong>Instructor:</strong> <%= part.section.instructor.full_name %>
+        </p>
+      </div>
+      <div class="course-actions">
+        <% unless @user && @user.instructing?(part.section) %>
+          <% if @user && @user.enrolled?(part.section) %>
+            <%= link_to 'Drop', drop_course_section_path(part.section.course, part.section),
+                        method: :delete, class: 'btn btn-default btn-sm' %>
+          <% elsif !@user || (@user && !@user.enrolled?(part.section.course)) %>
+            <%= link_to 'Enroll', enroll_course_section_path(part.section.course, part.section),
+                        method: :post, class: 'btn btn-primary btn-sm' %>
+          <% end %>
+        <% end %>
+
+        <% if user_signed_in? %>
+        <div class="btn-group">
+          <% if can? :view_enrollments, part.section %>
+            <%= link_to course_section_path(part.section.course, part.section),
+                        class: "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-list"></span>
+            <% end %>
+          <% end %>
+          <% if can? :update, part.section %>
+            <%= link_to edit_course_section_path(part.section.course, part.section),
+                        class: "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
+            <% end %>
+          <% end %>
+          <% if can? :destroy, part.section %>
+            <%= link_to [part.section.course, part.section], method: :delete,
+                        data: { confirm: 'Are you sure?' },
+                        class: "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <!-- calendar icon legend -->
+  <div class="visible-xs-block cal-legend-xs">
+    <ul class="list-inline">
+      <li class="enrolled">
+        <%= render "enrolled_icon" %> Enrolled
+      </li>
+      <li class="waiting">
+        <%= render "waiting_icon" %> Wait List
+      </li>
+      <li class="completed">
+        <%= render "completed_icon" %> Completed
+      </li>
+      <li class="instructing">
+        <%= render "instructing_icon" %> Instructing
+      </li>
+    </ul>
+  </div>
+<% else %>
+<p class="cal-list-item">
+  There are no courses scheduled for this month.
+</p>
+<% end %>
 </div>

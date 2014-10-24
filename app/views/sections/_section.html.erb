@@ -18,7 +18,7 @@
           class: 'btn btn-primary' %>
     <% elsif current_user && current_user.enrolled?(section) %>
       <%= link_to 'Drop course', drop_course_section_path(section.course, section),
-          method: :delete, class: 'btn btn-primary btn-default' %>
+          method: :delete, class: 'btn btn-primary' %>
     <% elsif !current_user || (current_user && !current_user.enrolled?(section.course)) %>
       <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
           method: :post, class: 'btn btn-primary' %>

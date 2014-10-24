@@ -11,7 +11,7 @@ module CalendarHelper
 
   def cal_previous_link
     ->(param, date_range) {
-      link_to url_for({ param => date_range.first - 1.day }) do
+      link_to url_for({ param => date_range.first - 1.day }), class: 'cal-link' do
         '<span class="glyphicon glyphicon-circle-arrow-left"></span>'.html_safe
       end
     }
@@ -19,7 +19,7 @@ module CalendarHelper
 
   def cal_next_link
     ->(param, date_range) {
-      link_to url_for({ param => date_range.last + 1.day }) do
+      link_to url_for({ param => date_range.last + 1.day }), class: 'cal-link' do
         '<span class="glyphicon glyphicon-circle-arrow-right"></span>'.html_safe
       end
     }
@@ -27,7 +27,7 @@ module CalendarHelper
 
   def cal_title
     ->(start_date) {
-      content_tag :span, "#{I18n.t("date.month_names")[start_date.month]} #{start_date.year}",
+      content_tag :span, start_date.strftime("%B %Y"),
                   class: "cal-title"
     }
   end
