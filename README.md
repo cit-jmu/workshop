@@ -94,7 +94,7 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 6. Install the required Gems
 
-   We are going to use [Bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then us it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
+   We are going to use [Bundler](http://bundler.io/) to manage our installed Gems.  First we need to install the Bundler gem, and then use it to install the rest of the gems for the app.  After installing the bundle we need to rehash our rbenv environment.
 
    **Note:** These commands (and the rest that follow) should be run from within the `<project_dir>/workshop` directory.
 
