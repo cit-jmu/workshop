@@ -26,16 +26,5 @@ class CatalogControllerTest < ActionController::TestCase
         assert_select 'a', 'Sign out'
       end
     end
-
-    assert_select '.current-enrollments' do
-      assert_select '.enrollment', minimum: 1
-      assert_select '.enrollment' do
-        enrollment = enrollments(:george_canvas101_carrier)
-        assert_select '.course-title', enrollment.course.title
-        assert_select '.section-datetime', enrollment.section.parts.first.date_and_time
-        assert_select '.section-location', enrollment.section.parts.first.location
-        assert_select '.actions a', 'Drop course'
-      end
-    end
   end
 end
