@@ -40,7 +40,8 @@ class Ability
     end
 
     def user_permissions
-      # users can see themselves
-      can :show, User, id: @user.id
+      # users can see and edit themselves
+      can :show, User, :id => @user.id
+      can :profile, User, :id => @user.id
     end
 end

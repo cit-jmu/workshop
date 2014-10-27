@@ -1,14 +1,21 @@
 <div class="panel panel-default current-enrollments">
   <div class="panel-heading">
-    <h3 class="panel-title">My Current Enrollments</h3>
+    <h3 class="panel-title">
+      <%= @user == current_user ? 'My' : @user.display_first.possessive %>
+      Enrollments
+    </h3>
   </div>
   <div class="panel-body">
   <% if @user.enrollments.any? %>
     <%= render @user.enrollments %>
   <% else %>
     <p>
+    <% if @user == current_user %>
       You don't have any current enrollments.  Why not
       <%= link_to "find some courses to take", courses_path %>?
+    <% else %>
+      <%= @user.display_first %> doesn't have any enrollments.
+    <% end %>
     </p>
   <% end %>
 </div>

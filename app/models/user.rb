@@ -42,6 +42,24 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def display_name
+    case
+    when nickname.present?
+      "#{nickname} #{last_name}"
+    else
+      full_name
+    end
+  end
+
+  def display_first
+    case
+    when nickname.present?
+      nickname
+    else
+      first_name
+    end
+  end
+
   # TODO: refactor this too...
   def enrolled?(course_or_section)
     !enrollment_for(course_or_section).nil?

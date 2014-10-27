@@ -17,7 +17,12 @@ class UsersController < ApplicationController
   def new
   end
 
-  def edit
+  def profile
+    @user ||= current_user
+  end
+
+  def settings
+    @user ||= current_user
   end
 
   def create
@@ -27,8 +32,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    respond_with(@user)
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to profile_user_url(@user),
+                        :notice => 'Profile was successfully updated.' }
+        format.json { render :show, :status => :ok, :location => @user }
+      else
+        format.html { render :profile }
+        format.json { render :json => @user.errors,
+                             :status => :unprocessable_entity }
+      end
+    end
   end
 
   def destroy

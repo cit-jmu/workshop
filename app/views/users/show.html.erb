@@ -1,7 +1,13 @@
 <% if user_signed_in? %>
+<div class="page-header">
+  <h1>
+    <%= @user.display_name %>
+    <small><%= @user.email %></small>
+  </h1>
+</div>
+
 <div class="row">
   <div class="col-md-8">
-    <%= render "profile_information" %>
     <%= render "current_enrollments" %>
     <% if @user.sections.any? %>
       <%= render "instructor_sections" %>
@@ -13,7 +19,6 @@
 </div>
 <% else %>
 <p>
-  You are not logged in.  Please <%= link_to "login", new_user_session_path %>
-  to see your profile.
+  You are not logged in.  Please <%= link_to "login", new_user_session_path %>.
 </p>
 <% end %>

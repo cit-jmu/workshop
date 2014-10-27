@@ -1,21 +1,31 @@
 Rails.application.routes.draw do
-
   devise_for :users
+  authenticated :user do
+    devise_scope :user do
+      root :to => 'users#show', :as => 'dashboard'
+      get 'settings', :as => 'settings', :to => 'users#settings'
+      get 'profile', :as => 'profile', :to => 'users#profile'
+    end
+  end
+
   resources :courses do
     resources :sections do
       member do
-        get 'roster'
         post 'enroll'
         delete 'drop'
       end
     end
   end
 
-  get 'users/profile', as: :user_profile, to: 'users#show'
-  resources :users
+  resources :users do
+    member do
+      get 'settings'
+      get 'profile'
+    end
+  end
 
   get 'catalog/index'
-  get 'calendar', to: 'calendar#index'
+  get 'calendar', :to => 'calendar#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

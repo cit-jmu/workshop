@@ -1,7 +1,7 @@
 <ul id="user_widget" class="nav navbar-nav navbar-right">
 <% if user_signed_in? %>
   <li>
-    <%= link_to user_profile_path, class: "navbar-link" do %>
+    <%= link_to profile_path, class: "navbar-link" do %>
       <span class="glyphicon glyphicon-user"></span>
       <%= current_user.full_name %>
     <% end %>

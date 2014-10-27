@@ -1,0 +1,103 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= pluralize(@user.errors.count, "error") %> prohibited this course from being saved:
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Profile</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group<%= " has-error" if @user.errors[:username].any? %>">
+            <%= f.label :username, class: 'control-label' %>
+            <%= profile_field f, :text_field, :username %>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group<%= " has-error" if @user.errors[:employee_id].any? %>">
+           <%= f.label :employee_id, "Employee ID", class: 'control-label' %>
+           <%= profile_field f, :number_field, :employee_id %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group<%= " has-error" if @user.errors[:first_name].any? %>">
+            <%= f.label :first_name, class: 'control-label' %>
+            <%= profile_field f, :text_field, :first_name %>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group<%= " has-error" if @user.errors[:last_name].any? %>">
+            <%= f.label :last_name, class: 'control-label' %>
+            <%= profile_field f, :text_field, :last_name %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group<%= " has-error" if @user.errors[:email].any? %>">
+            <%= f.label :email, class: 'control-label' %>
+            <%= profile_field f, :text_field, :email %>
+          </div>
+
+          <div class="form-group<%= " has-error" if @user.errors[:nickname].any? %>">
+            <%= f.label :nickname, class: 'control-label' %>
+            <%= profile_field f, :text_field, :nickname %>
+          </div>
+
+          <div class="form-group<%= " has-error" if @user.errors[:phone_number].any? %>">
+            <%= f.label :phone_number, class: 'control-label' %>
+            <%= profile_field f, :text_field, :phone_number %>
+          </div>
+
+          <div class="form-group<%= " has-error" if @user.errors[:mailbox].any? %>">
+            <%= f.label :mailbox, class: 'control-label' %>
+            <%= profile_field f, :text_field, :mailbox %>
+          </div>
+
+          <div class="form-group<%= " has-error" if @user.errors[:department].any? %>">
+            <%= f.label :department, class: 'control-label' %>
+            <%= profile_field f, :text_field, :department %>
+          </div>
+        </div>
+      </div>
+
+      <% if can? :assign_permissions, @user %>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group<%= " has-error" if @user.errors[:role].any? %>">
+            <%= f.label :role, class: 'control-label' %>
+            <%= f.select :role, User.roles.collect { |r,i| [r.humanize, r] },
+                         {}, :class => 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <% if can?(:assign_permissions, @user) ||
+            (can?(:profile, @user) && !@user.in_ldap?) %>
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

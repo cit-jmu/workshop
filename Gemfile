@@ -64,3 +64,5 @@ gem 'simple_calendar', '~> 1.1.5'
 
 # For CodeClimate test coverate analysis
 gem 'codeclimate-test-reporter', group: :test, require: nil
+
+gem 'possessive'
