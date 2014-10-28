@@ -38,7 +38,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: ENV['mail_server'],
     port: ENV['mail_port'],
-    domain: ENV['mail_domain'],
+    domain: ENV['mail_domain']
   }
-  config.action_mailer.perform_deliveries = ENV['action_mailer_perform_deliveries'] || true
+  config.action_mailer.perform_deliveries = false
 end
