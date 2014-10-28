@@ -16,33 +16,34 @@
     Consider <%= link_to "adding some courses", new_course_path %>.
   <% end %>
 <p>
-<% end %>
-
-<% @courses.each do |course| %>
-<div class="course-row">
-  <% if can?(:update, course) || can?(:destroy, course) %>
-    <div class="admin-actions pull-right">
-    <% if can? :update, course %>
-      <%= link_to edit_course_path(course), title: 'Edit', class: 'btn btn-default btn-sm' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
+<% else %>
+  <%= render 'shared/icon_legend' %>
+  <% @courses.each do |course| %>
+  <div class="course-row">
+    <% if can?(:update, course) || can?(:destroy, course) %>
+      <div class="admin-actions pull-right">
+      <% if can? :update, course %>
+        <%= link_to edit_course_path(course), title: 'Edit', class: 'btn btn-default btn-sm' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>
       <% end %>
-    <% end %>
-    <% if can? :destroy, course %>
-      <%= link_to course, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm', data: { confirm: 'Are you sure?' } do %>
-        <span class="glyphicon glyphicon-trash"></span>
+      <% if can? :destroy, course %>
+        <%= link_to course, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm', data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-trash"></span>
+        <% end %>
       <% end %>
+      </div>
     <% end %>
-    </div>
-  <% end %>
 
-  <h3 class="title">
-    <%= link_to course.title, course %>
-    <%= render partial: 'badges', locals: { course: course } %>
-  </h3>
-  <% if course.summary %>
-    <div class="summary">
-      <%= course.summary %>
-    </div>
+    <h3 class="title <%= classes_for_course(course) %>">
+      <%= render partial: 'icons', locals: { course: course } %>
+      <%= link_to course.title, course %>
+    </h3>
+    <% if course.summary %>
+      <div class="summary">
+        <%= course.summary %>
+      </div>
+    <% end %>
+  </div>
   <% end %>
-</div>
 <% end %>

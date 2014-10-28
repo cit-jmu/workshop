@@ -3,6 +3,8 @@
 </div>
 
 <div class="cal hidden-xs">
+  <%= render 'shared/icon_legend' %>
+
   <%= month_calendar table: { class: 'table table-bordered' },
                      title: cal_title,
                      previous_link: cal_previous_link,
@@ -13,10 +15,10 @@
     <% if parts.any? %>
       <ul class="list-unstyled">
       <% parts.each do |part| %>
-        <li class="cal-event <%= css_classes_for_cal_event(part.section) %>">
+        <li class="cal-event <%= classes_for_section(part.section) %>">
           <% if @user %>
-            <%= render 'enrolled_icon' if @user.enrolled? :section => part.section %>
-            <%= render 'instructing_icon' if @user.instructing? :section => part.section %>
+            <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
+            <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
           <% end %>
           <span class="start-time"><%= part.start_time %></span>
           <%= link_to part.section.course.short_title,
@@ -27,21 +29,8 @@
     </ul>
     <% end %>
   <% end %>
-  <!-- calendar icon legend -->
-  <ul class="list-inline">
-    <li class="enrolled">
-      <%= render "enrolled_icon" %> Enrolled
-    </li>
-    <li class="waiting">
-      <%= render "waiting_icon" %> Wait List
-    </li>
-    <li class="completed">
-      <%= render "completed_icon" %> Completed
-    </li>
-    <li class="instructing">
-      <%= render "instructing_icon" %> Instructing
-    </li>
-  </ul>
+
+  <%= render "shared/icon_legend" %>
 </div>
 
 <div class="cal-list-header">
@@ -59,8 +48,13 @@
 
 <div class="cal-list">
 <% if @parts_this_month.any? %>
+  <!-- calendar icon legend -->
+  <div class="visible-xs-block cal-legend-xs top">
+    <%= render 'shared/icon_legend' %>
+  </div>
+
   <% @parts_this_month.each do |part| %>
-  <div class="row cal-list-item <%= css_classes_for_cal_event(part.section) %>">
+  <div class="row cal-list-item <%= classes_for_section(part.section) %>">
     <div class="col-xs-3 col-sm-2 col-md-1">
       <div class="cal-date">
         <div class="month">
@@ -75,8 +69,8 @@
       <div class="course-detail">
         <p class="title">
           <% if @user %>
-            <%= render 'enrolled_icon' if @user.enrolled? :section => part.section %>
-            <%= render 'instructing_icon' if @user.instructing? :section => part.section %>
+            <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
+            <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
           <% end %>
           <%= link_to part.section.course.title, [part.section.course, part.section] %>
         </p>
@@ -129,21 +123,8 @@
   <% end %>
 
   <!-- calendar icon legend -->
-  <div class="visible-xs-block cal-legend-xs">
-    <ul class="list-inline">
-      <li class="enrolled">
-        <%= render "enrolled_icon" %> Enrolled
-      </li>
-      <li class="waiting">
-        <%= render "waiting_icon" %> Wait List
-      </li>
-      <li class="completed">
-        <%= render "completed_icon" %> Completed
-      </li>
-      <li class="instructing">
-        <%= render "instructing_icon" %> Instructing
-      </li>
-    </ul>
+  <div class="visible-xs-block cal-legend-xs bottom">
+    <%= render 'shared/icon_legend' %>
   </div>
 <% else %>
 <p class="cal-list-item">

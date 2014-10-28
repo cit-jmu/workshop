@@ -100,32 +100,26 @@
       .date-and-time {
         font-weight: bold;
       }
-      .location {
-
-      }
-      .instructor {
-
-      }
     }
-    .course-actions {
 
-    }
     .cal-legend-xs {
       margin-top: 8px;
-      border-top: 1px solid #ddd;
-      padding-top: 8px;
+      &.bottom {
+        border-top: 1px solid #ddd;
+        padding-top: 8px;
+      }
     }
 
   }
 
   .instructing {
     .status-mark {
-      color: gold;
+      color: darkorange;
     }
   }
   .enrolled {
     .status-mark {
-      color: dodgerblue;
+      color: blueviolet;
     }
   }
   .completed {
@@ -135,7 +129,7 @@
   }
   .waiting {
     .status-mark {
-      color: dimgrey;
+      color: slategrey;
     }
   }
 }

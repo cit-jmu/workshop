@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   load_and_authorize_resource
+  before_action :set_user
 
   respond_to :html, :json
 
@@ -40,5 +41,9 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:title, :summary, :description, :duration,
                                      :instructor, :course_number, :short_title)
+    end
+
+    def set_user
+      @user = current_user || User.new
     end
 end

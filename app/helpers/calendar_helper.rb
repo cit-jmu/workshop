@@ -1,14 +1,4 @@
 module CalendarHelper
-  def css_classes_for_cal_event(section)
-    return "" if !current_user
-    case
-    when current_user.enrolled?(:section => section)
-      "enrolled"
-    when current_user.instructing?(:section => section)
-      "instructing"
-    end
-  end
-
   def cal_previous_link
     ->(param, date_range) {
       link_to url_for({ param => date_range.first - 1.day }), class: 'cal-link' do

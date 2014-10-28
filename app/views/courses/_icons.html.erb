@@ -1,0 +1,4 @@
+<% if @user %>
+  <%= render 'shared/enrolled_icon' if @user.enrolled? :course => course %>
+  <%= render 'shared/instructing_icon' if @user.instructing? :course => course %>
+<% end %>

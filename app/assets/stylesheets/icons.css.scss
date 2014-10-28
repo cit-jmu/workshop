@@ -1,0 +1,20 @@
+.instructing {
+  .status-mark {
+    color: darkorange;
+  }
+}
+.enrolled {
+  .status-mark {
+    color: blueviolet;
+  }
+}
+.completed {
+  .status-mark {
+    color: forestgreen;
+  }
+}
+.waiting {
+  .status-mark {
+    color: slategrey;
+  }
+}

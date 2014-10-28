@@ -2,6 +2,8 @@ class SectionsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :section, :through => :course
 
+  before_action :set_user
+
   respond_to :html, :json
 
   def index
@@ -76,5 +78,9 @@ class SectionsController < ApplicationController
     def section_params
       params.require(:section).permit(:seats, :section_number, :instructor_id,
                                       parts_attributes: [:id, :location, :starts_at, :_destroy])
+    end
+
+    def set_user
+      @user = current_user || User.new
     end
 end
