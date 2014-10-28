@@ -39,57 +39,46 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{first_name} #{last_name}"
+    [first_name, last_name].join(' ')
   end
 
   def display_name
-    case
-    when nickname.present?
-      "#{nickname} #{last_name}"
-    else
-      full_name
-    end
+    [display_first, last_name].join(' ')
   end
 
   def display_first
-    case
-    when nickname.present?
+    if nickname.present?
       nickname
     else
       first_name
     end
   end
 
-  # TODO: refactor this too...
-  def enrolled?(course_or_section)
-    !enrollment_for(course_or_section).nil?
+  def enrolled?(options = {})
+    enrollment_for(options).present?
   end
 
-  def enrollment_for(course_or_section)
-    case
-    when course_or_section.is_a?(Course)
-      course = course_or_section
-      results = enrollments.select { |enrollment| enrollment.course == course }
-      results.first
-    when course_or_section.is_a?(Section)
-      section = course_or_section
-      results = enrollments.select { |enrollment| enrollment.section == section }
-      results.first
+  def enrollment_for(options = {})
+    if options[:course]
+      enrollments.select do |enrollment|
+        enrollment.course == options[:course]
+      end.first
+    elsif options[:section]
+      enrollments.select do |enrollment|
+        enrollment.section == options[:section]
+      end.first
     else
       nil
     end
   end
 
-  # TODO: refactor this!  I'm sure there's a cleaner way...
-  def instructing?(course_or_section)
-    case
-    when course_or_section.is_a?(Course)
-      course = course_or_section
-      results = course.sections.select { |section| section.instructor_id == id }
-      results.any?
-    when course_or_section.is_a?(Section)
-      section = course_or_section
-      section.instructor_id == id
+  def instructing?(options = {})
+    if options[:course]
+      options[:course].sections.select do |section|
+        section.instructor_id == id
+      end.any?
+    elsif options[:section]
+      options[:section].instructor_id == id
     else
       false
     end

@@ -22,7 +22,7 @@ class CatalogControllerTest < ActionController::TestCase
     assert_select '#navbar' do
       assert_select '#navbar_main a', minimum: 2
       assert_select '#user_widget' do
-        assert_select 'a', users(:george).full_name
+        assert_select 'a', users(:george).display_name
         assert_select 'a', 'Sign out'
       end
     end

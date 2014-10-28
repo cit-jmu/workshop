@@ -56,8 +56,8 @@ class SectionsController < ApplicationController
 
   def drop
     if current_user
-      if current_user.enrolled? @course
-        enrollment = current_user.enrollment_for(@course)
+      if current_user.enrolled? :course => @course
+        enrollment = current_user.enrollment_for :course => @course
         enrollment.destroy
         @section.parts.each { |part| UserMailer.unenroll_email(enrollment, part).deliver }
         # redirect to :back since you can drop courses from multiple pages
