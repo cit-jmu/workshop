@@ -21,6 +21,14 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
+  <div class="form-group<%= " has-error" if @course.errors[:short_title].any? %>">
+    <%= f.label :short_title, class: 'control-label' %>
+    <%= f.text_field :short_title, class: 'form-control' %>
+    <span class="help-block">
+      The short title will be displayed whenever a shortened version of the
+      title is needed, i.e. displaying courses on the calendar.
+  </div>
+
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @course.errors[:course_number].any? %>">
