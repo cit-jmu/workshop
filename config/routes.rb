@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   authenticated :user do
     devise_scope :user do
       root :to => 'users#show', :as => 'dashboard'
-      get 'settings', :as => 'settings', :to => 'users#settings'
-      get 'profile', :as => 'profile', :to => 'users#profile'
+      get 'profile', :as => 'profile', :to => 'users#edit'
     end
   end
 
@@ -17,12 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    member do
-      get 'settings'
-      get 'profile'
-    end
-  end
+  resources :users
 
   get 'catalog/index'
   get 'calendar', :to => 'calendar#index'

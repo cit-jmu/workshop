@@ -1,6 +1,6 @@
 module UsersHelper
   def profile_field(form, helper, attribute)
-    if can?(:edit, @user) && !@user.in_ldap?
+    if can?(:update, @user) && !@user.in_ldap?
       form.send helper, attribute, :class => 'form-control'
     else
       form.send helper, attribute, :class => 'form-control',

@@ -17,11 +17,7 @@ class UsersController < ApplicationController
   def new
   end
 
-  def profile
-    @user ||= current_user
-  end
-
-  def settings
+  def edit
     @user ||= current_user
   end
 
@@ -32,13 +28,27 @@ class UsersController < ApplicationController
   end
 
   def update
+    attributes = user_params
+    # protect the :role attribute, only set it if @user can assign
+    # permissions
+    attributes[:role] = params[:role] if can? :assign_permissions, @user
+
+    # use respond_to here instead of respond_with so we can customize the
+    # redirect url to be the edit page after a successful update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to profile_user_url(@user),
+      if @user.update(attributes)
+        # redirect to '/profile' if current_user, otherwise use the restful
+        # route '/users/:id/edit'
+        redirect_url = if @user == current_user
+          profile_url
+        else
+          edit_user_url(@user)
+        end
+        format.html { redirect_to redirect_url,
                         :notice => 'Profile was successfully updated.' }
         format.json { render :show, :status => :ok, :location => @user }
       else
-        format.html { render :profile }
+        format.html { render :edit }
         format.json { render :json => @user.errors,
                              :status => :unprocessable_entity }
       end
@@ -53,6 +63,7 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:first_name, :last_name, :nickname, :username,
-              :email, :employee_id, :phone_number, :mailbox, :department, :role)
+              :email, :employee_id, :phone_number, :mailbox, :department,
+              :computer_preference)
     end
 end

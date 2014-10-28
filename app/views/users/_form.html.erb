@@ -18,7 +18,12 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Profile</h3>
+      <h3 class="panel-title">
+        <% if @user.in_ldap? %>
+          <span class="glyphicon glyphicon-lock pull-right"></span>
+        <% end %>
+        Profile
+      </h3>
     </div>
     <div class="panel-body">
       <div class="row">
@@ -79,8 +84,63 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <% if can? :assign_permissions, @user %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Preferences</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="control-label">
+          What kind of computer do you prefer to use?
+        </label>
+        <div class="radio">
+          <label>
+            <%= f.radio_button :computer_preference, 'PC' %>
+            I prefer to use a PC
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <%= f.radio_button :computer_preference, 'Mac' %>
+            I prefer to use a Mac
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if can? :assign_permissions, @user %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Roles and Permissions</h3>
+    </div>
+    <div class="panel-body">
+      <p>Give permissions to a user by setting a role.</p>
+      <dl>
+        <dt>Participlant</dt>
+        <dd>
+          The basic role.  Participants can enroll/drop courses and can see
+          their user info (and can edit their own info if their record does
+          not come from LDAP).
+        </dd>
+
+        <dt>Instructor</dt>
+        <dd>
+          Instructors view enrollments (roster) for course sections they are
+          teaching, as well as edit the section information.  They can also
+          edit course information if they are teaching a section of the course,
+          and they can enroll and drop participants from their sections.
+        </dd>
+
+        <dt>Admin</dt>
+        <dd>
+          Admins get to have all the fun.  They can do anything.
+        </dd>
+      </dl>
+
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group<%= " has-error" if @user.errors[:role].any? %>">
@@ -90,14 +150,11 @@
           </div>
         </div>
       </div>
-      <% end %>
-
-      <% if can?(:assign_permissions, @user) ||
-            (can?(:profile, @user) && !@user.in_ldap?) %>
-        <div class="form-group">
-          <%= f.submit class: 'btn btn-success' %>
-        </div>
-      <% end %>
     </div>
   </div>
+  <% end %>
+
+  <% if can?(:update, @user) %>
+      <%= f.submit class: 'btn btn-success' %>
+  <% end %>
 <% end %>

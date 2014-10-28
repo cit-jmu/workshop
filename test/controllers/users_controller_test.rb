@@ -59,23 +59,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get profile" do
+  test "should get edit" do
     sign_in users(:admin)
-    get :profile, id: @user
+    get :edit, id: @user
     assert_response :success
   end
-
-  test "should get settings" do
-    sign_in users(:admin)
-    get :settings, id: @user
-    assert_response :success
-  end
-
 
   test "should update user" do
     sign_in users(:admin)
     patch :update, id: @user, user: @update
-    assert_redirected_to profile_user_path(assigns(:user))
+    assert_redirected_to edit_user_path(assigns(:user))
   end
 
   test "should destroy user" do
