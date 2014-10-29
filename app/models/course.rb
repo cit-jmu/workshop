@@ -2,12 +2,25 @@ class Course < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :enrollments, through: :sections
 
-  validates :title, :description, :duration, :course_number, presence: true
+  validates :title, :description, :course_number, presence: true
   validates :title, :course_number, uniqueness: true
-  validates :duration, numericality: {only_integer: true, greater_than: 0}
 
   def description_html
     markdown.render(description).html_safe
+  end
+
+  def duration
+    return nil unless sections.any?
+    # duration should be the same across sections, so use the first one
+    sections.first.duration
+  end
+
+
+  def multi_session?
+    sections.each do |section|
+      return true if section.parts.count > 1
+    end
+    false
   end
 
   private

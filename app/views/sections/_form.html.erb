@@ -57,13 +57,24 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-1">
-          <div class="checkbox" style="margin-top:25px;">
+      <div class="col-sm-2">
+        <div class="form-group<%= " has-error" if @section.errors[:duration].any? %>">
+          <%= parts_form.label :duration, class: 'control-label' %>
+          <div class="input-group">
+            <%= parts_form.number_field :duration, class: 'form-control' %>
+            <span class="input-group-addon">minutes</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group" style="margin-top: 34px">
+          <div class="checkbox">
             <label>
               <%= parts_form.check_box :_destroy %>
               Remove?
             </label>
           </div>
+        </div>
       </div>
     </div>
     <% end %>

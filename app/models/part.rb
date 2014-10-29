@@ -4,11 +4,11 @@ class Part < ActiveRecord::Base
 
   belongs_to :section
 
-
-  validates :location, :starts_at, presence: true
+  validates :location, :starts_at, :duration, presence: true
+  validates :duration, numericality: {only_integer: true, greater_than: 0}
 
   def ends_at
-    Time.at(starts_at + (section.course.duration * 60))
+    Time.at(starts_at + (duration * 60))
   end
 
   def date_and_time

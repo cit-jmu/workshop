@@ -17,10 +17,14 @@
 
 <%= render partial: 'title_heading', locals: { course: @course } %>
 
-<ul class="list-unstyled">
-  <li><strong>Course Number:</strong> <%= @course.course_number %></li>
-  <li><strong>Duration:</strong> <%= pluralize(@course.duration, "minute") %><li>
-</ul>
+<% if @course.duration %>
+  <p class="lead">
+    <strong>Course Duration:</strong> <%= pluralize(@course.duration, "minute") %>
+    <% if @course.multi_session? %>
+      total across multiple sessions
+    <% end %>
+  </p>
+<% end %>
 
 <article class="markdown-body description">
   <%= @course.description_html %>

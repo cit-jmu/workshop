@@ -15,4 +15,9 @@ class Section < ActiveRecord::Base
   def open_seats
     seats - enrollments.count
   end
+
+  def duration
+    # section duration is the sum of all its parts
+    parts.inject(0) { |duration, part| duration + part.duration }
+  end
 end

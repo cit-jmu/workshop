@@ -72,8 +72,7 @@ At the completion of this workshop, you will be able to:
 - Construct an organizational plan for your course
 
 # Recommended Prerequisites
-- Canvas Orientation},
-  duration: 60)
+- Canvas Orientation})
 canvas101.sections.create!([
     {
       section_number: '0001',
@@ -81,11 +80,13 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-09 14:00:00'
+        starts_at: '2014-12-09 14:00:00',
+        duration: 60
       },
       {
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-11 09:00:00'
+        starts_at: '2014-12-11 09:00:00',
+        duration: 60
       }]
     },
     {
@@ -94,10 +95,12 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2014-12-16 09:00:00'
+        starts_at: '2014-12-16 09:00:00',
+        duration: 60
       },{
         location: 'Rose Library Room 5308',
-        starts_at: '2014-12-17 14:00:00'
+        starts_at: '2014-12-17 14:00:00',
+        duration: 60
       }]
     }
 ])
@@ -122,8 +125,7 @@ At the completion of this workshop, you will be able to:
 
 # Recommended Prerequisites
 - Canvas Orientation
-- Canvas 101: The Philosophy},
-  duration: 60)
+- Canvas 101: The Philosophy})
 canvas113.sections.create!([
     {
       section_number: '0001',
@@ -131,7 +133,8 @@ canvas113.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-10 14:00:00'
+        starts_at: '2014-12-10 14:00:00',
+        duration: 60
       }]
     },
     {
@@ -141,6 +144,7 @@ canvas113.sections.create!([
       parts_attributes: [{
         location: 'Rose Library Room 5308',
         starts_at: '2014-12-17 09:00:00',
+        duration: 60
       }]
     }
 ])
@@ -165,8 +169,7 @@ At the completion of this workshop, you will be able to:
 
 # Recommended Prerequisites
 - Canvas Orientation
-- Canvas 101: The Philosophy},
-  duration: 60)
+- Canvas 101: The Philosophy})
 canvas211.sections.create!([
     {
       section_number: '0001',
@@ -174,7 +177,8 @@ canvas211.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-11 14:00:00'
+        starts_at: '2014-12-11 14:00:00',
+        duration: 60
       }]
     },
     {
@@ -183,7 +187,8 @@ canvas211.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2014-12-18 09:00:00'
+        starts_at: '2014-12-18 09:00:00',
+        duration: 60
       }]
     }
 ])
@@ -207,8 +212,7 @@ At the completion of this workshop, you will be able to:
 
 # Recommended Prerequisites
 - Canvas Orientation
-- Canvas 101: The Philosophy},
-  duration: 120)
+- Canvas 101: The Philosophy})
 canvas234.sections.create!([
     {
       section_number: '0001',
@@ -216,7 +220,8 @@ canvas234.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-12 14:00:00'
+        starts_at: '2014-12-12 14:00:00',
+        duration: 120
       }]
     },
     {
@@ -225,7 +230,8 @@ canvas234.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2014-12-19 09:00:00'
+        starts_at: '2014-12-19 09:00:00',
+        duration: 120
       }]
     }
 ])
@@ -258,8 +264,7 @@ At the completion of this workshop, you will be able to:
 # Recommended Prerequisites
 - Canvas Orientation
 - Canvas 101: The Philosophy
-- Canvas 234: All Things Grading},
-  duration: 180)
+- Canvas 234: All Things Grading})
 
 # Canvas Content Worksession
 canvas_content_worksession = Course.create!(title: 'Canvas Content Worksession',
@@ -269,8 +274,7 @@ canvas_content_worksession = Course.create!(title: 'Canvas Content Worksession',
 Content workshop, meet one-on-one with a CIT representative to get some},
   description: %{Now that you have completed the Canvas Creating and Managing
 Content workshop, meet one-on-one with a CIT representative to get some
-help adding content to your course.},
-  duration: 60)
+help adding content to your course.})
 canvas_content_worksession.sections.create!([
     {
       section_number: '0001',
@@ -278,7 +282,8 @@ canvas_content_worksession.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2014-12-10 15:15:00'
+        starts_at: '2014-12-10 15:15:00',
+        duration: 60
       }]
     },
     {
@@ -287,7 +292,8 @@ canvas_content_worksession.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2014-12-17 10:15:00'
+        starts_at: '2014-12-17 10:15:00',
+        duration: 60
       }]
     }
 ])
