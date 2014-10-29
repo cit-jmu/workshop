@@ -19,4 +19,15 @@ class UserTest < ActiveSupport::TestCase
     user = users(:bill)
     assert !user.instructing?(:course => courses(:canvas113))
   end
+
+  test "has scope for instructors" do
+    instructors = User.instructors
+    assert_includes instructors, users(:instructor),
+      "Instructor was not found in instructors collection"
+    assert_includes instructors, users(:admin),
+      "Admin was not found in instructors collection"
+    assert_not_includes instructors, users(:participant),
+      "Participant was found in instructors collection"
+
+  end
 end

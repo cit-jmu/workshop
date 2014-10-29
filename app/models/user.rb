@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
 
   enum role: [:participant, :instructor, :admin]
 
+  # scope to get all instructors
+  scope :instructors, -> {
+    where('role >= ?', User.roles[:instructor]).order(:last_name)
+  }
+
   # callbacks
   after_initialize :setup_user_attributes, if: :new_record?
 

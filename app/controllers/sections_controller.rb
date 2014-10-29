@@ -15,11 +15,14 @@ class SectionsController < ApplicationController
   end
 
   def new
+    @instructors = User.instructors
+
     @section.parts.build
     respond_with(@course, @section)
   end
 
   def edit
+    @instructors = User.instructors
     @section.parts.build
   end
 

@@ -26,7 +26,7 @@
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:instructor_id].any? %>">
         <%= f.label :instructor_id, class: 'control-label' %>
-        <%= f.collection_select :instructor_id, User.all, :id, :display_name,
+        <%= f.collection_select :instructor_id, @instructors, :id, :display_name,
                                 {prompt: "Select instructor"},
                                 class: 'form-control' %>
       </div>
