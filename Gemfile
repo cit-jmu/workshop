@@ -66,3 +66,5 @@ gem 'simple_calendar', '~> 1.1.5'
 gem 'codeclimate-test-reporter', group: :test, require: nil
 
 gem 'possessive'
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'

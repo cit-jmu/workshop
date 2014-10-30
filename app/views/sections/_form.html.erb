@@ -52,8 +52,14 @@
       <div class="col-sm-4">
         <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
           <%= parts_form.label :starts_at, class: 'control-label' %>
-          <div>
-            <%= parts_form.datetime_select :starts_at, {ampm: true} %>
+          <div class="input-group date">
+            <%= parts_form.text_field :starts_at,
+                  :class => 'form-control datetimepicker',
+                  :data => { :provides => 'datetimepicker' },
+                  :placeholder => "mm/dd/yyyy hh:mm" %>
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
           </div>
         </div>
       </div>
