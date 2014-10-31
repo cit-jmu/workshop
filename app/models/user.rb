@@ -65,13 +65,9 @@ class User < ActiveRecord::Base
 
   def enrollment_for(options = {})
     if options[:course]
-      enrollments.select do |enrollment|
-        enrollment.course == options[:course]
-      end.first
+      enrollments.select { |enrollment| enrollment.course == options[:course] }.first
     elsif options[:section]
-      enrollments.select do |enrollment|
-        enrollment.section == options[:section]
-      end.first
+      enrollments.select { |enrollment| enrollment.section == options[:section] }.first
     else
       nil
     end
@@ -79,9 +75,7 @@ class User < ActiveRecord::Base
 
   def instructing?(options = {})
     if options[:course]
-      options[:course].sections.select do |section|
-        section.instructor_id == id
-      end.any?
+      options[:course].sections.select { |section| section.instructor_id == id }.any?
     elsif options[:section]
       options[:section].instructor_id == id
     else
