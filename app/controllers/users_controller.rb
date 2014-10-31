@@ -29,9 +29,8 @@ class UsersController < ApplicationController
 
   def update
     attributes = user_params
-    # protect the :role attribute, only set it if @user can assign
-    # permissions
-    attributes[:role] = params[:role] if can? :assign_permissions, @user
+    # protect the :role attribute, only set it if @user can assign permissions
+    attributes.delete(:role) unless can? :assign_permissions, @user
 
     # use respond_to here instead of respond_with so we can customize the
     # redirect url to be the edit page after a successful update
@@ -63,7 +62,7 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:first_name, :last_name, :nickname, :username,
-              :email, :employee_id, :phone_number, :mailbox, :department,
+              :email, :employee_id, :phone_number, :mailbox, :department, :role,
               :computer_preference)
     end
 end
