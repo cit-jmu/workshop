@@ -3,6 +3,7 @@ class SectionsController < ApplicationController
   load_and_authorize_resource :section, :through => :course
 
   before_action :set_user
+  before_action :setup_form, :only => [:new, :edit]
 
   respond_to :html, :json
 
@@ -15,24 +16,19 @@ class SectionsController < ApplicationController
   end
 
   def new
-    @instructors = User.instructors
-
-    @section.parts.build
     respond_with(@course, @section)
   end
 
   def edit
-    @instructors = User.instructors
-    @section.parts.build
   end
 
   def create
-    @section.save
+    setup_form unless @section.save
     respond_with(@course, @section)
   end
 
   def update
-    @section.update(section_params)
+    setup_form unless @section.update(section_params)
     respond_with(@course, @section)
   end
 
@@ -88,5 +84,10 @@ class SectionsController < ApplicationController
 
     def set_user
       @user = current_user || User.new
+    end
+
+    def setup_form
+      @instructors = User.instructors
+      @section.parts.build if @section.parts.empty?
     end
 end
