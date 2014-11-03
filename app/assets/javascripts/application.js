@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
+//= require jquery_nested_form
 //= require_tree .
