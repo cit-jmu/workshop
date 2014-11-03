@@ -5,7 +5,9 @@ class Section < ActiveRecord::Base
   belongs_to :instructor, class_name: 'User'
 
   accepts_nested_attributes_for :parts, allow_destroy: true,
-                                reject_if: ->(attributes){ attributes[:location].blank? }
+                                reject_if: ->(attributes){
+                                  attributes[:location].blank? && attributes[:starts_at].blank?
+                                }
 
   validates :seats, :course, :section_number, :instructor, presence: true
   validates :section_number, uniqueness: { scope: :course,

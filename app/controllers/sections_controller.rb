@@ -88,6 +88,7 @@ class SectionsController < ApplicationController
 
     def setup_form
       @instructors = User.instructors
-      @section.parts.build if @section.parts.empty?
+      # always add an empty section part to the list
+      @section.parts.build
     end
 end

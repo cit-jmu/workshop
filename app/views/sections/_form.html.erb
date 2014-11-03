@@ -44,19 +44,24 @@
     <%= f.fields_for :parts do |parts_form| %>
     <div class="row">
       <div class="col-sm-4">
-        <div class="form-group<%= " has-error" if @section.errors[:location].any? %>">
+        <div class="form-group<%= " has-error" if parts_form.object.errors[:location].any? %>">
           <%= parts_form.label :location, class: 'control-label' %>
           <%= parts_form.text_field :location, class: 'form-control' %>
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="form-group<%= " has-error" if @section.errors[:starts_at].any? %>">
+        <div class="form-group<%= " has-error" if parts_form.object.errors[:starts_at].any? %>">
           <%= parts_form.label :starts_at, class: 'control-label' %>
           <div class="input-group date">
             <%= parts_form.text_field :starts_at,
                   :class => 'form-control datetimepicker',
-                  :data => { :provides => 'datetimepicker' },
-                  :placeholder => "mm/dd/yyyy hh:mm" %>
+                  :data => { :provides => 'datetimepicker', :date_format => 'YYYY-MM-DD hh:mm A' },
+                  :value => if parts_form.object.starts_at.present?
+                    parts_form.object.starts_at.to_s(:datetime_12h)
+                  else
+                    ''
+                  end,
+                  :placeholder => "yyyy-mm-dd hh:mm (am/pm)" %>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -68,10 +73,11 @@
           <%= parts_form.label :duration, class: 'control-label' %>
           <div class="input-group">
             <%= parts_form.number_field :duration, class: 'form-control' %>
-            <span class="input-group-addon">minutes</span>
+            <span class="input-group-addon">min</span>
           </div>
         </div>
       </div>
+      <% if !parts_form.object.new_record? %>
       <div class="col-sm-2">
         <div class="form-group" style="margin-top: 34px">
           <div class="checkbox">
@@ -82,7 +88,9 @@
           </div>
         </div>
       </div>
+      <% end %>
     </div>
+    <hr />
     <% end %>
   </fieldset>
 
