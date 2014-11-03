@@ -1,0 +1,14 @@
+<% if can?(:update, course) || can?(:destroy, course) %>
+  <div class="admin-actions">
+  <% if can? :update, course %>
+    <%= link_to edit_course_path(course), title: 'Edit', class: 'btn btn-link btn-sm' do %>
+      <span class="glyphicon glyphicon-pencil"></span> Edit
+    <% end %>
+  <% end %>
+  <% if can? :destroy, course %>
+    <%= link_to course, method: :delete, title: 'Delete', class: 'btn btn-sm btn-link', data: { confirm: 'Are you sure?' } do %>
+      <span class="glyphicon glyphicon-trash"></span> Delete
+    <% end %>
+  <% end %>
+  </div>
+<% end %>

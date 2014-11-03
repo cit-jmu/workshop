@@ -23,6 +23,10 @@ class Course < ActiveRecord::Base
     false
   end
 
+  def instructors
+    sections.collect { |section| section.instructor.display_name }.uniq
+  end
+
   private
     def markdown
       @@markdown ||= Redcarpet::Markdown.new(
