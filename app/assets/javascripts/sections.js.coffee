@@ -4,9 +4,14 @@
 
 initialize_datetimepicker = ->
   # initialize the datetime pickers
-  console.log "initializing the datetimepicker component"
   $('[data-provides="datetimepicker"]').parents(".date").datetimepicker()
 
-# run the initialize function on page:load from turbolinks
+# run the initializer when the page is loaded
 $(document).ready(initialize_datetimepicker)
+
+# run the initialize function on page:load from turbolinks
 $(document).on 'page:load', initialize_datetimepicker
+
+# when a new row is added, init the picker for that row
+$(document).on 'nested:fieldAdded', (event) ->
+  event.field.find('.date').datetimepicker()
