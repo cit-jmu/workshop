@@ -1,6 +1,5 @@
 <% link_title ||= false %>
 <div class="page-header">
-  <%= yield :course_title_actions %>
   <h1 class="hidden-print <%= classes_for_course(course) %>">
     <%= render partial: 'courses/icons', locals: { course: course } %>
     <% if link_title %>
@@ -11,3 +10,7 @@
   </h1>
   <h1 class="visible-print-block"><%= course.title %></h1>
 </div>
+<div class="actions hidden-print">
+  <%= yield :course_title_actions %>
+</div>
+
