@@ -4,7 +4,7 @@
 
 initialize_datetimepicker = ->
   # initialize the datetime pickers
-  $('[data-provides="datetimepicker"]').parents(".date").datetimepicker()
+  $('[data-provides="datetimepicker"]').parents(".js-date").datetimepicker()
 
 # run the initializer when the page is loaded
 $(document).ready(initialize_datetimepicker)
@@ -14,4 +14,5 @@ $(document).on 'page:load', initialize_datetimepicker
 
 # when a new row is added, init the picker for that row
 $(document).on 'nested:fieldAdded', (event) ->
-  event.field.find('.date').datetimepicker()
+  event.field.find('.js-date').datetimepicker()
+

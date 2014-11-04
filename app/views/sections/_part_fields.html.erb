@@ -8,16 +8,16 @@
   <div class="col-sm-4">
     <div class="form-group<%= " has-error" if f.object.errors[:starts_at].any? %>">
       <%= f.label :starts_at, class: 'control-label' %>
-      <div class="input-group date">
+      <div class="input-group js-date">
         <%= f.text_field :starts_at,
-              :class => 'form-control datetimepicker',
+              :class => 'form-control',
               :data => { :provides => 'datetimepicker', :date_format => 'YYYY-MM-DD hh:mm A' },
               :value => if f.object.starts_at.present?
                 f.object.starts_at.to_s(:datetime_12h)
               else
                 ''
               end,
-              :placeholder => "yyyy-mm-dd hh:mm (am/pm)" %>
+              :placeholder => "yyyy-mm-dd hh:mm (AM/PM)" %>
         <span class="input-group-addon">
           <span class="glyphicon glyphicon-calendar"></span>
         </span>
