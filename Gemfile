@@ -65,7 +65,19 @@ gem 'simple_calendar', '~> 1.1.5'
 # For CodeClimate test coverate analysis
 gem 'codeclimate-test-reporter', group: :test, require: nil
 
+# Provides inflector-like functionality to make nouns posessive
 gem 'possessive'
+
+# A pretty datepicker for bootstrap3
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
+
+# Easy nested forms
 gem 'nested_form'
+
+# Guard does things when stuff happens
+group :development do
+  gem 'guard'
+  gem 'guard-minitest'
+end
+
