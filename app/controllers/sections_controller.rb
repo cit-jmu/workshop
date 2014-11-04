@@ -38,8 +38,8 @@ class SectionsController < ApplicationController
   end
 
   def enroll
-    if current_user
-      enrollment = Enrollment.new(user: current_user)
+    if user_signed_in?
+      enrollment = Enrollment.new(user: @user)
       @section.enrollments << enrollment
       if @section.save
         @section.parts.each { |part| UserMailer.enroll_email(enrollment, part).deliver }
@@ -55,10 +55,38 @@ class SectionsController < ApplicationController
     end
   end
 
+  def enroll_user
+    if params[:username].present?
+      if enroll_user = User.find_or_create(params[:username])
+        if enroll_user.enrolled?(:course => @course)
+          redirect_to [@course, @section],
+            :notice => "<strong>#{enroll_user.display_name}</strong> is already enrolled in <strong>#{@course.title}</strong>"
+        else
+          enrollment = Enrollment.new(:user => enroll_user)
+          @section.enrollments << enrollment
+          if @section.save
+            # send email
+            # TODO even better - send emails in a Section after_save hook
+            redirect_to :back,
+              :notice => "<strong>#{enroll_user.display_name}</strong> is now enrolled in <strong>#{@course.title}</strong>"
+          else
+            redirect_to [@course, @section],
+              :alert => "There was a problem enrolling the user in this section"
+          end
+        end
+      else
+        redirect_to [@course, @section],
+          :alert => "Could not find or create <strong>'#{params[:username]}'</strong>"
+      end
+    else
+      redirect_to [@course, @section]
+    end
+  end
+
   def drop
-    if current_user
-      if current_user.enrolled? :course => @course
-        enrollment = current_user.enrollment_for :course => @course
+    if user_signed_in?
+      if @user.enrolled? :course => @course
+        enrollment = @user.enrollment_for :course => @course
         enrollment.destroy
         @section.parts.each { |part| UserMailer.unenroll_email(enrollment, part).deliver }
         # redirect to :back since you can drop courses from multiple pages
@@ -71,6 +99,9 @@ class SectionsController < ApplicationController
       # TODO setup a redirect to login, then resume enrollment
       redirect_to @course, alert: "You must be logged in to drop a course"
     end
+  end
+
+  def drop_user
   end
 
   private

@@ -1,7 +1,10 @@
 <% content_for :course_title_actions do %>
+<div class="row">
   <% if user_signed_in? %>
+  <div class="col-sm-8">
+    <div class="actions">
     <% unless @user.enrolled?(:course => @section.course) || @user.instructing?(:section => @section) %>
-      <%= link_to "Enroll in course", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
+      <%= link_to "Enroll", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
     <% end %>
     <% if @user.enrolled?(:section => @section) %>
       <%= link_to "Drop course", drop_course_section_path(@course, @section), method: :delete, class:'btn btn-default' %>
@@ -16,9 +19,28 @@
         <span class="glyphicon glyphicon-trash"></span> Delete
       <% end %>
     <% end %>
+    </div>
+  </div>
+    <% if can? :enroll_user, @section %>
+    <div class="col-sm-4 text-right">
+      <%= form_tag enroll_user_course_section_path, :role => 'form' do %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= text_field_tag :username, nil, :placeholder => 'Username or eID', :class => 'form-control' %>
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">Enroll user</button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% end %>
   <% else %>
+  <div class="col-sm-12">
     <%= link_to "Enroll", enroll_course_section_path(@course, @section), method: :post, class:'btn btn-primary' %>
+  </div>
   <% end %>
+</div>
 <% end %>
 
 <%= render partial: 'courses/title_heading', locals: { course: @course,

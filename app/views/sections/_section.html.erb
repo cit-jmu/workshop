@@ -13,13 +13,13 @@
   <%= render partial: 'parts/part', collection: section.parts, layout: 'parts/panel_body_section_row' %>
 
   <div class="actions">
-    <% if current_user && current_user.instructing?(:section => section) %>
+    <% if @user && @user.instructing?(:section => section) %>
       <%= link_to 'View section', course_section_path(section.course, section),
           class: 'btn btn-primary' %>
-    <% elsif current_user && current_user.enrolled?(:section => section) %>
+    <% elsif @user && @user.enrolled?(:section => section) %>
       <%= link_to 'Drop course', drop_course_section_path(section.course, section),
           method: :delete, class: 'btn btn-primary' %>
-    <% elsif !current_user || (current_user && !current_user.enrolled?(:course => section.course)) %>
+    <% elsif !@user || (@user && !@user.enrolled?(:course => section.course)) %>
       <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
           method: :post, class: 'btn btn-primary' %>
     <% end %>

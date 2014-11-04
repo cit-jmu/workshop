@@ -20,6 +20,13 @@ class User < ActiveRecord::Base
   # callbacks
   after_initialize :setup_user_attributes, if: :new_record?
 
+  def self.find_or_create(username)
+    options = { :username => username }
+    User.where(options).first || User.create!(options)
+  rescue ActiveRecord::RecordInvalid
+    nil
+  end
+
   def in_ldap?
     @in_ldap ||= Devise::LDAP::Adapter.get_ldap_entry(username).present?
   rescue Net::LDAP::LdapError

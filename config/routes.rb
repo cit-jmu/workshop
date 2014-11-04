@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resources :sections do
       member do
         post 'enroll'
+        post 'enroll_user'
         delete 'drop'
+        delete 'drop_user'
       end
     end
   end
