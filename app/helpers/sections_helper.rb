@@ -1,14 +1,4 @@
 module SectionsHelper
-  def classes_for_section(section)
-    return "" unless @user
-    case
-    when @user.enrolled?(:section => section)
-      "enrolled"
-    when @user.instructing?(:section => section)
-      "instructing"
-    end
-  end
-
   def css_classes_for_section_row(section)
     return "" if !current_user
     case

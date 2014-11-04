@@ -1,6 +1,7 @@
 <div class="panel panel-default instructor-sections">
   <div class="panel-heading">
-    <h3 class="panel-title">
+    <h3 class="panel-title instructing">
+      <%= render 'shared/instructing_icon' %>
       <%= @user == current_user ? 'My' : @user.display_first.possessive %>
       Courses
     </h3>

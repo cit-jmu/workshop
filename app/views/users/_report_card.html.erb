@@ -1,6 +1,7 @@
 <div class="panel panel-default report-card">
   <div class="panel-heading">
     <h3 class="panel-title">
+      <%= render 'shared/completed_icon' %>
       <%= @user == current_user ? 'My' : @user.display_first.possessive %>
       Report Card
     </h3>

@@ -1,6 +1,6 @@
 <% link_title ||= false %>
 <div class="page-header">
-  <h1 class="hidden-print <%= classes_for_course(course) %>">
+  <h1 class="hidden-print">
     <%= render partial: 'courses/icons', locals: { course: course } %>
     <% if link_title %>
       <%= link_to course.title, course %>

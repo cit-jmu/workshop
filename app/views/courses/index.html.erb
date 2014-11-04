@@ -18,7 +18,7 @@
   <%= render 'shared/icon_legend' %>
   <% @courses.each do |course| %>
   <div class="course-row">
-    <h3 class="title <%= classes_for_course(course) %>">
+    <h3 class="title">
       <%= render partial: 'icons', locals: { course: course } %>
       <%= link_to course.title, course %>
     </h3>

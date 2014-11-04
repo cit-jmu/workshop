@@ -1,6 +1,7 @@
 <div class="panel panel-default current-enrollments">
   <div class="panel-heading">
-    <h3 class="panel-title">
+    <h3 class="panel-title enrolled">
+      <%= render 'shared/enrolled_icon' %>
       <%= @user == current_user ? 'My' : @user.display_first.possessive %>
       Enrollments
     </h3>

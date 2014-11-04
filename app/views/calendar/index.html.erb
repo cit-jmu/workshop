@@ -15,7 +15,7 @@
     <% if parts.any? %>
       <ul class="list-unstyled">
       <% parts.each do |part| %>
-        <li class="cal-event <%= classes_for_section(part.section) %>">
+        <li class="cal-event">
           <% if @user %>
             <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
             <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
@@ -54,7 +54,7 @@
   </div>
 
   <% @parts_this_month.each do |part| %>
-  <div class="row cal-list-item <%= classes_for_section(part.section) %>">
+  <div class="row cal-list-item">
     <div class="col-xs-3 col-sm-2 col-md-1">
       <div class="cal-date">
         <div class="month">
