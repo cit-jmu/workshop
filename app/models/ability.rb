@@ -36,7 +36,7 @@ class Ability
         can :view_enrollments, Section, instructor_id: @user.id
         # instructors can update sections they are teaching
         can :update, Section, instructor_id: @user.id
-        # instructors can enroll people in sectins they are teaching
+        # instructors can enroll people in sections they are teaching
         can :enroll_user, Section, instructor_id: @user.id
         # they can also drop folks
         can :drop_user, Section, instructor_id: @user.id
