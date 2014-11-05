@@ -99,13 +99,20 @@ class SectionsControllerTest < ActionController::TestCase
     assert_redirected_to course_path(@section.course)
   end
 
+  test "admins can drop users from course sections" do
+    drop_user :section => sections(:canvas101_carrier),
+              :as => users(:admin)
+  end
+
+  test "instructors can drop users from their course sections" do
+    drop_user :section => sections(:canvas101_carrier),
+              :as => users(:professor_wiseman)
+  end
+
   private
   def enroll_user(options = {})
     section = options[:section]
     user = options[:as]
-    # set HTTP_REFERER since the sections#enroll action uses :back as the
-    # redirect url
-    request.env["HTTP_REFERER"] = course_url(section.course)
     sign_in user
     assert_difference('section.enrollments.count') do
       post :enroll_user, :id => section,
@@ -113,6 +120,22 @@ class SectionsControllerTest < ActionController::TestCase
                          :username => users(:george).username
     end
     assert users(:george).enrolled? :section => section
-    assert_redirected_to course_path(section.course)
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  def drop_user(options = {})
+    section = options[:section]
+    user = options[:as]
+    # set HTTP_REFERER since the sections#enroll action uses :back as the
+    # redirect url
+    request.env["HTTP_REFERER"] = course_url(section.course)
+    sign_in user
+    assert_difference('section.enrollments.count', -1) do
+      delete :drop_user, :id => section,
+                         :course_id => section.course,
+                         :username => users(:george).username
+    end
+    assert_not users(:george).enrolled? :section => section
+    assert_redirected_to course_section_path(section.course, section)
   end
 end

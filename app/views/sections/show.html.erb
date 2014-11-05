@@ -53,6 +53,7 @@
           <th>Email</th>
           <th>Phone</th>
           <th>Department</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -62,6 +63,14 @@
           <td><%= enrollment.user.email %></td>
           <td><%= enrollment.user.phone_number %></td>
           <td><%= enrollment.user.department %></td>
+          <td>
+            <%= form_tag drop_user_course_section_path,
+                         :method => :delete,
+                         :role => 'form' do |f| %>
+              <%= hidden_field_tag :username, enrollment.user.username %>
+              <%= button_tag "Drop user", :type => :submit, :class => 'btn btn-link' %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>

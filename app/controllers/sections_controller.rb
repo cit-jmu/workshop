@@ -54,30 +54,25 @@ class SectionsController < ApplicationController
   end
 
   def enroll_user
-    if params[:username].present?
-      if enroll_user = User.find_or_create(:username => params[:username])
-        if enroll_user.enrolled?(:course => @course)
-          redirect_to [@course, @section],
-            :notice => "<strong>#{enroll_user.display_name}</strong> is already enrolled in <strong>#{@course.title}</strong>"
-        else
-          enrollment = Enrollment.new(:user => enroll_user)
-          @section.enrollments << enrollment
-          if @section.save
-            # TODO send email
-            # FIXME even better - send emails in a Section after_save hook
-            redirect_to :back,
-              :notice => "<strong>#{enroll_user.display_name}</strong> is now enrolled in <strong>#{@course.title}</strong>"
-          else
-            redirect_to [@course, @section],
-              :alert => "There was a problem enrolling the user in this section"
-          end
-        end
-      else
+    redirect_to [@course, @section] unless params[:username].present?
+
+    if enroll_user = User.find_or_create(:username => params[:username])
+      if enroll_user.enrolled?(:course => @course)
         redirect_to [@course, @section],
-          :alert => "Could not find or create <strong>'#{params[:username]}'</strong>"
+          :notice => "<strong>#{enroll_user.display_name}</strong> is already enrolled in <strong>#{@course.title}</strong>"
+      else
+        @section.enrollments << Enrollment.new(:user => enroll_user)
+        if @section.save
+          redirect_to [@course, @section],
+            :notice => "<strong>#{enroll_user.display_name}</strong> is now enrolled in <strong>#{@course.title}</strong>"
+        else
+          redirect_to [@course, @section],
+            :alert => "There was a problem enrolling the user in this section"
+        end
       end
     else
-      redirect_to [@course, @section]
+      redirect_to [@course, @section],
+        :alert => "Could not find or create <strong>'#{params[:username]}'</strong>"
     end
   end
 
@@ -98,6 +93,20 @@ class SectionsController < ApplicationController
   end
 
   def drop_user
+    redirect_to [@course, @section] unless params[:username].present?
+
+    if drop_user = User.where(:username => params[:username]).first
+      if drop_user.enrolled?(:section => @section)
+        drop_user.enrollment_for(:section => @section).destroy
+        redirect_to [@course, @section],
+          :notice => "<strong>#{drop_user.display_name}</strong> has been dropped from <strong>#{@course.title}</strong>"
+      else
+        redirect_to @course, alert: "You can't drop a course unless you are enrolled in it"
+      end
+    else
+      redirect_to [@course, @section],
+        :alert => "Could not find '#{params[:username]}'</strong>"
+    end
   end
 
   private

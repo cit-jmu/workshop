@@ -16,7 +16,7 @@
     <% end %>
   <% end %>
   <% if can? :destroy, @section %>
-    <%= link_to [@course, @section], :method => delete,
+    <%= link_to [@course, @section], :method => :delete,
                 :data => { confirm: 'Are you sure?' },
                 :class => 'btn btn-default' do %>
       <span class="glyphicon glyphicon-trash"></span> Delete

@@ -58,6 +58,30 @@ class AbilityTest < ActiveSupport::TestCase
     end
   end
 
+  test "admins can enroll users in any course section" do
+    ability = Ability.new(users(:admin))
+    assert ability.can?(:enroll_user, @section)
+    assert ability.can?(:enroll_user, sections(:canvas113_rose))
+  end
+
+  test "admins can drop users from any course section" do
+    ability = Ability.new(users(:admin))
+    assert ability.can?(:drop_user, @section)
+    assert ability.can?(:drop_user, sections(:canvas113_rose))
+  end
+
+  test "instructors can enroll users in their course sections" do
+    ability = Ability.new(users(:professor_wiseman))
+    assert ability.can?(:enroll_user, @section)
+    assert ability.cannot?(:enroll_user, sections(:canvas113_rose))
+  end
+
+  test "instructors can drop users from their course sections" do
+    ability = Ability.new(users(:professor_wiseman))
+    assert ability.can?(:drop_user, @section)
+    assert ability.cannot?(:drop_user, sections(:canvas113_rose))
+  end
+
   test "only admins can manage sections" do
     ability = Ability.new(users(:admin))
     assert ability.can?(:create, Section)
