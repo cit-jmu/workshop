@@ -14,6 +14,14 @@ class Section < ActiveRecord::Base
     message: "has already been used for this course"}
   validates :seats, numericality: {only_integer: true, greater_than: 0, allow_blank: true}
 
+  def enrollable_for?(user)
+    case
+    when user.enrolled?(:section => self) then false
+    when user.enrolled?(:course => course) then false
+    when user.instructing?(:section => self) then false
+    end
+  end
+
   def open_seats
     seats - enrollments.count
   end
