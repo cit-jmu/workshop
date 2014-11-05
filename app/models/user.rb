@@ -20,9 +20,8 @@ class User < ActiveRecord::Base
   # callbacks
   after_initialize :setup_user_attributes, if: :new_record?
 
-  def self.find_or_create(username)
-    options = { :username => username }
-    User.where(options).first || User.create!(options)
+  def self.find_or_create(options)
+    User.where(:username => options[:username]).first || User.create!(options)
   rescue ActiveRecord::RecordInvalid
     nil
   end

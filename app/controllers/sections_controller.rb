@@ -57,7 +57,7 @@ class SectionsController < ApplicationController
 
   def enroll_user
     if params[:username].present?
-      if enroll_user = User.find_or_create(params[:username])
+      if enroll_user = User.find_or_create(:username => params[:username])
         if enroll_user.enrolled?(:course => @course)
           redirect_to [@course, @section],
             :notice => "<strong>#{enroll_user.display_name}</strong> is already enrolled in <strong>#{@course.title}</strong>"
@@ -65,8 +65,8 @@ class SectionsController < ApplicationController
           enrollment = Enrollment.new(:user => enroll_user)
           @section.enrollments << enrollment
           if @section.save
-            # send email
-            # TODO even better - send emails in a Section after_save hook
+            # TODO send email
+            # FIXME even better - send emails in a Section after_save hook
             redirect_to :back,
               :notice => "<strong>#{enroll_user.display_name}</strong> is now enrolled in <strong>#{@course.title}</strong>"
           else

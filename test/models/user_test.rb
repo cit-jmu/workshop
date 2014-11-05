@@ -30,4 +30,20 @@ class UserTest < ActiveSupport::TestCase
       "Participant was found in instructors collection"
 
   end
+
+  test "can find or create a user" do
+    # find an existing user
+    user = User.find_or_create(:username => users(:george).username)
+    assert_equal user, users(:george)
+
+    # create a new user
+    user = User.find_or_create(
+      :username => 'jumpy',
+      :first_name => 'Jumpy',
+      :last_name => 'Squirrel',
+      :email => 'jumpy.squirrel@example.org'
+    )
+    assert user
+    assert user.id.present?
+  end
 end
