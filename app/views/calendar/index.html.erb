@@ -19,6 +19,7 @@
           <% if @user %>
             <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
             <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
+            <%= render 'shared/completed_icon' if @user.completed? :section => part.section %>
           <% end %>
           <span class="start-time"><%= part.start_time %></span>
           <%= link_to part.section.course.short_title,
@@ -71,6 +72,7 @@
           <% if @user %>
             <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
             <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
+            <%= render 'shared/completed_icon' if @user.completed? :section => part.section %>
           <% end %>
           <%= link_to part.section.course.title, [part.section.course, part.section] %>
         </p>
