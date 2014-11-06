@@ -9,8 +9,6 @@ body {
 
 .panel {
   .panel-body {
-    padding-bottom: 0;
-
     .panel-body-section {
       margin-left: -15px;
       margin-right: -15px;
@@ -38,6 +36,11 @@ body {
 
       .actions {
         padding-top: 15px;
+        margin-bottom: 0;
+
+        .completed {
+          color: forestgreen;
+        }
       }
     }
   }

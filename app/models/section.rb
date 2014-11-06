@@ -5,9 +5,9 @@ class Section < ActiveRecord::Base
   belongs_to :instructor, class_name: 'User'
 
   accepts_nested_attributes_for :parts, allow_destroy: true,
-                                reject_if: ->(attributes){
-                                  attributes[:location].blank? && attributes[:starts_at].blank?
-                                }
+    reject_if: ->(attributes) {
+      attributes[:location].blank? && attributes[:starts_at].blank?
+    }
 
   validates :seats, :course, :section_number, :instructor, presence: true
   validates :section_number, uniqueness: { scope: :course,
@@ -19,7 +19,15 @@ class Section < ActiveRecord::Base
     when user.enrolled?(:section => self) then false
     when user.enrolled?(:course => course) then false
     when user.instructing?(:section => self) then false
+    else true
     end
+  end
+
+  def enroll_user!(user)
+    # don't enroll if they are already enrolled in the course
+    return nil if user.enrolled?(course: course)
+    self.enrollments << Enrollment.new(user: user)
+    self.save
   end
 
   def open_seats

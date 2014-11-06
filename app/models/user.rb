@@ -66,7 +66,8 @@ class User < ActiveRecord::Base
   end
 
   def enrolled?(options = {})
-    enrollment_for(options).present?
+    enrollment = enrollment_for(options)
+    enrollment.present? && !enrollment.completed?
   end
 
   def enrollment_for(options = {})
@@ -87,6 +88,19 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def completed?(options = {})
+    enrollment = enrollment_for(options)
+    enrollment.present? && enrollment.completed?
+  end
+
+  def current_enrollments
+    enrollments.select { |enrollment| !enrollment.completed? }
+  end
+
+  def completed_enrollments
+    enrollments.select { |enrollment| enrollment.completed? }
   end
 
   protected

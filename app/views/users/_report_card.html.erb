@@ -7,18 +7,22 @@
     </h3>
   </div>
   <div class="panel-body">
-    <strong><%= @user.enrollments.count %></strong>
-    current <%= "enrollment".pluralize(@user.enrollments.count) %>
+    <strong><%= @user.current_enrollments.count %></strong>
+    current <%= "enrollment".pluralize(@user.current_enrollments.count) %>
 
     <br />
 
-    <strong>6</strong> courses completed
+    <strong><%= @user.completed_enrollments.count %></strong>
+    completed  <%= "course".pluralize(@user.completed_enrollments.count) %>
   </div>
 
+  <% if @user.completed_enrollments.any? %>
   <h4 class="text-center">Completed Courses</h4>
   <div class="list-group">
-    <% @courses.each do |course| %>
-    <%= link_to course.title, course, class: 'list-group-item' %>
+    <% @user.completed_enrollments.each do |enrollment| %>
+      <%= link_to enrollment.course.title, enrollment.course,
+          class: 'list-group-item' %>
     <% end %>
   </div>
+  <% end %>
 </div>

@@ -3,13 +3,13 @@
     <%= render 'signed_in_user_actions' %>
   <% else %>
     <%= link_to "Enroll", enroll_course_section_path(@course, @section),
-                :method => :post,
-                :class => 'btn btn-primary' %>
+                method: :post,
+                class: 'btn btn-primary' %>
   <% end %>
 <% end %>
 
-<%= render :partial => 'courses/title_heading',
-           :locals => { :course => @course, :link_title => true } %>
+<%= render partial: 'courses/title_heading',
+           locals: { course: @course, link_title: true } %>
 
 <div class="summary">
   <ul class="list-unstyled">
@@ -34,7 +34,8 @@
   </div>
   <div class="visible-print-block">
   <% @section.parts.each do |part| %>
-    <strong><%= part.date_and_time %></strong> &mdash; <%= part.location %><br />
+    <strong><%= part.date_and_time %></strong> &mdash; <%= part.location %>
+    <br />
   <% end %>
   </div>
 </div>
@@ -53,9 +54,7 @@
           <th>Email</th>
           <th>Phone</th>
           <th>Department</th>
-          <% if can? :drop_user, @section %>
-          <th></th>
-          <% end %>
+          <th class="actions"></th>
         </tr>
       </thead>
       <tbody>
@@ -65,16 +64,41 @@
           <td><%= enrollment.user.email %></td>
           <td><%= enrollment.user.phone_number %></td>
           <td><%= enrollment.user.department %></td>
-          <% if can? :drop_user, @section %>
-          <td>
-            <%= form_tag drop_user_course_section_path,
-                         :method => :delete,
-                         :role => 'form' do |f| %>
-              <%= hidden_field_tag :username, enrollment.user.username %>
-              <%= button_tag "Drop user", :type => :submit, :class => 'btn btn-link' %>
+          <td class="actions">
+          <% if enrollment.completed? %>
+            <span class="mark-completed">
+              <span class="glyphicon glyphicon-ok"></span>
+              <strong>Completed</strong>
+            </span>
+          <% else %>
+            <% if can? :drop_user, @section %>
+              <div class="action-form hidden-print">
+                <%= form_tag drop_user_course_section_path, method: :delete,
+                      role: 'form' do |f| %>
+                  <%= hidden_field_tag :user_id, enrollment.user.id %>
+                  <%= button_tag type: :submit, title: "Drop from section",
+                        data: { toggle: 'tooltip', placement: 'top' },
+                        class: 'btn btn-default btn-sm' do %>
+                    <span class="glyphicon glyphicon-remove drop-user"></span>
+                  <% end %>
+                <% end %>
+              </div>
             <% end %>
-          </td>
+            <% if can? :mark_completed, @section %>
+              <div class="action-form hidden-print">
+                <%= form_tag mark_completed_course_section_path, method: :patch,
+                      role: 'form' do |f| %>
+                  <%= hidden_field_tag :user_id, enrollment.user.id %>
+                  <%= button_tag type: :submit, title: "Mark completed",
+                        data: { toggle: 'tooltip', placement: 'top' },
+                        class: 'btn btn-default btn-sm' do %>
+                    <span class="glyphicon glyphicon-ok mark-completed"></span>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
           <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>

@@ -133,7 +133,7 @@ class SectionsControllerTest < ActionController::TestCase
     assert_difference('section.enrollments.count', -1) do
       delete :drop_user, :id => section,
                          :course_id => section.course,
-                         :username => users(:george).username
+                         :user_id => users(:george).id
     end
     assert_not users(:george).enrolled? :section => section
     assert_redirected_to course_section_path(section.course, section)

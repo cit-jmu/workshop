@@ -1,9 +1,9 @@
 class SectionsController < ApplicationController
   load_and_authorize_resource :course
-  load_and_authorize_resource :section, :through => :course
+  load_and_authorize_resource :section, through: :course
 
   before_action :set_user
-  before_action :setup_form, :only => [:new, :edit]
+  before_action :setup_form, only: [:new, :edit]
 
   respond_to :html, :json
 
@@ -39,13 +39,14 @@ class SectionsController < ApplicationController
 
   def enroll
     if user_signed_in?
-      @section.enrollments << Enrollment.new(user: @user)
-      if @section.save
+      if @section.enroll_user!(@user)
         # redirect to :back since you can enroll in courses from multiple pages
         # makes it cleaner to stay on the page you were on
-        redirect_to :back, notice: "You are now enrolled in <strong>#{@course.title}</strong>"
+        notice = "You are now enrolled in <strong>#{@course.title}</strong>"
+        redirect_to :back, notice: notice
       else
-        redirect_to @course, alert: "There was a problem enrolling you in this course"
+        alert = "There was a problem enrolling you in this course"
+        redirect_to @course, alert: alert
       end
     else
       # TODO setup a redirect to login, then resume enrollment
@@ -56,35 +57,33 @@ class SectionsController < ApplicationController
   def enroll_user
     redirect_to [@course, @section] unless params[:username].present?
 
-    if enroll_user = User.find_or_create(:username => params[:username])
-      if enroll_user.enrolled?(:course => @course)
-        redirect_to [@course, @section],
-          :notice => "<strong>#{enroll_user.display_name}</strong> is already enrolled in <strong>#{@course.title}</strong>"
+    user = User.find_or_create(username: params[:username])
+    if user
+      if @section.enroll_user!(user)
+        notice = "<strong>#{user.display_name}</strong>" \
+                 " is now enrolled in <strong>#{@course.title}</strong>"
+        redirect_to [@course, @section], notice: notice
       else
-        @section.enrollments << Enrollment.new(:user => enroll_user)
-        if @section.save
-          redirect_to [@course, @section],
-            :notice => "<strong>#{enroll_user.display_name}</strong> is now enrolled in <strong>#{@course.title}</strong>"
-        else
-          redirect_to [@course, @section],
-            :alert => "There was a problem enrolling the user in this section"
-        end
+        alert = "There was a problem enrolling" \
+                " <strong>#{user.display_name}</strong>" \
+                " in <strong>#{@course.title}</strong>"
+        redirect_to [@course, @section], notice: alert
       end
     else
-      redirect_to [@course, @section],
-        :alert => "Could not find or create <strong>'#{params[:username]}'</strong>"
+      alert = "Could not find or create <strong>'#{params[:username]}'</strong>"
+      redirect_to [@course, @section], alert: alert
     end
   end
 
   def drop
     if user_signed_in?
-      if @user.enrolled? :section => @section
-        @user.enrollment_for(:section => @section).destroy
+      if @user.enrollment_for(section: @section).destroy
         # redirect to :back since you can drop courses from multiple pages
         # makes it cleaner to stay on the page you were on
-        redirect_to :back, notice: "You have successfully dropped <strong>#{@course.title}</strong>"
+        notice = "You have successfully dropped <strong>#{@course.title}</strong>"
+        redirect_to :back, notice: notice
       else
-        redirect_to @course, alert: "You can't drop a course unless you are enrolled in it"
+        redirect_to @course, alert: "Couldn't drop user from course"
       end
     else
       # TODO setup a redirect to login, then resume enrollment
@@ -93,19 +92,32 @@ class SectionsController < ApplicationController
   end
 
   def drop_user
-    redirect_to [@course, @section] unless params[:username].present?
+    redirect_to [@course, @section] unless params[:user_id].present?
 
-    if drop_user = User.where(:username => params[:username]).first
-      if drop_user.enrolled?(:section => @section)
-        drop_user.enrollment_for(:section => @section).destroy
-        redirect_to [@course, @section],
-          :notice => "<strong>#{drop_user.display_name}</strong> has been dropped from <strong>#{@course.title}</strong>"
-      else
-        redirect_to @course, alert: "You can't drop a course unless you are enrolled in it"
-      end
+    user = User.find(params[:user_id])
+    if user
+      user.enrollment_for(section: @section).destroy
+      notice = "<strong>#{user.display_name}</strong>" \
+               " has been dropped from <strong>#{@course.title}</strong>"
+      redirect_to [@course, @section], notice: notice
     else
-      redirect_to [@course, @section],
-        :alert => "Could not find '#{params[:username]}'</strong>"
+      alert = "Couldn't find that enrollment for this section"
+      redirect_to [@course, @section], alert: alert
+    end
+  end
+
+  def mark_completed
+    redirect_to [@course, @section] unless params[:user_id].present?
+
+    user = User.find(params[:user_id])
+    if user
+      user.enrollment_for(section: @section).completed!
+      notice = "<strong>#{user.display_name}</strong>" \
+               " has completed <strong>#{@course.title}</strong>"
+      redirect_to [@course, @section], notice: notice
+    else
+      alert = "Couldn't find user"
+      redirect_to [@course, @section], alert: alert
     end
   end
 

@@ -18,6 +18,20 @@
   .roster-list {
     td {
       vertical-align: middle;
+      &.actions {
+        .action-form {
+          display: inline;
+          form {
+            display: inline;
+          }
+        }
+        .mark-completed {
+          color: forestgreen;
+        }
+        .drop-user {
+          color: firebrick;
+        }
+      }
     }
   }
 }

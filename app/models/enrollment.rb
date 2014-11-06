@@ -22,4 +22,13 @@ class Enrollment < ActiveRecord::Base
       UserMailer.unenroll_email(enrollment, part).deliver
     end
   end
+
+  def completed!
+    self.completed_at = Time.now unless completed?
+    self.save
+  end
+
+  def completed?
+    completed_at.present?
+  end
 end

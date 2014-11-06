@@ -40,6 +40,8 @@ class Ability
         can :enroll_user, Section, instructor_id: @user.id
         # they can also drop folks
         can :drop_user, Section, instructor_id: @user.id
+        # and mark folks as having completed a section
+        can :mark_completed, Section, instructor_id: @user.id
       end
     end
 

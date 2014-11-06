@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         post 'enroll_user'
         delete 'drop'
         delete 'drop_user'
+        patch 'mark_completed'
       end
     end
   end
