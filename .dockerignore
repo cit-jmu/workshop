@@ -1,0 +1,7 @@
+/.git
+/log/*.log
+/tmp
+/coverage
+/public/assets/**
+/config/application.yml
+/coverage
