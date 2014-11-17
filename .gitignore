@@ -27,3 +27,6 @@
 
 # ignore code climate test coverate stats
 /coverage
+
+# Ignore precompiled assets
+/public/assets/**
