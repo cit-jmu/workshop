@@ -18,8 +18,6 @@ COPY Gemfile.lock ${app_dir}
 RUN bundle install
 
 COPY . ${app_dir}
-RUN rm ${app_dir}config/application.yml
-RUN rm -rf ${app_dir}public/assets
 #RUN bin/rake assets:precompile
 
 CMD ["bin/puma", "-b unix:///tmp/sockets/workshop.sock"]
