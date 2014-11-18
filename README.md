@@ -38,10 +38,10 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 3. Install Ruby
 
-   This project currently uses Ruby version 2.1.3, so we will use `rbenv` to install it (if you already have this version of ruby installed with rbenv, you can safely skip this step).
+   This project currently uses Ruby version 2.1.5, so we will use `rbenv` to install it (if you already have this version of ruby installed with rbenv, you can safely skip this step).
 
    ~~~ sh
-   $ rbenv install 2.1.3
+   $ rbenv install 2.1.5
    ~~~
 
    If you already had `rbenv` installed, then you will need to rehash after installing a new ruby version
