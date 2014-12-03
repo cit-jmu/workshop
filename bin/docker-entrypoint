@@ -2,6 +2,5 @@
 
 set -e
 
-#bundle exec rake db:create db:migrate
 bundle exec rake assets:precompile
-bundle exec puma -b unix:///var/www/sockets/workshop/puma.sock -e ${RAILS_ENV}
+bundle exec puma -e ${RAILS_ENV}

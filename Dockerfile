@@ -3,15 +3,13 @@ MAINTAINER Leighton Shank <shanklt@jmu.edu>
 
 ENV APP_NAME workshop
 ENV APP_DIR /var/www/apps/${APP_NAME}/
-ENV SOCK_DIR /var/www/sockets/${APP_NAME}/
 
 VOLUME ${APP_DIR}
-VOLUME ${SOCK_DIR}
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-RUN mkdir -p ${APP_DIR} ${SOCK_DIR}
+RUN mkdir -p ${APP_DIR}
 
 WORKDIR ${APP_DIR}
 
@@ -23,3 +21,4 @@ COPY . ${APP_DIR}
 
 ENTRYPOINT ["bin/docker-entrypoint"]
 
+EXPOSE 9292
