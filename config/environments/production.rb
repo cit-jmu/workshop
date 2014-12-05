@@ -75,4 +75,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # ActionMailer settings
+  config.action_mailer.default_url_options = { :host => 'workshop.cit.jmu.edu' }
+  config.action_mailer.smtp_settings = {
+    address: ENV['mail_server'],
+    port: ENV['mail_port'],
+    domain: ENV['mail_domain']
+  }
 end
