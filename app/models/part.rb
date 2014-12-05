@@ -8,7 +8,7 @@ class Part < ActiveRecord::Base
   validates :duration, numericality: {only_integer: true, greater_than: 0}
 
   def ends_at
-    Time.at(starts_at + (duration * 60))
+    Time.zone.at(starts_at + (duration * 60))
   end
 
   def date_and_time

@@ -24,7 +24,7 @@ class Enrollment < ActiveRecord::Base
   end
 
   def completed!
-    self.completed_at = Time.now unless completed?
+    self.completed_at = Time.current unless completed?
     self.save
   end
 
