@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :courses do
+    get 'cit_feed', on: :collection
     resources :sections do
       member do
         post 'enroll'

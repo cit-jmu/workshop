@@ -9,6 +9,14 @@ class CoursesController < ApplicationController
     respond_with(@courses)
   end
 
+  def cit_feed
+    @courses = Course.order(:title)
+    # using respond_to to only expose the formats we need
+    respond_to do |format|
+      format.json { render }
+    end
+  end
+
   def show
     respond_with(@course)
   end
@@ -37,10 +45,12 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet
     def course_params
-      params.require(:course).permit(:title, :summary, :description,
-                                     :instructor, :course_number, :short_title)
+      params.require(:course).permit(
+        :title, :summary, :description, :instructor, :course_number,
+        :short_title
+      )
     end
 
     def set_user

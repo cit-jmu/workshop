@@ -18,6 +18,7 @@ class Ability
     def course_permissions
       # everyone can see courses
       can :read, Course
+      can :cit_feed, Course
 
       if @user.instructor?
         # instructors can update courses they are teaching
