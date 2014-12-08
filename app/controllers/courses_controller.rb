@@ -13,9 +13,10 @@ class CoursesController < ApplicationController
     @courses = Course.order(:title)
     # using respond_to to only expose the formats we need
     respond_to do |format|
-      format.json { render }
-      format.atom { render }
-      format.rss  { render }
+      format.json { render } # cit_feed.json.jbuilder
+      format.atom { render } # cit_feed.atom.builder
+      format.rss  { render } # cit_feed.rss.builder
+      format.csv  { render } # cit_feed.csv.ruby
     end
   end
 
