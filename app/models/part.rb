@@ -12,7 +12,7 @@ class Part < ActiveRecord::Base
   end
 
   def date_and_time
-    "#{starts_at.strftime("%-m/%-d/%Y %l:%M%P")} - #{ends_at.strftime("%l:%M%P")}"
+    "#{starts_at.strftime("%-m/%-d/%Y %-l:%M%P")} - #{ends_at.strftime("%-l:%M%P")}"
   end
 
   def start_time

@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   authenticated :user do
     devise_scope :user do
-      root :to => 'users#show', :as => 'dashboard'
-      get 'profile', :as => 'profile', :to => 'users#edit'
+      root to: 'users#show', as: 'dashboard'
+      get 'profile', as: 'profile', to: 'users#edit'
     end
   end
 
@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   resources :users
 
   get 'catalog/index'
-  get 'calendar', :to => 'calendar#index'
+  get 'calendar', to: 'calendar#index'
+
+  # routes for feed integration to CIT website
+  get 'feed', to: 'feed#index'
+  get 'feed/upcoming'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
