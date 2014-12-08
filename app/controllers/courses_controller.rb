@@ -14,6 +14,8 @@ class CoursesController < ApplicationController
     # using respond_to to only expose the formats we need
     respond_to do |format|
       format.json { render }
+      format.atom { render }
+      format.rss  { render }
     end
   end
 
