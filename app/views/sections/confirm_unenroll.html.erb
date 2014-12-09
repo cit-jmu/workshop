@@ -1,0 +1,14 @@
+<%= render partial: 'courses/title_heading',
+           locals: { course: @course, link_title: false } %>
+
+<h3>
+  Are you sure you want to drop the course, <em><%= @course.title %></em>?
+</h3>
+
+<p style="margin-top:25px">
+<%= link_to "Yes, I want to drop this course",
+            drop_course_section_path(@course, @section),
+            method: :delete, class: "btn btn-default" %>
+<%= link_to "Nevermind", course_section_path(@course, @section),
+            class: "btn btn-link" %>
+</p>

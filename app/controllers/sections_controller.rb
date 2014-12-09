@@ -40,10 +40,8 @@ class SectionsController < ApplicationController
   def enroll
     if user_signed_in?
       if @section.enroll_user!(@user)
-        # redirect to :back since you can enroll in courses from multiple pages
-        # makes it cleaner to stay on the page you were on
         notice = "You are now enrolled in <strong>#{@course.title}</strong>"
-        redirect_to :back, notice: notice
+        redirect_to [@course, @section], notice: notice
       else
         alert = "There was a problem enrolling you in this course"
         redirect_to @course, alert: alert
@@ -75,13 +73,25 @@ class SectionsController < ApplicationController
     end
   end
 
+  def confirm_unenroll
+    if user_signed_in?
+      if @user.enrolled?(section: @section)
+        respond_with(@course, @section)
+      else
+        redirect_to @course,
+          alert: "You must be enrolled in a course to unenroll!"
+      end
+    else
+      # TODO setup a redirect to login, then resume enrollment
+      redirect_to @course, alert: "You must be logged in to drop a course"
+    end
+  end
+
   def drop
     if user_signed_in?
       if @user.enrollment_for(section: @section).destroy
-        # redirect to :back since you can drop courses from multiple pages
-        # makes it cleaner to stay on the page you were on
         notice = "You have successfully dropped <strong>#{@course.title}</strong>"
-        redirect_to :back, notice: notice
+        redirect_to [@course, @section], notice: notice
       else
         redirect_to @course, alert: "Couldn't drop user from course"
       end

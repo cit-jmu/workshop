@@ -68,14 +68,11 @@ class SectionsControllerTest < ActionController::TestCase
 
   test "should enroll in course sections" do
     section = sections(:canvas113_rose)
-    # set HTTP_REFERER since the sections#enroll action uses :back as the
-    # redirect url
-    request.env["HTTP_REFERER"] = course_url(section.course)
     sign_in users(:george)
     assert_difference('section.enrollments.count') do
       post :enroll, id: section, course_id: section.course
     end
-    assert_redirected_to course_path(section.course)
+    assert_redirected_to course_section_path(section.course, section)
   end
 
   test "admins can enroll users in course sections" do
@@ -89,14 +86,11 @@ class SectionsControllerTest < ActionController::TestCase
   end
 
   test "should drop course sections" do
-    # set HTTP_REFERER since the sections#drop action uses :back as the
-    # redirect url
-    request.env["HTTP_REFERER"] = course_url(@section.course)
     sign_in users(:bill)
     assert_difference('Enrollment.count', -1) do
       delete :drop, id: @section, course_id: @section.course
     end
-    assert_redirected_to course_path(@section.course)
+    assert_redirected_to course_section_path(@section.course, @section)
   end
 
   test "admins can drop users from course sections" do
