@@ -30,6 +30,10 @@ class Section < ActiveRecord::Base
     self.save
   end
 
+  def is_full?
+    open_seats <= 0
+  end
+
   def open_seats
     seats - enrollments.count
   end

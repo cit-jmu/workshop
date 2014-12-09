@@ -39,7 +39,10 @@ class SectionsController < ApplicationController
 
   def enroll
     if user_signed_in?
-      if @section.enroll_user!(@user)
+      if @section.is_full?
+        alert = "Sorry, there are no seats available for that section."
+        redirect_to @course, alert: alert
+      elsif @section.enroll_user!(@user)
         notice = "You are now enrolled in <strong>#{@course.title}</strong>"
         redirect_to [@course, @section], notice: notice
       else
@@ -57,7 +60,10 @@ class SectionsController < ApplicationController
 
     user = User.find_or_create(username: params[:username])
     if user
-      if @section.enroll_user!(user)
+      if @section.is_full?
+        alert = "Sorry, there are no seats available in this section."
+        redirect_to [@course, @section], alert: alert
+      elsif @section.enroll_user!(user)
         notice = "<strong>#{user.display_name}</strong>" \
                  " is now enrolled in <strong>#{@course.title}</strong>"
         redirect_to [@course, @section], notice: notice
