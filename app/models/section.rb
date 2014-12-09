@@ -1,6 +1,6 @@
 class Section < ActiveRecord::Base
-  has_many :enrollments
-  has_many :parts
+  has_many :enrollments, dependent: :destroy
+  has_many :parts, dependent: :destroy
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
 
