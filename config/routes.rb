@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       member do
         post 'enroll'
         post 'enroll_user'
+        get 'confirm_unenroll'
         delete 'drop'
         delete 'drop_user'
         patch 'mark_completed'

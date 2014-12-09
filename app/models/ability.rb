@@ -30,6 +30,7 @@ class Ability
       can :read, Section
       can :enroll, Section
       can :drop, Section
+      can :confirm_unenroll, Section
 
       if @user.instructor?
         # instructors can view rosters for sections they are teaching
