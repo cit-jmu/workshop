@@ -81,3 +81,4 @@ group :development do
   gem 'guard-minitest'
 end
 
+gem 'newrelic_rpm'
