@@ -52,7 +52,7 @@ class UserMailer < ActionMailer::Base
       e.description = @course.summary
       e.location = @part.location
       e.status = "CONFIRMED"
-      e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
+      e.organizer = Icalendar::Values::CalAddress.new("mailto:cit@jmu.edu",
                       cn: "Center for Instructional Technology")
       e.attendee = Icalendar::Values::CalAddress.new("mailto:#{@user.email}",
                      cn: @user.full_name,
@@ -80,7 +80,7 @@ class UserMailer < ActionMailer::Base
       e.dtend = @part.ends_at.strftime("%Y%m%dT%H%M%S")
       e.location = @part.location
       e.status = "CANCELLED"
-      e.organizer = Icalendar::Values::CalAddress.new("mailto:citsupport@jmu.edu",
+      e.organizer = Icalendar::Values::CalAddress.new("mailto:cit@jmu.edu",
                       cn: "Center for Instructional Technology")
       e.attendee = Icalendar::Values::CalAddress.new("mailto:#{@user.email}",
                      cn: @user.full_name,
