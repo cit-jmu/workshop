@@ -43,7 +43,7 @@ class Section < ActiveRecord::Base
     parts.inject(0) { |duration, part| duration + part.duration }
   end
 
-  def start_date
+  def starts_at
     parts.order(:starts_at).first.starts_at
   end
 end

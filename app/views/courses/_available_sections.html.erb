@@ -14,8 +14,8 @@
     </h3>
   </div>
   <div class="panel-body">
-  <% if @course.sections.any? %>
-    <%= render @course.sections %>
+  <% if @available_sections.any? %>
+    <%= render @available_sections %>
   <% else %>
     <p>There aren't any sections available at this time.  Please check back later.</p>
   <% end %>
