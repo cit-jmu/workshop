@@ -15,6 +15,19 @@ class Course < ActiveRecord::Base
     sections.first.duration
   end
 
+  def duration_in_words
+    if duration >= 60
+      hours = duration / 60
+      minutes = duration % 60
+      case
+      when minutes > 0 then "#{hours}h #{minutes}m"
+      else "#{hours}h"
+      end
+    else
+      "#{duration}m"
+    end
+  end
+
 
   def multi_session?
     sections.each do |section|
