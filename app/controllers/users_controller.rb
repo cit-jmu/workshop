@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @users = User.order(:username)
+    @users = User.order(:last_name)
     respond_with(@users)
   end
 
