@@ -1,2 +1,28 @@
-<h1>Stats#enrollments</h1>
-<p>Find me in app/views/stats/enrollments.html.erb</p>
+<div class="page-header">
+  <h1>Enrollment Statistics</h1>
+</div>
+
+<% @courses.each do |course| %>
+<% next unless course.sections.any? %>
+<h4 class="course-title"><%= link_to course.title, course %></h4>
+  <% course.sections.order(:section_number).each do |section| %>
+  <div>
+    <div class="pull-left">
+      <strong><%= link_to section.section_number, [course, section] %></strong>
+      <%= section.enrollments.count %>/<%= section.seats %> enrolled
+    </div>
+    <div class="open-seats-bar">
+      <div class="progress">
+        <div class="progress-bar<%= progress_bar_context(section) %>"
+          role="progressbar"
+          aria-valuenow="<%= section.enrollments.count %>"
+          aria-valuemin="0"
+          aria-valuemax="<%= section.seats %>"
+          style="width: <%= progress_bar_percent(section) %>;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+<% end %>

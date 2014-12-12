@@ -20,6 +20,10 @@
         <% if can? :manage, User %>
           <li><%= link_to 'Users', users_path %></li>
         <% end %>
+        <% if can? :view_statistics, Enrollment %>
+          <li><%= link_to 'Stats', stats_enrollments_path %></li>
+        <% end %>
+
       </ul>
       <%= render 'layouts/user_widget' %>
     </div>
