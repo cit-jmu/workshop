@@ -21,6 +21,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Role</th>
       <th>Username</th>
       <th>Employee ID</th>
       <th>Current</th>
@@ -32,6 +33,7 @@
   <% @users.each do |user| %>
     <tr>
       <td><%= link_to user.display_name, user %></td>
+      <td><%= user.role %></td>
       <td><%= user.username %></td>
       <td><%= user.employee_id %></td>
       <td><%= user.current_enrollments.count %></td>
