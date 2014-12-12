@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # devise modules
   devise :ldap_authenticatable, :database_authenticatable, :rememberable, :trackable
 
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
   has_many :sections, foreign_key: 'instructor_id'
   has_many :courses, -> { distinct }, through: :sections
 

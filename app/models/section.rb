@@ -1,6 +1,6 @@
 class Section < ActiveRecord::Base
-  has_many :enrollments
-  has_many :parts
+  has_many :enrollments, dependent: :destroy
+  has_many :parts, dependent: :destroy
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
 
@@ -28,6 +28,10 @@ class Section < ActiveRecord::Base
     return nil if user.enrolled?(course: course)
     self.enrollments << Enrollment.new(user: user)
     self.save
+  end
+
+  def is_full?
+    open_seats <= 0
   end
 
   def open_seats
