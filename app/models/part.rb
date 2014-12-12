@@ -12,7 +12,16 @@ class Part < ActiveRecord::Base
   end
 
   def date_and_time
-    "#{starts_at.strftime("%-m/%-d/%Y %-l:%M%P")} - #{ends_at.strftime("%-l:%M%P")}"
+    # There's an edge case where occassionally there may be a section part that
+    # doesn't have a specific time, only a date.  The indicator for that will
+    # be a start time of 12:00am.  We'll handle that case and only output the
+    # date
+    # TODO: There's probably a better way to do this, but this will work for now
+    if start_time == '12:00am'
+      "#{starts_at.strftime("%-m/%-d/%Y")}"
+    else
+      "#{starts_at.strftime("%-m/%-d/%Y %-l:%M%P")} - #{ends_at.strftime("%-l:%M%P")}"
+    end
   end
 
   def start_time
