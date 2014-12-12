@@ -6,6 +6,8 @@ class CourseTest < ActiveSupport::TestCase
     assert course.invalid?
     assert course.errors[:course_number].any?
     assert course.errors[:title].any?
+    assert course.errors[:short_title].any?
+    assert course.errors[:summary].any?
     assert course.errors[:description].any?
   end
 
@@ -40,5 +42,29 @@ class CourseTest < ActiveSupport::TestCase
   test "duration_in_words makes long durations readable" do
     course = courses(:canvas113)
     assert_equal "1h 30m", course.duration_in_words
+  end
+
+  test "short_title is set to title value if not present" do
+    course = Course.new(
+      title: 'Testing w/Rails 101',
+      course_number: 'TEST001',
+      description: 'Just a test course :)',
+      summary: 'Test with Rails'
+    )
+    course.save
+    assert_equal course.title, course.short_title
+  end
+
+  test "short_title is 30 chars max" do
+    course = Course.new(
+      title: 'Testing w/Rails 101',
+      short_title: 'This title is not short and should fail validation',
+      course_number: 'TEST001',
+      description: 'Just a test course :)',
+      summary: 'Test with Rails'
+    )
+    assert course.invalid?
+    assert_equal ["is too long (maximum is 30 characters)"],
+                 course.errors[:short_title]
   end
 end

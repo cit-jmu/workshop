@@ -6,6 +6,7 @@ class CoursesControllerTest < ActionController::TestCase
     @update = {
       title: "Teaching Monkeys to Sing",
       course_number: 'CITTEST',
+      summary: "Monkeys can sing too",
       description: "Singing monkeys are the awesome!",
       duration: 30
     }
