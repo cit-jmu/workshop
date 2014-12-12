@@ -2,8 +2,12 @@ class Course < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :enrollments, through: :sections
 
-  validates :title, :description, :course_number, presence: true
+  validates :title, :short_title, :description, :course_number,
+            :summary, presence: true
   validates :title, :course_number, uniqueness: true
+  validates :short_title, length: { maximum: 30 }
+
+  before_validation :ensure_course_has_short_title
 
   def description_html
     markdown.render(description).html_safe
@@ -26,6 +30,13 @@ class Course < ActiveRecord::Base
   def instructors
     sections.collect { |section| section.instructor.display_name }.uniq
   end
+
+
+  protected
+    def ensure_course_has_short_title
+      self.short_title = title if short_title.blank?
+    end
+
 
   private
     def markdown
