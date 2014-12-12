@@ -11,7 +11,7 @@ class PartTest < ActiveSupport::TestCase
   test "duration must be greater than zero" do
     part = Part.new(
       :location => "CIT Room7",
-      :starts_at => Time.now,
+      :starts_at => Time.current,
       :section => sections(:canvas101_carrier)
     )
 
@@ -30,7 +30,7 @@ class PartTest < ActiveSupport::TestCase
   test "duration must be an integer" do
     part = Part.new(
       :location => "CIT Room7",
-      :starts_at => Time.now,
+      :starts_at => Time.current,
       :section => sections(:canvas101_carrier)
     )
 
@@ -45,12 +45,23 @@ class PartTest < ActiveSupport::TestCase
   test "ends_at time is starts_at time plus duration" do
     part = Part.new(
       :location => 'CIT Room 7',
-      :starts_at => Time.now,
+      :starts_at => Time.current,
       :duration => 90,
       :section => sections(:canvas101_carrier)
     )
 
-    assert_equal Time.at(part.starts_at + (part.duration * 60)),
+    assert_equal Time.zone.at(part.starts_at + (part.duration * 60)),
                  part.ends_at
+  end
+
+  test "when start time is midnight only display date" do
+    part = Part.new(
+      :location => 'CIT Room 7',
+      :starts_at => Time.current.at_beginning_of_day,
+      :duration => 90,
+      :section => sections(:canvas101_carrier)
+    )
+
+    assert_equal "#{part.starts_at.strftime("%-m/%-d/%Y")}", part.date_and_time
   end
 end
