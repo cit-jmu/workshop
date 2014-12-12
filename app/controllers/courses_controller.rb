@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @available_sections = @course.sections.sort_by { |s| s.starts_at }
     respond_with(@course)
   end
 
