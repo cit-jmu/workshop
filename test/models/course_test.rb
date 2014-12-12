@@ -39,6 +39,11 @@ class CourseTest < ActiveSupport::TestCase
     assert_equal course.sections.first.duration, course.duration
   end
 
+  test "duration_in_words makes long durations readable" do
+    course = courses(:canvas113)
+    assert_equal "1h 30m", course.duration_in_words
+  end
+
   test "short_title is set to title value if not present" do
     course = Course.new(
       title: 'Testing w/Rails 101',

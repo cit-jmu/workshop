@@ -31,7 +31,7 @@
       <ul class="list-inline">
         <% if course.duration %>
         <li>
-          <strong>Duration:</strong> <%= course.duration %> minutes
+          <strong>Duration:</strong> <%= course.duration_in_words %>
         </li>
         <% end %>
         <% if course.multi_session? %>
