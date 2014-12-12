@@ -22,6 +22,9 @@
   .table {
     tbody tr td {
       vertical-align: middle;
+      ul {
+        margin-bottom: 0;
+      }
     }
   }
 }
