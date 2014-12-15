@@ -5,16 +5,19 @@ set -e
 case "$1" in
   serve)
     echo "Starting application server"
-    exec "bin/puma -e ${RAILS_ENV}"
+    exec bin/puma -e ${RAILS_ENV}
     ;;
   build)
     echo "Compiling static assets"
-    exec "bin/rake assets:precompile"
+    exec bin/rake assets:precompile
     ;;
   migrate)
     echo "Applying database migrations"
-    exec "bin/rake db:migrate"
+    exec bin/rake db:migrate
     ;;
+  console)
+    echo "Starting console"
+    exec bin/rails console
   *)
     echo "Running command: $@"
     exec "$@"
