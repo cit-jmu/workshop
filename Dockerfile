@@ -22,3 +22,4 @@ COPY . ${APP_DIR}
 ENTRYPOINT ["bin/docker-entrypoint"]
 
 EXPOSE 9292
+CMD ["serve"]
