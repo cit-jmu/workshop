@@ -18,6 +18,7 @@ case "$1" in
   console)
     echo "Starting console"
     exec bin/rails console
+    ;;
   *)
     echo "Running command: $@"
     exec "$@"
