@@ -1,4 +1,3 @@
-<% if user_signed_in? %>
 <%= render 'page_title' %>
 
 <div class="row">
@@ -12,8 +11,3 @@
     <%= render "report_card" %>
   </div>
 </div>
-<% else %>
-<p>
-  You are not logged in.  Please <%= link_to "login", new_user_session_path %>.
-</p>
-<% end %>

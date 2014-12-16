@@ -1,4 +1,7 @@
 class SectionsController < ApplicationController
+  before_action :store_custom_after_sign_in_location!, only: [:enroll]
+  before_action :authenticate_user!, except: [:index, :show]
+
   load_and_authorize_resource :course
   load_and_authorize_resource :section, through: :course
 
@@ -39,20 +42,15 @@ class SectionsController < ApplicationController
   end
 
   def enroll
-    if user_signed_in?
-      if @section.is_full?
-        alert = "Sorry, there are no seats available for that section."
-        redirect_to @course, alert: alert
-      elsif @section.enroll_user!(@user)
-        notice = "You are now enrolled in <strong>#{@course.title}</strong>"
-        redirect_to [@course, @section], notice: notice
-      else
-        alert = "There was a problem enrolling you in this course"
-        redirect_to @course, alert: alert
-      end
+    if @section.is_full?
+      alert = "Sorry, there are no seats available for that section."
+      redirect_to @course, alert: alert
+    elsif @section.enroll_user!(@user)
+      notice = "You are now enrolled in <strong>#{@course.title}</strong>"
+      redirect_to @course, notice: notice
     else
-      # TODO setup a redirect to login, then resume enrollment
-      redirect_to @course, alert: "You must be logged in to enroll in courses"
+      alert = "There was a problem enrolling you in this course"
+      redirect_to @course, alert: alert
     end
   end
 
@@ -81,30 +79,20 @@ class SectionsController < ApplicationController
   end
 
   def confirm_unenroll
-    if user_signed_in?
-      if @user.enrolled?(section: @section)
-        respond_with(@course, @section)
-      else
-        redirect_to @course,
-          alert: "You must be enrolled in a course to unenroll!"
-      end
+    if @user.enrolled?(section: @section)
+      respond_with(@course, @section)
     else
-      # TODO setup a redirect to login, then resume enrollment
-      redirect_to @course, alert: "You must be logged in to drop a course"
+      redirect_to @course,
+        alert: "You must be enrolled in a course to unenroll!"
     end
   end
 
   def drop
-    if user_signed_in?
-      if @user.enrollment_for(section: @section).destroy
-        notice = "You have successfully dropped <strong>#{@course.title}</strong>"
-        redirect_to [@course, @section], notice: notice
-      else
-        redirect_to @course, alert: "Couldn't drop user from course"
-      end
+    if @user.enrollment_for(section: @section).destroy
+      notice = "You have successfully dropped <strong>#{@course.title}</strong>"
+      redirect_to @course, notice: notice
     else
-      # TODO setup a redirect to login, then resume enrollment
-      redirect_to @course, alert: "You must be logged in to drop a course"
+      redirect_to @course, alert: "Couldn't drop user from course"
     end
   end
 
@@ -138,13 +126,19 @@ class SectionsController < ApplicationController
     end
   end
 
+
   private
+
+
     def section_params
-      params.require(:section).permit(:seats, :section_number, :instructor_id,
-                                      parts_attributes: [
-                                        :id, :location, :starts_at, :_destroy,
-                                        :duration
-                                      ])
+      params.require(:section).permit(
+        :seats,
+        :section_number,
+        :instructor_id,
+        parts_attributes: [
+          :id, :location, :starts_at, :_destroy, :duration
+        ]
+      )
     end
 
     def set_user
@@ -154,5 +148,21 @@ class SectionsController < ApplicationController
     def setup_form
       @instructors = User.instructors
       @section.parts.build if @section.parts.empty?
+    end
+
+    # This method makes up for the fact that the Devise authenticate_user!
+    # helper will only store the location to redirect to after sign in for
+    # GET requests.  We want a behavior where someone who isn't signed in
+    # who clicks on the [Enroll] button for a course to be directed to the
+    # login page, and then redirected back to a page where they can enroll
+    # in a section.  authenticate_user! doesn't do this because the enroll
+    # action responds to POST requests only.  This little jobby will store
+    # the location to the section#show page for a section if the user isn't
+    # signed in.
+    def store_custom_after_sign_in_location!
+      return if user_signed_in?
+      course = Course.find(params[:course_id])
+      section = Section.find(params[:id])
+      store_location_for :user, course_section_path(course, section)
     end
 end
