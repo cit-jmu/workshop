@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Waiting List</h3>
+  </div>
+  <% if @section.enrollments.waiting.any? %>
+  <div class="table-responsive">
+    <table class="table table-striped roster-list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Employee ID</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Department</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @section.enrollments.waiting.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.user.display_name %></td>
+          <td><%= enrollment.user.employee_id %></td>
+          <td><%= enrollment.user.email %></td>
+          <td><%= enrollment.user.phone_number %></td>
+          <td><%= enrollment.user.department %></td>
+          <td class="actions">
+          <% if can? :drop_user, @section %>
+            <div class="action-form hidden-print">
+              <%= form_tag drop_user_course_section_path, method: :delete,
+                    role: 'form' do |f| %>
+                <%= hidden_field_tag :user_id, enrollment.user.id %>
+                <%= button_tag type: :submit, title: "Drop from section",
+                      data: { toggle: 'tooltip', placement: 'top' },
+                      class: 'btn btn-default btn-sm' do %>
+                  <span class="glyphicon glyphicon-remove drop-user"></span>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% else %>
+  <div class="panel-body">
+    <p>There's no one in waiting in line!</p>
+  </div>
+  <% end %>
+</div>

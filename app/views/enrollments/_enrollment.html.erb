@@ -1,6 +1,9 @@
 <div class="panel-body-section enrollment">
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title course-title">
+      <% if enrollment.waiting? %>
+        <span class="label label-default">Waiting</span>
+      <% end %>
       <%= link_to enrollment.course.title, course_path(enrollment.course) %>
     </h4>
     <p>
@@ -23,7 +26,15 @@
   <% end %>
 
   <div class="actions">
-    <%= link_to 'Drop course', drop_course_section_path(enrollment.course, enrollment.section),
-        method: :delete, class: 'btn btn-primary btn-default' %>
+    <%
+    link_text = if enrollment.waiting?
+      'Stop waiting'
+    else
+      'Drop course'
+    end
+    %>
+    <%= link_to link_text,
+                drop_course_section_path(enrollment.course, enrollment.section),
+                method: :delete, class: 'btn btn-primary btn-default' %>
   </div>
 </div>

@@ -71,13 +71,21 @@ class User < ActiveRecord::Base
   end
 
   def enrollment_for(options = {})
+    # set default scope to active
+    options = options.reverse_merge(scope: :active)
+    enrollments_scope = enrollments.send(options[:scope])
     if options[:course]
-      enrollments.select { |enrollment| enrollment.course == options[:course] }.first
+      found = enrollments_scope.select do |enrollment|
+        enrollment.course == options[:course]
+      end
     elsif options[:section]
-      enrollments.select { |enrollment| enrollment.section == options[:section] }.first
+      found = enrollments_scope.select do |enrollment|
+        enrollment.section == options[:section]
+      end
     else
-      nil
+      found = Enrollment.none
     end
+    found.first
   end
 
   def instructing?(options = {})
