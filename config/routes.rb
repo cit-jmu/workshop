@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   authenticated :user do
     devise_scope :user do
-      root to: 'users#show', as: 'dashboard'
+      root to: 'users#show', as: 'user_root'
       get 'profile', as: 'profile', to: 'users#edit'
     end
   end

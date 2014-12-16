@@ -72,7 +72,7 @@ class SectionsControllerTest < ActionController::TestCase
     assert_difference('section.enrollments.count') do
       post :enroll, id: section, course_id: section.course
     end
-    assert_redirected_to course_section_path(section.course, section)
+    assert_redirected_to course_path(section.course)
   end
 
   test "admins can enroll users in course sections" do
@@ -90,7 +90,7 @@ class SectionsControllerTest < ActionController::TestCase
     assert_difference('Enrollment.count', -1) do
       delete :drop, id: @section, course_id: @section.course
     end
-    assert_redirected_to course_section_path(@section.course, @section)
+    assert_redirected_to course_path(@section.course)
   end
 
   test "admins can drop users from course sections" do

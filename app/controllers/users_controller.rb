@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   load_and_authorize_resource
 
   respond_to :html, :json
+
 
   def index
     @users = User.order(:last_name)

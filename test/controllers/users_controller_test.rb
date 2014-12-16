@@ -11,9 +11,9 @@ class UsersControllerTest < ActionController::TestCase
     }
   end
 
-  test "guest should get profile" do
+  test "guest should not get profile" do
     get :show
-    assert_response :success
+    assert_response :redirect
   end
   test "participant should get profile" do
     sign_in users(:participant)

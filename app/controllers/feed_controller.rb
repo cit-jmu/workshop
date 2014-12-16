@@ -1,5 +1,6 @@
 class FeedController < ApplicationController
   respond_to :json, :atom, :rss, :csv
+
   def index
     @courses = Course.order(:title)
     respond_with @courses
