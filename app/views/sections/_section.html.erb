@@ -6,7 +6,7 @@
       <% end %>
       <%= link_to "Section #{section.section_number}", course_section_path(section.course, section) %>
       <% if section.is_full? %>
-        <span class="label label-danger">Full</span>
+        <span class="label label-danger">Section full</span>
       <% else %>
         <span class="label label-success"><%= section.open_seats %> open seats</span>
       <% end %>
@@ -48,8 +48,8 @@
     <% else %>
       <% case %>
       <% when section.is_full? %>
-        <%= link_to 'Wait List', wait_list_course_section_path(section.course, section),
-            method: :post, class: 'btn btn-warning' %>
+        <%= link_to 'Add to waiting list', wait_list_course_section_path(section.course, section),
+            method: :post, class: 'btn btn-primary' %>
       <% else %>
         <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
             method: :post, class: 'btn btn-primary' %>

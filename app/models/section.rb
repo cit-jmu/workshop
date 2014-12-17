@@ -16,8 +16,8 @@ class Section < ActiveRecord::Base
 
   def enrollable_for?(user)
     case
-    when user.enrolled?(:section => self) then false
-    when user.enrolled?(:course => course) then false
+    when user.enrolled?(:section => self, scope: :all) then false
+    when user.enrolled?(:course => course, scope: :all) then false
     when user.instructing?(:section => self) then false
     else true
     end
