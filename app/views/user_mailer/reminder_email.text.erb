@@ -1,0 +1,18 @@
+Hi, <%= @user.display_first %>!
+
+This is a reminder that you are enrolled in the CIT Workshop
+"<%= @course.title %>" tomorrow!
+
+To unenroll from this course, please copy and paste this link into your
+browser:
+
+<%= confirm_unenroll_course_section_url(@course, @section) %>
+
+======================================================================
+<%= @course.title %>
+Duration: <%= @course.duration %>
+<% @section.parts.each do |part| %>
+  - <%= part.date_and_time %> (<%= part.location %>)
+<% end %>
+----------------------------------------------------------------------
+<%= @course.description %>

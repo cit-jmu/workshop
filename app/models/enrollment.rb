@@ -54,6 +54,10 @@ class Enrollment < ActiveRecord::Base
     notify_enroll
   end
 
+  def send_reminder
+    UserMailer.reminder_email(self).deliver
+  end
+
   protected
 
     def notify_enroll
