@@ -13,7 +13,8 @@ class UserMailer < ActionMailer::Base
       content: ical_invite
     }
 
-    mail(to: @user.email, subject: "CIT Workshop enrollment for #{@course.title}") do |format|
+    subject = "CIT Workshop enrollment for #{@course.title}"
+    mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
       format.ics { render text: ical_invite, content_type: "text/calendar; method=REQUEST"}
@@ -32,11 +33,22 @@ class UserMailer < ActionMailer::Base
       content: ical_cancel
     }
 
-    mail(to: @user.email, subject: "CIT Workshop course drop for #{@course.title}") do |format|
+    subject = "CIT Workshop course drop for #{@course.title}"
+    mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
       format.ics { render text: ical_cancel, content_type: "text/calendar; method=CANCEL"}
     end
+  end
+
+  def reminder_email(enrollment)
+    @enrollment = enrollment
+    @section = enrollment.section
+    @course = enrollment.section.course
+    @user = enrollment.user
+
+    subject = "CIT Workshop reminder for #{@course.title}"
+    mail(to: @user.email, subject: subject)
   end
 
   private
