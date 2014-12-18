@@ -1,21 +1,7 @@
 <div class="row">
   <div class="col-sm-8">
-  <% if @section.enrollable_for? @user %>
-    <% if @section.is_full? %>
-      <%= link_to "Add to waiting list",
-                  wait_list_course_section_path(@course, @section),
-                  method: :post, class: 'btn btn-primary' %>
-    <% else %>
-      <%= link_to "Enroll", enroll_course_section_path(@course, @section),
-                  method: :post, class: 'btn btn-primary' %>
-    <% end %>
-  <% elsif @user.enrolled?(section: @section) %>
-    <%= link_to "Drop", drop_course_section_path(@course, @section),
-                method: :delete, class: 'btn btn-primary' %>
-  <% elsif @user.enrolled?(section: @section, scope: :waiting) %>
-    <%= link_to "Stop waiting", drop_course_section_path(@course, @section),
-                method: :delete, class: 'btn btn-primary' %>
-  <% end %>
+  <%= render partial: 'action', locals: {section: @section, user: @user} %>
+
   <% if can? :update, @section %>
     <%= link_to edit_course_section_path(@course, @section),
                 class: 'btn btn-default' do %>

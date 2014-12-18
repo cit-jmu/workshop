@@ -1,0 +1,46 @@
+<% if user_signed_in? %>
+  <% case %>
+  <% when user.enrolled?(section: section) %>
+    <%= link_to 'Drop course', drop_course_section_path(section.course, section),
+                method: :delete, class: 'btn btn-primary' %>
+  <% when user.waiting?(section: section) %>
+    <%= link_to 'Stop waiting', drop_course_section_path(section.course, section),
+                method: :delete, class: 'btn btn-primary' %>
+  <% when user.enrolled?(course: section.course) || user.waiting?(course: section.course) %>
+    <button class="btn btn-default" disabled>
+      <% if section.is_full? %>
+        Add to waiting list
+      <% else %>
+        Enroll
+      <% end %>
+    </button>
+  <% when user.completed?(section: section) %>
+    <span class="completed">
+      <span class="glyphicon glyphicon-ok"></span>
+      <strong>Completed!</strong>
+    </span>
+  <% when user.completed?(course: section.course) %>
+    <button class="btn btn-default" disabled>
+      <% if section.is_full? %>
+        Add to waiting list
+      <% else %>
+        Enroll
+      <% end %>
+    </button>
+  <% when section.is_full? %>
+    <%= link_to 'Add to waiting list', wait_list_course_section_path(section.course, section),
+                 method: :post, class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
+                method: :post, class: 'btn btn-primary' %>
+  <% end %>
+<% else %>
+  <% case %>
+  <% when section.is_full? %>
+    <%= link_to 'Add to waiting list', wait_list_course_section_path(section.course, section),
+        method: :post, class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
+        method: :post, class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

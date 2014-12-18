@@ -20,41 +20,7 @@
   <%= render partial: 'parts/part', collection: section.parts, layout: 'parts/panel_body_section_row' %>
 
   <div class="actions">
-    <% if user_signed_in? %>
-      <% case %>
-      <% when @user.instructing?(section: section) %>
-        <%= link_to 'View section', course_section_path(section.course, section),
-                    class: 'btn btn-primary' %>
-      <% when @user.enrolled?(section: section) %>
-        <%= link_to 'Drop course', drop_course_section_path(section.course, section),
-                    method: :delete, class: 'btn btn-primary' %>
-      <% when @user.enrolled?(section: section, scope: :waiting) %>
-        <%= link_to 'Stop waiting', drop_course_section_path(section.course, section),
-                    method: :delete, class: 'btn btn-primary' %>
-      <% when @user.completed?(section: section) %>
-        <span class="completed">
-          <span class="glyphicon glyphicon-ok"></span>
-          <strong>Completed!</strong>
-        </span>
-      <% when @user.completed?(course: section.course) %>
-        <button class="btn btn-default" disabled>Enroll</button>
-      <% when section.is_full? %>
-        <%= link_to 'Add to waiting list', wait_list_course_section_path(section.course, section),
-                     method: :post, class: 'btn btn-primary' %>
-      <% else %>
-        <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
-                    method: :post, class: 'btn btn-primary' %>
-      <% end %>
-    <% else %>
-      <% case %>
-      <% when section.is_full? %>
-        <%= link_to 'Add to waiting list', wait_list_course_section_path(section.course, section),
-            method: :post, class: 'btn btn-primary' %>
-      <% else %>
-        <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
-            method: :post, class: 'btn btn-primary' %>
-      <% end %>
-    <% end %>
+    <%= render partial: 'sections/action', locals: {user: @user, section: section}  %>
 
     <% if user_signed_in? && (can?(:update, section) || can?(:destroy, section)) %>
       <% if can? :update, section %>
