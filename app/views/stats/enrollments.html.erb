@@ -9,16 +9,20 @@
   <div>
     <div class="pull-left">
       <strong><%= link_to section.section_number, [course, section] %></strong>
-      <%= section.enrollments.count %>/<%= section.seats %> enrolled
+      <%= section.enrollments.active.count %>/<%= section.seats %> enrolled
     </div>
     <div class="open-seats-bar">
       <div class="progress">
         <div class="progress-bar<%= progress_bar_context(section) %>"
           role="progressbar"
-          aria-valuenow="<%= section.enrollments.count %>"
+          aria-valuenow="<%= section.enrollments.active.count %>"
           aria-valuemin="0"
           aria-valuemax="<%= section.seats %>"
           style="width: <%= progress_bar_percent(section) %>;">
+          <% if section.is_full? %>
+            <%= pluralize(section.enrollments.waiting.count, 'user') %>
+            waiting
+          <% end %>
         </div>
       </div>
     </div>

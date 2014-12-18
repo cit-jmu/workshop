@@ -16,8 +16,8 @@ class Section < ActiveRecord::Base
 
   def enrollable_for?(user)
     case
-    when user.enrolled?(:section => self) then false
-    when user.enrolled?(:course => course) then false
+    when user.enrolled?(:section => self, scope: :all) then false
+    when user.enrolled?(:course => course, scope: :all) then false
     when user.instructing?(:section => self) then false
     else true
     end
@@ -25,9 +25,17 @@ class Section < ActiveRecord::Base
 
   def enroll_user!(user)
     # don't enroll if they are already enrolled in the course
-    return nil if user.enrolled?(course: course)
+    # or if the section is full
+    return nil if user.enrolled?(course: course) || is_full?
     self.enrollments << Enrollment.new(user: user)
-    self.save
+    save
+  end
+
+  def wait_list_user!(user)
+    # don't wait list if they are already waiting in the course
+    return nil if user.enrolled?(course: course, scope: :waiting)
+    self.enrollments << Enrollment.new(user: user, waiting: true)
+    save
   end
 
   def is_full?
@@ -35,7 +43,7 @@ class Section < ActiveRecord::Base
   end
 
   def open_seats
-    seats - enrollments.count
+    seats - enrollments.active.count
   end
 
   def duration

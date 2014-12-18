@@ -2,9 +2,15 @@
   <% if user_signed_in? %>
     <%= render 'signed_in_user_actions' %>
   <% else %>
-    <%= link_to "Enroll", enroll_course_section_path(@course, @section),
-                method: :post,
-                class: 'btn btn-primary' %>
+    <% if @section.is_full? %>
+      <%= link_to "Add to waiting list", wait_list_course_section_path(@course, @section),
+                  method: :post,
+                  class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to "Enroll", enroll_course_section_path(@course, @section),
+                  method: :post,
+                  class: 'btn btn-primary' %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -24,8 +30,13 @@
     </li>
 
     <li>
-      <strong>Open Seats:</strong>
-      <%= @section.open_seats %> / <%= @section.seats %>
+      <% if @section.is_full? %>
+        <span class="label label-danger">Section full</span>
+      <% else %>
+        <span class="label label-success">
+          <%= pluralize(@section.open_seats, 'open seat', 'open seats') %>
+        </span>
+      <% end %>
     </li>
   </ul>
 
@@ -41,75 +52,6 @@
 </div>
 
 <% if can? :view_enrollments, @section %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Course Roster</h3>
-  </div>
-  <% if @section.enrollments.any? %>
-  <div class="table-responsive">
-    <table class="table table-striped roster-list">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Employee ID</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Department</th>
-          <th class="actions"></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @section.enrollments.each do |enrollment| %>
-        <tr>
-          <td><%= enrollment.user.display_name %></td>
-          <td><%= enrollment.user.employee_id %></td>
-          <td><%= enrollment.user.email %></td>
-          <td><%= enrollment.user.phone_number %></td>
-          <td><%= enrollment.user.department %></td>
-          <td class="actions">
-          <% if enrollment.completed? %>
-            <span class="mark-completed">
-              <span class="glyphicon glyphicon-ok"></span>
-              <strong>Completed</strong>
-            </span>
-          <% else %>
-            <% if can? :drop_user, @section %>
-              <div class="action-form hidden-print">
-                <%= form_tag drop_user_course_section_path, method: :delete,
-                      role: 'form' do |f| %>
-                  <%= hidden_field_tag :user_id, enrollment.user.id %>
-                  <%= button_tag type: :submit, title: "Drop from section",
-                        data: { toggle: 'tooltip', placement: 'top' },
-                        class: 'btn btn-default btn-sm' do %>
-                    <span class="glyphicon glyphicon-remove drop-user"></span>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-            <% if can? :mark_completed, @section %>
-              <div class="action-form hidden-print">
-                <%= form_tag mark_completed_course_section_path, method: :patch,
-                      role: 'form' do |f| %>
-                  <%= hidden_field_tag :user_id, enrollment.user.id %>
-                  <%= button_tag type: :submit, title: "Mark completed",
-                        data: { toggle: 'tooltip', placement: 'top' },
-                        class: 'btn btn-default btn-sm' do %>
-                    <span class="glyphicon glyphicon-ok mark-completed"></span>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-          <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-  <% else %>
-  <div class="panel-body">
-    <p>There isn't anyone enrolled in this section.</p>
-  </div>
-  <% end %>
-</div>
+  <%= render 'course_roster' %>
+  <%= render 'wait_list' if @section.is_full? %>
 <% end %>

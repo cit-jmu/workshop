@@ -20,6 +20,7 @@
             <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
             <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
             <%= render 'shared/completed_icon' if @user.completed? :section => part.section %>
+            <%= render 'shared/waiting_icon' if @user.waiting? :section => part.section %>
           <% end %>
           <span class="start-time"><%= part.start_time %></span>
           <%= link_to part.section.course.short_title,
@@ -73,8 +74,12 @@
             <%= render 'shared/enrolled_icon' if @user.enrolled? :section => part.section %>
             <%= render 'shared/instructing_icon' if @user.instructing? :section => part.section %>
             <%= render 'shared/completed_icon' if @user.completed? :section => part.section %>
+            <%= render 'shared/waiting_icon' if @user.waiting? :section => part.section %>
           <% end %>
           <%= link_to part.section.course.title, [part.section.course, part.section] %>
+          <% if part.section.is_full? %>
+            <span class="label label-danger">Full</span>
+          <% end %>
         </p>
         <p class="summary"><%= part.section.course.summary %></p>
         <p class="date-and-time"><%= part.date_and_time %></p>
@@ -91,8 +96,13 @@
             <%= link_to 'Drop', drop_course_section_path(part.section.course, part.section),
                         method: :delete, class: 'btn btn-default btn-sm' %>
           <% elsif !@user || (@user && !@user.enrolled?(:course => part.section.course)) %>
-            <%= link_to 'Enroll', enroll_course_section_path(part.section.course, part.section),
-                        method: :post, class: 'btn btn-primary btn-sm' %>
+            <% if part.section.is_full? %>
+              <%= link_to 'Add to waiting list', wait_list_course_section_path(part.section.course, part.section),
+                          method: :post, class: 'btn btn-primary btn-sm' %>
+            <% else %>
+              <%= link_to 'Enroll', enroll_course_section_path(part.section.course, part.section),
+                          method: :post, class: 'btn btn-primary btn-sm' %>
+            <% end %>
           <% end %>
         <% end %>
 

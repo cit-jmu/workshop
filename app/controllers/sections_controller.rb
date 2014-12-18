@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_action :store_custom_after_sign_in_location!, only: [:enroll]
+  before_action :store_custom_after_sign_in_location!, only: [:enroll, :wait_list]
   before_action :authenticate_user!, except: [:index, :show]
 
   load_and_authorize_resource :course
@@ -42,14 +42,21 @@ class SectionsController < ApplicationController
   end
 
   def enroll
-    if @section.is_full?
-      alert = "Sorry, there are no seats available for that section."
-      redirect_to @course, alert: alert
-    elsif @section.enroll_user!(@user)
+    if !@section.is_full? && @section.enroll_user!(@user)
       notice = "You are now enrolled in <strong>#{@course.title}</strong>"
       redirect_to @course, notice: notice
     else
       alert = "There was a problem enrolling you in this course"
+      redirect_to @course, alert: alert
+    end
+  end
+
+  def wait_list
+    if @section.wait_list_user!(@user)
+      notice = "You are now on the wait list for <strong>#{@course.title}</strong>"
+      redirect_to @course, notice: notice
+    else
+      alert = "There was a problem adding you to the wait list for this course"
       redirect_to @course, alert: alert
     end
   end
@@ -59,10 +66,11 @@ class SectionsController < ApplicationController
 
     user = User.find_or_create(username: params[:username])
     if user
-      if @section.is_full?
-        alert = "Sorry, there are no seats available in this section."
-        redirect_to [@course, @section], alert: alert
-      elsif @section.enroll_user!(user)
+      if @section.is_full? && @section.wait_list_user!(user)
+        notice = "<strong>#{user.display_name}</strong>" \
+                 " is now waiting for <strong>#{@course.title}</strong>"
+        redirect_to [@course, @section], notice: notice
+      elsif !@section.is_full? && @section.enroll_user!(user)
         notice = "<strong>#{user.display_name}</strong>" \
                  " is now enrolled in <strong>#{@course.title}</strong>"
         redirect_to [@course, @section], notice: notice
@@ -88,7 +96,7 @@ class SectionsController < ApplicationController
   end
 
   def drop
-    if @user.enrollment_for(section: @section).destroy
+    if @user.enrollment_for(section: @section, scope: :all).destroy
       notice = "You have successfully dropped <strong>#{@course.title}</strong>"
       redirect_to @course, notice: notice
     else
@@ -101,7 +109,7 @@ class SectionsController < ApplicationController
 
     user = User.find(params[:user_id])
     if user
-      user.enrollment_for(section: @section).destroy
+      user.enrollment_for(section: @section, scope: :all).destroy
       notice = "<strong>#{user.display_name}</strong>" \
                " has been dropped from <strong>#{@course.title}</strong>"
       redirect_to [@course, @section], notice: notice

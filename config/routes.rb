@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         delete 'drop'
         delete 'drop_user'
         patch 'mark_completed'
+        post 'wait_list'
       end
     end
   end

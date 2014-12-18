@@ -70,21 +70,35 @@ class User < ActiveRecord::Base
     enrollment.present? && !enrollment.completed?
   end
 
+  def waiting?(options = {})
+    options[:scope] = :waiting
+    enrollment = enrollment_for(options)
+    enrollment.present? && !enrollment.completed?
+  end
+
   def enrollment_for(options = {})
+    # set default scope to active
+    options = options.reverse_merge(scope: :active)
+    enrollments_scope = enrollments.send(options[:scope])
     if options[:course]
-      enrollments.select { |enrollment| enrollment.course == options[:course] }.first
+      found = enrollments_scope.select do |enrollment|
+        enrollment.course == options[:course]
+      end
     elsif options[:section]
-      enrollments.select { |enrollment| enrollment.section == options[:section] }.first
+      found = enrollments_scope.select do |enrollment|
+        enrollment.section == options[:section]
+      end
     else
-      nil
+      found = Enrollment.none
     end
+    found.first
   end
 
   def instructing?(options = {})
     if options[:course]
-      options[:course].sections.select { |section| section.instructor_id == id }.any?
+      options[:course].sections.select { |section| section.instructor == self }.any?
     elsif options[:section]
-      options[:section].instructor_id == id
+      options[:section].instructor == self
     else
       false
     end

@@ -1,8 +1,15 @@
 <div class="panel-body-section <%= css_classes_for_section_row(section) %>">
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title">
+      <% if @user.enrolled?(section: section, scope: :waiting) %>
+        <%= render 'shared/waiting_icon' %>
+      <% end %>
       <%= link_to "Section #{section.section_number}", course_section_path(section.course, section) %>
-      <span class="label label-success"><%= section.open_seats %> open seats</span>
+      <% if section.is_full? %>
+        <span class="label label-danger">Section full</span>
+      <% else %>
+        <span class="label label-success"><%= section.open_seats %> open seats</span>
+      <% end %>
     </h4>
     <p>
       <strong>Instructor:</strong>
@@ -13,23 +20,7 @@
   <%= render partial: 'parts/part', collection: section.parts, layout: 'parts/panel_body_section_row' %>
 
   <div class="actions">
-    <% if @user && @user.instructing?(section: section) %>
-      <%= link_to 'View section', course_section_path(section.course, section),
-          class: 'btn btn-primary' %>
-    <% elsif @user && @user.enrolled?(section: section) %>
-      <%= link_to 'Drop course', drop_course_section_path(section.course, section),
-          method: :delete, class: 'btn btn-primary' %>
-    <% elsif @user && @user.completed?(section: section) %>
-      <span class="completed">
-        <span class="glyphicon glyphicon-ok"></span>
-        <strong>Completed!</strong>
-      </span>
-    <% elsif @user && @user.completed?(course: section.course) %>
-      <button class="btn btn-default" disabled>Enroll</button>
-    <% elsif !@user || (@user && !@user.enrolled?(course: section.course)) %>
-      <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
-          method: :post, class: 'btn btn-primary' %>
-    <% end %>
+    <%= render partial: 'sections/action', locals: {user: @user, section: section}  %>
 
     <% if user_signed_in? && (can?(:update, section) || can?(:destroy, section)) %>
       <% if can? :update, section %>
