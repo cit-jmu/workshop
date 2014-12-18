@@ -4,6 +4,12 @@ class Part < ActiveRecord::Base
 
   belongs_to :section
 
+  scope :starting_tomorrow, -> {
+    where('starts_at >= ? AND starts_at <= ?',
+          DateTime.tomorrow.at_beginning_of_day,
+          DateTime.tomorrow.at_end_of_day)
+  }
+
   validates :location, :starts_at, :duration, presence: true
   validates :duration, numericality: {only_integer: true, greater_than: 0}
 
