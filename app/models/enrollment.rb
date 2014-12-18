@@ -14,32 +14,24 @@ class Enrollment < ActiveRecord::Base
     enrollment.ical_event_uid = SecureRandom.uuid
   end
 
-  after_create do |enrollment|
-    if enrollment.active?
-      enrollment.section.parts.each do |part|
-        UserMailer.enroll_email(enrollment, part).deliver
-      end
-    end
-  end
-
-  after_destroy do |enrollment|
-    if enrollment.active?
-      enrollment.section.parts.each do |part|
-        UserMailer.unenroll_email(enrollment, part).deliver
-      end
-    end
-  end
+  after_create :notify_enroll, if: :active?
+  after_destroy :notify_unenroll, if: :active?
+  after_destroy :check_wait_list, unless: :section_full?
 
   def completed!
     self.completed_at = Time.current unless completed?
     save
   end
 
+  def section_full?
+    section.is_full?
+  end
+
   def completed?
     completed_at.present?
   end
 
-  def active!
+  def activate!
     self.waiting = false
     save
   end
@@ -48,7 +40,7 @@ class Enrollment < ActiveRecord::Base
     !waiting
   end
 
-  def waiting!
+  def wait!
     self.waiting = true
     save
   end
@@ -56,4 +48,28 @@ class Enrollment < ActiveRecord::Base
   def waiting?
     waiting
   end
+
+  def promote
+    activate!
+    notify_enroll
+  end
+
+  protected
+
+    def notify_enroll
+      section.parts.each do |part|
+        UserMailer.enroll_email(self, part).deliver
+      end
+    end
+
+    def notify_unenroll
+      section.parts.each do |part|
+        UserMailer.unenroll_email(self, part).deliver
+      end
+    end
+
+    def check_wait_list
+      enrollment = section.enrollments.waiting.order(:created_at).first
+      enrollment.promote if enrollment
+    end
 end
