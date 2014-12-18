@@ -4,10 +4,10 @@ class Part < ActiveRecord::Base
 
   belongs_to :section
 
-  scope :starting_tomorrow, -> {
+  scope :starting_soon, -> {
     where('starts_at >= ? AND starts_at <= ?',
-          DateTime.tomorrow.at_beginning_of_day,
-          DateTime.tomorrow.at_end_of_day)
+          DateTime.current.at_beginning_of_day.advance(days: 3),
+          DateTime.current.at_end_of_day.advance(days: 3))
   }
 
   validates :location, :starts_at, :duration, presence: true
