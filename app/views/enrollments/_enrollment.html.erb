@@ -1,9 +1,7 @@
 <div class="panel-body-section enrollment">
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title course-title">
-      <% if enrollment.waiting? %>
-        <span class="label label-default">Waiting</span>
-      <% end %>
+      <%= render 'shared/waiting_icon' if enrollment.waiting? %>
       <%= link_to enrollment.course.title, course_path(enrollment.course) %>
     </h4>
     <p>

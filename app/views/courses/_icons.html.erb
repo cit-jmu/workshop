@@ -2,4 +2,5 @@
   <%= render 'shared/enrolled_icon' if @user.enrolled?(course: course) %>
   <%= render 'shared/instructing_icon' if @user.instructing?(course: course) %>
   <%= render 'shared/completed_icon' if @user.completed?(course: course) %>
+  <%= render 'shared/waiting_icon' if @user.waiting?(course: course) %>
 <% end %>

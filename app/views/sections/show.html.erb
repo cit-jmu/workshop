@@ -22,9 +22,6 @@
     <li>
       <strong>Section Number:</strong>
       <%= @section.section_number %>
-      <% if @user.enrolled?(section: @section, scope: :waiting) %>
-        <span class="label label-default">Waiting</span>
-      <% end %>
     </li>
 
     <li>
@@ -37,7 +34,7 @@
         <span class="label label-danger">Section full</span>
       <% else %>
         <span class="label label-success">
-          <%= @section.open_seats %> open seats
+          <%= pluralize(@section.open_seats, 'open seat', 'open seats') %>
         </span>
       <% end %>
     </li>

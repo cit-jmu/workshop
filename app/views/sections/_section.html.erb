@@ -2,7 +2,7 @@
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title">
       <% if @user.enrolled?(section: section, scope: :waiting) %>
-        <span class="label label-default">Waiting</span>
+        <%= render 'shared/waiting_icon' %>
       <% end %>
       <%= link_to "Section #{section.section_number}", course_section_path(section.course, section) %>
       <% if section.is_full? %>
