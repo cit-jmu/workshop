@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_action :store_custom_after_sign_in_location!, only: [:enroll]
+  before_action :store_custom_after_sign_in_location!, only: [:enroll, :wait_list]
   before_action :authenticate_user!, except: [:index, :show]
 
   load_and_authorize_resource :course
