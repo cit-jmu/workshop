@@ -22,7 +22,9 @@
             <%= render 'shared/completed_icon' if @user.completed? :section => part.section %>
             <%= render 'shared/waiting_icon' if @user.waiting? :section => part.section %>
           <% end %>
+          <% if !part.online? %>
           <span class="start-time"><%= part.start_time %></span>
+          <% end %>
           <%= link_to part.section.course.short_title,
                       [part.section.course, part.section],
                       class: 'event-name' %>
