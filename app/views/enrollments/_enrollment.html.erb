@@ -31,8 +31,20 @@
       'Drop course'
     end
     %>
-    <%= link_to link_text,
-                drop_course_section_path(enrollment.course, enrollment.section),
-                method: :delete, class: 'btn btn-primary btn-default' %>
+    <% if enrollment.user == current_user %>
+      <%= link_to link_text,
+                  drop_course_section_path(enrollment.course, enrollment.section),
+                  method: :delete, class: 'btn btn-primary btn-default' %>
+    <% else %>
+        <% if can? :drop_user, enrollment.section %>
+          <div class="action-form hidden-print">
+            <%= form_tag drop_user_course_section_path(enrollment.course, enrollment.section), method: :delete,
+                  role: 'form' do |f| %>
+              <%= hidden_field_tag :user_id, enrollment.user.id %>
+              <%= button_tag link_text, type: :submit, class: 'btn btn-default btn-primary' %>
+            <% end %>
+          </div>
+        <% end %>
+    <% end %>
   </div>
 </div>
