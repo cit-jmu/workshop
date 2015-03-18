@@ -8,6 +8,20 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.order(:title)
+
+    # split the courses into two lists, one for "current" courses
+    # and one for "past" courses.  (Only admins will be able to see
+    # the list of "past" courses.)
+    @current_courses = []
+    @past_courses = []
+    @courses.each do |course|
+      if course.current?
+        @current_courses << course
+      else
+        @past_courses << course
+      end
+    end
+
     respond_with(@courses)
   end
 
