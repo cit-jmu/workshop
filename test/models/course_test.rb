@@ -41,6 +41,14 @@ class CourseTest < ActiveSupport::TestCase
 
   test "duration_in_words makes long durations readable" do
     course = courses(:canvas113)
+    # add a part to the course so we can get a duration
+    Part.create!(
+      location: 'Room 7',
+      starts_at: Time.current,
+      duration: 90,
+      section: course.sections.first
+    )
+
     assert_equal "1h 30m", course.duration_in_words
   end
 
