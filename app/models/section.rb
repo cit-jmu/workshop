@@ -47,13 +47,17 @@ class Section < ActiveRecord::Base
   end
 
   def duration
-    return nil unless parts.any?
+    return nil unless parts.current.any?
     # section duration is the sum of all its parts
-    parts.inject(0) { |duration, part| duration + part.duration }
+    parts.current.inject(0) { |duration, part| duration + part.duration }
   end
 
   def starts_at
-    return nil unless parts.any?
-    parts.order(:starts_at).first.starts_at
+    return nil unless parts.current.any?
+    parts.current.order(:starts_at).first.starts_at
+  end
+
+  def current?
+    parts.current.any?
   end
 end
