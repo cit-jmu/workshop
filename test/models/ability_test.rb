@@ -101,10 +101,10 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.can?(:view_enrollments, @section)
   end
 
-  test "instructors can only see the enrollments for sections they teach" do
+  test "instructors can see enrollments for any section" do
     ability = Ability.new(users(:professor_wiseman))
     assert ability.can?(:view_enrollments, @section)
-    assert ability.cannot?(:view_enrollments, sections(:canvas113_rose))
+    assert ability.can?(:view_enrollments, sections(:canvas113_rose))
   end
 
 end
