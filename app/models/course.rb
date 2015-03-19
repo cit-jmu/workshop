@@ -45,10 +45,15 @@ class Course < ActiveRecord::Base
   end
 
   def current?
-    sections.each do |section|
-      return true if section.current?
-    end
-    false
+    current_sections.any?
+  end
+
+  def current_sections
+    sections.select { |s| s.current? }
+  end
+
+  def past_sections
+    sections.reject { |s| s.current? }
   end
 
 

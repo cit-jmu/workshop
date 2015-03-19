@@ -11,7 +11,8 @@ class SectionsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @available_sections = @course.sections.sort_by { |s| s.starts_at }
+    @available_sections = @course.current_sections.sort_by { |s| s.starts_at }
+    @past_sections = @course.past_sections.sort_by { |s| s.starts_at }
     respond_with(@course, @sections)
   end
 

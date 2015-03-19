@@ -1,7 +1,7 @@
 class CalendarController < ApplicationController
   def index
     @user = current_user
-    @parts = Part.all
+    @parts = Part.current.all
 
     @start_date ||= (params[:start_date] || Time.current).to_date
     @parts_this_month = @parts.select do |part|
