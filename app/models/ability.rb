@@ -34,8 +34,8 @@ class Ability
       can :confirm_unenroll, Section
 
       if @user.instructor?
-        # instructors can view rosters for sections they are teaching
-        can :view_enrollments, Section, instructor_id: @user.id
+        # instructors can view rosters for all sections
+        can :view_enrollments, Section
         # instructors can update sections they are teaching
         can :update, Section, instructor_id: @user.id
         # instructors can enroll people in sections they are teaching
