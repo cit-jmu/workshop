@@ -19,8 +19,12 @@
     <% @user.sections.each do |section| %>
       <tr>
         <td><%= link_to section.course.title, section.course %></td>
-        <td><%= section.parts.first.date_and_time %></td>
-        <td><%= section.parts.first.location %></td>
+        <% if section.parts.any? %>
+          <td><%= section.parts.first.date_and_time %></td>
+          <td><%= section.parts.first.location %></td>
+        <% else %>
+          <td colspan="2">(No parts found for this section)</td>
+        <% end %>
         <td class="text-right">
           <%= link_to course_section_path(section.course, section),
                       :class => 'btn btn-default btn-xs' do %>

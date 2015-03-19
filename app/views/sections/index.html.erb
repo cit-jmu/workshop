@@ -2,3 +2,6 @@
                                                        link_title: true } %>
 
 <%= render 'courses/available_sections' %>
+<% if @past_sections.any? and can?(:view_past_sections, Course) %>
+  <%= render "courses/past_sections" %>
+<% end %>

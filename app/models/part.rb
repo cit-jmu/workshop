@@ -10,6 +10,10 @@ class Part < ActiveRecord::Base
           DateTime.current.at_end_of_day.advance(days: 3))
   }
 
+  scope :current, -> {
+    where('starts_at >= ?', DateTime.current.at_beginning_of_day)
+  }
+
   validates :location, :starts_at, :duration, presence: true
   validates :duration, numericality: {only_integer: true, greater_than: 0}
 
@@ -23,7 +27,7 @@ class Part < ActiveRecord::Base
     # be a start time of 12:00am.  We'll handle that case and only output the
     # date
     # TODO: There's probably a better way to do this, but this will work for now
-    if online? 
+    if online?
       "#{starts_at.strftime("%-m/%-d/%Y")}"
     else
       "#{starts_at.strftime("%-m/%-d/%Y %-l:%M%P")} - #{ends_at.strftime("%-l:%M%P")}"
@@ -36,5 +40,9 @@ class Part < ActiveRecord::Base
 
   def online?
     start_time == '12:00am'
+  end
+
+  def current?
+    starts_at >= DateTime.current.at_beginning_of_day
   end
 end

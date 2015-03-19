@@ -20,7 +20,10 @@
   <%= render partial: 'parts/part', collection: section.parts, layout: 'parts/panel_body_section_row' %>
 
   <div class="actions">
-    <%= render partial: 'sections/action', locals: {user: @user, section: section}  %>
+    <% if section.current? %>
+      <%= render partial: 'sections/action',
+                 locals: {user: @user, section: section}  %>
+    <% end %>
 
     <% if user_signed_in? && (can?(:update, section) || can?(:destroy, section)) %>
       <% if can? :update, section %>

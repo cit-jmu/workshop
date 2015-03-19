@@ -13,7 +13,6 @@ class UsersController < ApplicationController
 
   def show
     @user ||= current_user
-    @courses = Course.all # this is temporary stub data
     respond_with(@user)
   end
 

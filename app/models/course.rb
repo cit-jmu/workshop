@@ -44,6 +44,18 @@ class Course < ActiveRecord::Base
     sections.collect { |section| section.instructor.display_name }.uniq
   end
 
+  def current?
+    current_sections.any?
+  end
+
+  def current_sections
+    sections.select { |s| s.current? }
+  end
+
+  def past_sections
+    sections.reject { |s| s.current? }
+  end
+
 
   protected
     def ensure_course_has_short_title

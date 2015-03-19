@@ -7,7 +7,7 @@
   <% end %>
 </div>
 
-<% if @courses.empty? %>
+<% if @current_courses.empty? %>
 <p>
   There are no courses available at this time.
   <% if can? :create, Course %>
@@ -16,38 +16,19 @@
 <p>
 <% else %>
   <%= render 'shared/icon_legend' %>
-  <% @courses.each do |course| %>
-  <div class="course-row">
-    <h3 class="title">
-      <%= render partial: 'icons', locals: { course: course } %>
-      <%= link_to course.title, course %>
-    </h3>
-    <% if course.summary %>
-      <div class="summary">
-        <%= course.summary %>
-      </div>
-    <% end %>
-    <div class="details">
-      <ul class="list-inline">
-        <% if course.duration %>
-        <li>
-          <strong>Duration:</strong> <%= course.duration_in_words %>
-        </li>
-        <% end %>
-        <% if course.multi_session? %>
-        <li>
-          <strong>Multiple Sessions</strong>
-        </li>
-        <% end %>
-        <% if course.instructors.any? %>
-        <li>
-          <strong>Instructed by:</strong>
-          <%= course.instructors.to_sentence %>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-    <%= render :partial => 'admin_actions', :locals => { :course => course } %>
+  <%= render @current_courses %>
+<% end %>
+
+<% if @past_courses.any? and can?(:view_past_courses, Course)  %>
+<div class="panel panel-default past-course-list">
+  <div class="panel-heading">
+    <h2 class="panel-title">
+      Past Courses
+      <small>These are courses that have no current sections</small>
+    </h2>
   </div>
-  <% end %>
+  <div class="panel-body">
+    <%= render @past_courses %>
+  </div>
+</div>
 <% end %>

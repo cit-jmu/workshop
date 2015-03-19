@@ -1,19 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# The fixtures for the parts are commented out here since they have specific
+# dates in them, and some of the tests are dependent on certain date values.
+# Which means that if any tests depend on these fixtures, they may break
+# simply due to the fact that time has passes since the fixtures were updated,
+# and have no relevance on the test actually breaking.
+#
+# So I think a better workflow is to not use fixtures for parts, but rather
+# create parts in the tests when they are needed, with relative date values
+# so the tests will be consistent.
 
-canvas101_carrier_part1:
-  section: canvas101_carrier
-  location: Carrier Library Room 37
-  starts_at: 2014-10-08 14:00:00
-  duration: 60
+#canvas101_carrier_part1:
+#  section: canvas101_carrier
+#  location: Carrier Library Room 37
+#  starts_at: 2015-02-21 14:00:00
+#  duration: 60
 
-canvas101_carrier_part2:
-  section: canvas101_carrier
-  location: Carrier Library Room 37
-  starts_at: 2014-10-12 09:00:00
-  duration: 60
+#canvas101_carrier_part2:
+#  section: canvas101_carrier
+#  location: Carrier Library Room 37
+#  starts_at: 2015-02-23 14:00:00
+#  duration: 60
 
-canvas113_rose_part1:
-  section: canvas113_rose
-  location: Rose Library Room 5308
-  starts_at: 2014-10-08 09:00:00
-  duration: 90
+#canvas113_rose_part1:
+#  section: canvas113_rose
+#  location: Rose Library Room 5308
+#  starts_at: 2015-02-15 09:00:00
+#  duration: 90

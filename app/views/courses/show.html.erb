@@ -27,3 +27,6 @@
 </article>
 
 <%= render "available_sections" %>
+<% if @past_sections.any? and can?(:view_past_sections, Course) %>
+  <%= render "past_sections" %>
+<% end %>

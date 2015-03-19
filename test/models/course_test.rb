@@ -41,6 +41,14 @@ class CourseTest < ActiveSupport::TestCase
 
   test "duration_in_words makes long durations readable" do
     course = courses(:canvas113)
+    # add a part to the course so we can get a duration
+    Part.create!(
+      location: 'Room 7',
+      starts_at: Time.current,
+      duration: 90,
+      section: course.sections.first
+    )
+
     assert_equal "1h 30m", course.duration_in_words
   end
 
@@ -66,5 +74,35 @@ class CourseTest < ActiveSupport::TestCase
     assert course.invalid?
     assert_equal ["is too long (maximum is 30 characters)"],
                  course.errors[:short_title]
+  end
+
+  test "course is not current when it has no sections" do
+    course = Course.new(
+      title: 'Testing w/Rails 101',
+      course_number: 'TEST001',
+      description: 'Just a test course :)',
+      summary: 'Test with Rails'
+    )
+    assert_not course.current?
+  end
+
+  test "course is not current when it has no current sections" do
+    # the fixtures don't add any parts to the sections, so the
+    # :canvas101 course fixture should just have empty sections,
+    # which should not be 'current'
+    course = courses(:canvas101)
+    assert_not course.current?
+  end
+
+  test "course is current when it has current sections" do
+    course = courses(:canvas101)
+    # need to add a part so it can be current
+    Part.create!(
+      location: 'Room 7',
+      starts_at: Time.current,
+      duration: 30,
+      section: course.sections.first
+    )
+    assert course.current?
   end
 end

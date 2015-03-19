@@ -1,0 +1,32 @@
+<div class="course-row">
+  <h3 class="title">
+    <%= render partial: 'icons', locals: { course: course } %>
+    <%= link_to course.title, course %>
+  </h3>
+  <% if course.summary %>
+    <div class="summary">
+      <%= course.summary %>
+    </div>
+  <% end %>
+  <div class="details">
+    <ul class="list-inline">
+      <% if course.duration %>
+      <li>
+        <strong>Duration:</strong> <%= course.duration_in_words %>
+      </li>
+      <% end %>
+      <% if course.multi_session? %>
+      <li>
+        <strong>Multiple Sessions</strong>
+      </li>
+      <% end %>
+      <% if course.instructors.any? %>
+      <li>
+        <strong>Instructed by:</strong>
+        <%= course.instructors.to_sentence %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= render :partial => 'admin_actions', :locals => { :course => course } %>
+</div>
