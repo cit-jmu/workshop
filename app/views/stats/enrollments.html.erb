@@ -3,9 +3,10 @@
 </div>
 
 <% @courses.each do |course| %>
-<% next unless course.sections.any? %>
+<% next unless course.current? and course.current_sections.any? %>
 <h4 class="course-title"><%= link_to course.title, course %></h4>
   <% course.sections.order(:section_number).each do |section| %>
+  <% next unless section.current? %>
   <div>
     <div class="pull-left">
       <strong><%= link_to section.section_number, [course, section] %></strong>

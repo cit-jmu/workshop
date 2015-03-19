@@ -11,6 +11,7 @@ class Ability
       course_permissions
       section_permissions
       user_permissions
+      stats_permissions
     end
   end
 
@@ -50,5 +51,11 @@ class Ability
       # users can see and edit themselves
       can :show, User, :id => @user.id
       can :update, User, :id => @user.id
+    end
+
+    def stats_permissions
+      if @user.instructor?
+        can :view_statistics, Enrollment
+      end
     end
 end
