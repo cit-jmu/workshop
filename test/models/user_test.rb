@@ -2,8 +2,16 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test "user knows if they are enrolled in a course" do
+    # add an active part to the course
+    course = courses(:canvas101)
+    Part.create!(
+      section: course.sections.first,
+      starts_at: Time.current,
+      duration: 20,
+      location: 'rm7'
+    )
     user = users(:george)
-    assert user.enrolled? :course => courses(:canvas101)
+    assert user.enrolled? course: course
   end
 
   test "user provides enrollment for course if enrolled" do
@@ -45,5 +53,20 @@ class UserTest < ActiveSupport::TestCase
     )
     assert user
     assert user.id.present?
+  end
+
+  test "user is not enrolled if they were a no show" do
+    course = courses(:canvas101)
+    Part.create!(
+      section: course.sections.first,
+      starts_at: Time.current,
+      duration: 25,
+      location: 'rm7'
+    )
+    user = users(:george)
+    enrollment = user.enrollment_for course: course
+    enrollment.no_show!
+    assert_not user.enrolled? course: course
+    assert_not_includes user.current_enrollments, enrollment
   end
 end

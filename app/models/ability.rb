@@ -44,6 +44,8 @@ class Ability
         can :drop_user, Section, instructor_id: @user.id
         # and mark folks as having completed a section
         can :mark_completed, Section, instructor_id: @user.id
+        # and mark folks as a no-show for a section
+        can :mark_no_show, Section, instructor_id: @user.id
       end
     end
 

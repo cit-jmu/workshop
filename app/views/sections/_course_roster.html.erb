@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @section.enrollments.active.each do |enrollment| %>
+      <% @section.roster.each do |enrollment| %>
         <tr>
           <td><%= enrollment.user.display_name %></td>
           <td><%= enrollment.user.employee_id %></td>
@@ -29,6 +29,11 @@
             <span class="mark-completed">
               <span class="glyphicon glyphicon-ok"></span>
               <strong>Completed</strong>
+            </span>
+          <% elsif enrollment.no_show? %>
+            <span class="mark-no-show">
+              <span class="glyphicon glyphicon-eye-close"></span>
+              <strong>No Show</strong>
             </span>
           <% else %>
             <% if can? :drop_user, @section %>
@@ -53,6 +58,19 @@
                         data: { toggle: 'tooltip', placement: 'top' },
                         class: 'btn btn-default btn-sm' do %>
                     <span class="glyphicon glyphicon-ok mark-completed"></span>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+            <% if can? :mark_no_show, @section %>
+              <div class="action-form">
+                <%= form_tag mark_no_show_course_section_path, method: :patch,
+                      role: 'form' do |f| %>
+                  <%= hidden_field_tag :user_id, enrollment.user.id %>
+                  <%= button_tag type: :submit, title: "Mark no show",
+                        data: { toggle: 'tooltip', placement: 'top' },
+                        class: 'btn btn-default btn-sm' do %>
+                    <span class="glyphicon glyphicon-eye-close mark-no-show"></span>
                   <% end %>
                 <% end %>
               </div>

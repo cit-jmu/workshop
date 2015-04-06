@@ -14,4 +14,11 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert enrollment.invalid?
     assert_equal ["has already been enrolled in this section"], enrollment.errors[:user]
   end
+
+  test "enrollments can be marked as a no-show" do
+    enrollment = enrollments(:george_canvas101_carrier)
+    enrollment.no_show!
+    assert enrollment.no_show?
+    assert_not enrollment.completed?
+  end
 end

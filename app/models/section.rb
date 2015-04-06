@@ -66,4 +66,8 @@ class Section < ActiveRecord::Base
   def past_parts
     @past_parts ||= parts.reject { |p| p.current? }
   end
+
+  def roster
+    enrollments.active.sort { |a,b| a.user.last_name <=> b.user.last_name }
+  end
 end
