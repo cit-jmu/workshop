@@ -49,11 +49,11 @@ class Course < ActiveRecord::Base
   end
 
   def current_sections
-    sections.select { |s| s.current? }
+    @current_sections ||= sections.select { |s| s.current? }
   end
 
   def past_sections
-    sections.reject { |s| s.current? }
+    @past_sections ||= sections.reject { |s| s.current? }
   end
 
 

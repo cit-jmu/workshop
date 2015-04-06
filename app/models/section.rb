@@ -60,10 +60,10 @@ class Section < ActiveRecord::Base
   end
 
   def current_parts
-    parts.select { |p| p.current? }
+    @current_parts ||= parts.select { |p| p.current? }
   end
 
   def past_parts
-    parts.reject { |p| p.current? }
+    @past_parts ||= parts.reject { |p| p.current? }
   end
 end

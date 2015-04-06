@@ -2,7 +2,7 @@ class FeedController < ApplicationController
   respond_to :json, :atom, :rss, :csv
 
   def index
-    @courses = Course.order(:title)
+    @courses = Course.order(:title).select { |c| c.current? }
     respond_with @courses
   end
 
