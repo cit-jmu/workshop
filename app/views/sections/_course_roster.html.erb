@@ -10,9 +10,10 @@
           <th>Name</th>
           <th>Employee ID</th>
           <th>Email</th>
-          <th>Phone</th>
+          <th class="hidden-print">Phone</th>
           <th>Department</th>
-          <th class="actions"></th>
+          <th class="actions hidden-print"></th>
+          <th class="visible-print">Initials</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +22,9 @@
           <td><%= enrollment.user.display_name %></td>
           <td><%= enrollment.user.employee_id %></td>
           <td><%= enrollment.user.email %></td>
-          <td><%= enrollment.user.phone_number %></td>
+          <td class="hidden-print"><%= enrollment.user.phone_number %></td>
           <td><%= enrollment.user.department %></td>
-          <td class="actions">
+          <td class="actions hidden-print">
           <% if enrollment.completed? %>
             <span class="mark-completed">
               <span class="glyphicon glyphicon-ok"></span>
@@ -31,7 +32,7 @@
             </span>
           <% else %>
             <% if can? :drop_user, @section %>
-              <div class="action-form hidden-print">
+              <div class="action-form">
                 <%= form_tag drop_user_course_section_path, method: :delete,
                       role: 'form' do |f| %>
                   <%= hidden_field_tag :user_id, enrollment.user.id %>
@@ -44,7 +45,7 @@
               </div>
             <% end %>
             <% if can? :mark_completed, @section %>
-              <div class="action-form hidden-print">
+              <div class="action-form">
                 <%= form_tag mark_completed_course_section_path, method: :patch,
                       role: 'form' do |f| %>
                   <%= hidden_field_tag :user_id, enrollment.user.id %>
@@ -58,6 +59,7 @@
             <% end %>
           <% end %>
           </td>
+          <td class="visible-print"></td>
         </tr>
       <% end %>
       </tbody>
