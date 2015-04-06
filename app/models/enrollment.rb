@@ -34,6 +34,12 @@ class Enrollment < ActiveRecord::Base
     no_show
   end
 
+  def reset_status!
+    self.no_show = false
+    self.completed_at = nil
+    save
+  end
+
   def section_full?
     section.is_full?
   end

@@ -30,11 +30,37 @@
               <span class="glyphicon glyphicon-ok"></span>
               <strong>Completed</strong>
             </span>
+            <% if can? :reset_status, @section %>
+              <div class="action-form">
+                <%= form_tag reset_status_course_section_path, method: :patch,
+                      role: 'form' do |f| %>
+                  <%= hidden_field_tag :user_id, enrollment.user.id %>
+                  <%= button_tag type: :submit, title: "Reset status",
+                        data: { toggle: 'tooltip', placement: 'top' },
+                        class: 'btn btn-link btn-sm' do %>
+                      (reset)
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
           <% elsif enrollment.no_show? %>
             <span class="mark-no-show">
               <span class="glyphicon glyphicon-eye-close"></span>
               <strong>No Show</strong>
             </span>
+            <% if can? :reset_status, @section %>
+              <div class="action-form">
+                <%= form_tag reset_status_course_section_path, method: :patch,
+                      role: 'form' do |f| %>
+                  <%= hidden_field_tag :user_id, enrollment.user.id %>
+                  <%= button_tag type: :submit, title: "Reset status",
+                        data: { toggle: 'tooltip', placement: 'top' },
+                        class: 'btn btn-link btn-sm' do %>
+                      (reset)
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
           <% else %>
             <% if can? :drop_user, @section %>
               <div class="action-form">
