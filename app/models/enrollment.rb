@@ -20,6 +20,23 @@ class Enrollment < ActiveRecord::Base
 
   def completed!
     self.completed_at = Time.current unless completed?
+    self.no_show = false
+    save
+  end
+
+  def no_show!
+    self.no_show = true
+    self.completed_at = nil
+    save
+  end
+
+  def no_show?
+    no_show
+  end
+
+  def reset_status!
+    self.no_show = false
+    self.completed_at = nil
     save
   end
 

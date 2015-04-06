@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216205627) do
+ActiveRecord::Schema.define(version: 20150406200450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20141216205627) do
     t.datetime "updated_at"
     t.uuid     "ical_event_uid"
     t.boolean  "waiting",        default: false
+    t.boolean  "no_show",        default: false
   end
 
   create_table "parts", force: true do |t|

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
         delete 'drop'
         delete 'drop_user'
         patch 'mark_completed'
+        patch 'mark_no_show'
+        patch 'reset_status'
         post 'wait_list'
       end
     end

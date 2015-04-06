@@ -135,6 +135,30 @@ class SectionsController < ApplicationController
     end
   end
 
+  def mark_no_show
+    redirect_to [@course, @section] unless params[:user_id].present?
+
+    user = User.find(params[:user_id])
+    if user
+      user.enrollment_for(section: @section).no_show!
+      notice = "<strong>#{user.display_name}</strong>" \
+               " is marked as a 'no show' for <strong>#{@course.title}</strong>"
+      redirect_to [@course, @section], notice: notice
+    end
+  end
+
+  def reset_status
+    redirect_to [@course, @section] unless params[:user_id].present?
+
+    user = User.find(params[:user_id])
+    if user
+      user.enrollment_for(section: @section).reset_status!
+      notice = "<strong>#{user.display_name}'s</strong>" \
+               " status for <strong>#{@course.title}</strong> has been reset"
+      redirect_to [@course, @section], notice: notice
+    end
+  end
+
 
   private
 

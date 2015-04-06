@@ -67,13 +67,13 @@ class User < ActiveRecord::Base
 
   def enrolled?(options = {})
     enrollment = enrollment_for(options)
-    enrollment.present? && !enrollment.completed?
+    enrollment.present? && !(enrollment.completed? || enrollment.no_show?)
   end
 
   def waiting?(options = {})
     options[:scope] = :waiting
     enrollment = enrollment_for(options)
-    enrollment.present? && !enrollment.completed?
+    enrollment.present?
   end
 
   def enrollment_for(options = {})
@@ -110,7 +110,10 @@ class User < ActiveRecord::Base
   end
 
   def current_enrollments
-    enrollments.select { |enrollment| !enrollment.completed? }
+    enrollments.select do |enrollment|
+      enrollment.section.current? &&
+        !(enrollment.completed? || enrollment.no_show?)
+    end
   end
 
   def completed_enrollments

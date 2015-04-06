@@ -18,9 +18,13 @@
            locals: { course: @course, link_title: true } %>
 
 <div class="summary">
-  <ul class="list-unstyled">
+  <ul class="list-inline">
     <li>
-      <strong>Section Number:</strong>
+      <strong>Course:</strong>
+      <%= @section.course.course_number %>
+    </li>
+    <li>
+      <strong>Section:</strong>
       <%= @section.section_number %>
     </li>
 
@@ -29,7 +33,7 @@
       <%= @section.instructor.display_name %>
     </li>
 
-    <li>
+    <li class="hidden-print">
       <% if @section.is_full? %>
         <span class="label label-danger">Section full</span>
       <% else %>
@@ -53,5 +57,7 @@
 
 <% if can? :view_enrollments, @section %>
   <%= render 'course_roster' %>
-  <%= render 'wait_list' if @section.is_full? %>
+  <div class="hidden-print">
+    <%= render 'wait_list' if @section.is_full? %>
+  </div>
 <% end %>
