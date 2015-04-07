@@ -7,18 +7,23 @@
     <table class="table table-striped roster-list">
       <thead>
         <tr>
+          <th class="visible-print">Initials</th>
           <th>Name</th>
           <th>Employee ID</th>
           <th>Email</th>
           <th class="hidden-print">Phone</th>
           <th>Department</th>
           <th class="actions hidden-print"></th>
-          <th class="visible-print">Initials</th>
         </tr>
       </thead>
       <tbody>
       <% @section.roster.each do |enrollment| %>
         <tr>
+          <td class="visible-print">
+            <!-- initials -->
+            <span class="glyphicon glyphicon-pencil"
+                  style="font-size: 8px"></span>
+          </td>
           <td><%= enrollment.user.display_name %></td>
           <td><%= enrollment.user.employee_id %></td>
           <td><%= enrollment.user.email %></td>
@@ -103,7 +108,6 @@
             <% end %>
           <% end %>
           </td>
-          <td class="visible-print"></td>
         </tr>
       <% end %>
       </tbody>
