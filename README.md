@@ -1,5 +1,7 @@
 # Workshop Registration Made Easy
 
+[![Join the chat at https://gitter.im/cit-jmu/workshop](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cit-jmu/workshop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/cit-jmu/workshop.svg?branch=master)](https://travis-ci.org/cit-jmu/workshop)
 [![Code Climate](https://codeclimate.com/github/cit-jmu/workshop/badges/gpa.svg)](https://codeclimate.com/github/cit-jmu/workshop)
 [![Test Coverage](https://codeclimate.com/github/cit-jmu/workshop/badges/coverage.svg)](https://codeclimate.com/github/cit-jmu/workshop)
