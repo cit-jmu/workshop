@@ -16,9 +16,11 @@ class Section < ActiveRecord::Base
   validate :alert_email, :check_alert_email_addresses
 
   def check_alert_email_addresses
-    alert_email.split(/,\s*/).each do |email|
-      unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-        errors.add(:alert_email, ": #{email} is not a valid email address")
+    if self.alert_email?
+      alert_email.split(/,\s*/).each do |email|
+        unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+          errors.add(:alert_email, ": #{email} is not a valid email address")
+        end
       end
     end
   end
