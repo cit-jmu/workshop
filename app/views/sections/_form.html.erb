@@ -37,6 +37,12 @@
         <%= f.number_field :seats, class: 'form-control' %>
       </div>
     </div>
+    <div class="col-sm-3">
+      <div class="form-group<%= " has-error" if @section.errors[:alert_email].any? %>">
+        <%= f.label :alert_email, class: 'control-label' %>
+        <%= f.text_field :alert_email, class: 'form-control' %>
+      </div>
+    </div>
   </div>
 
   <fieldset>
