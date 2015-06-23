@@ -51,6 +51,17 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: subject)
   end
 
+  def alert_email(enrollment)
+    @enrollment = enrollment
+    @section = enrollment.section
+    @course = enrollment.section.course
+    @user = enrollment.user
+    @alert_email = enrollment.section.alert_email
+
+    subject = "CIT Enrollment Alert for #{@course.title}"
+    mail(to: @alert_email, subject: subject)
+  end
+
   private
   def ical_invite
     cal = Icalendar::Calendar.new

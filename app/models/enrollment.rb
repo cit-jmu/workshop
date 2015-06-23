@@ -78,6 +78,9 @@ class Enrollment < ActiveRecord::Base
   protected
 
     def notify_enroll
+      if self.section.alert_email?
+        UserMailer.alert_email(self).deliver
+      end
       section.parts.each do |part|
         UserMailer.enroll_email(self, part).deliver
       end
