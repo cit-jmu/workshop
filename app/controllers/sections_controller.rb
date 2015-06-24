@@ -168,6 +168,7 @@ class SectionsController < ApplicationController
         :seats,
         :section_number,
         :instructor_id,
+        :alert_email,
         parts_attributes: [
           :id, :location, :starts_at, :_destroy, :duration
         ]

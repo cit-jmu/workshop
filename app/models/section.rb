@@ -13,6 +13,17 @@ class Section < ActiveRecord::Base
   validates :section_number, uniqueness: { scope: :course,
     message: "has already been used for this course"}
   validates :seats, numericality: {only_integer: true, greater_than: 0, allow_blank: true}
+  validate :alert_email, :check_alert_email_addresses
+
+  def check_alert_email_addresses
+    if self.alert_email?
+      alert_email.split(/,\s*/).each do |email|
+        unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+          errors.add(:alert_email, ": #{email} is not a valid email address")
+        end
+      end
+    end
+  end
 
   def enrollable_for?(user)
     case
