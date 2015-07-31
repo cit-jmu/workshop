@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   def in_ldap?
     @in_ldap ||= Devise::LDAP::Adapter.get_ldap_entry(username).present?
-  rescue Net::LDAP::LdapError
+  rescue Net::LDAP::Error
     false
   end
 
