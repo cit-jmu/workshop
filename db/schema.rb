@@ -16,17 +16,17 @@ ActiveRecord::Schema.define(version: 20150619175712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "courses", force: true do |t|
-    t.string   "title"
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",         limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "summary"
+    t.string   "summary",       limit: 255
     t.string   "course_number", limit: 8
     t.string   "short_title",   limit: 30
   end
 
-  create_table "enrollments", force: true do |t|
+  create_table "enrollments", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "user_id"
     t.datetime "completed_at"
@@ -37,16 +37,16 @@ ActiveRecord::Schema.define(version: 20150619175712) do
     t.boolean  "no_show",        default: false
   end
 
-  create_table "parts", force: true do |t|
+  create_table "parts", force: :cascade do |t|
     t.integer  "section_id"
-    t.string   "location"
+    t.string   "location",   limit: 255
     t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "duration"
   end
 
-  create_table "sections", force: true do |t|
+  create_table "sections", force: :cascade do |t|
     t.integer  "seats"
     t.integer  "course_id"
     t.datetime "created_at"
@@ -56,25 +56,25 @@ ActiveRecord::Schema.define(version: 20150619175712) do
     t.string   "alert_email"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "username",                         default: "", null: false
-    t.string   "encrypted_password",               default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "username",               limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "email"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "email",                  limit: 255
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
     t.integer  "employee_id"
-    t.string   "phone_number"
-    t.string   "department"
-    t.string   "mailbox"
-    t.string   "nickname"
+    t.string   "phone_number",           limit: 255
+    t.string   "department",             limit: 255
+    t.string   "mailbox",                limit: 255
+    t.string   "nickname",               limit: 255
     t.integer  "role"
     t.string   "computer_preference",    limit: 8
   end
