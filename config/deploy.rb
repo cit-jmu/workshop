@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-server '134.126.36.104', port: 22, roles: [:web, :app, :db], primary: true
+server 'workshop.cit.jmu.edu', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url, 'git@github.com:citjmu/workshop.git'
 set :application, 'workshop_cit'
