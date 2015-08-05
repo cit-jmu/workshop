@@ -6,6 +6,11 @@
 
 # Ignore bundler config.
 /.bundle
+# and deployment bundles
+/vendor/bundle
+
+# Ignore shared deployment directory
+/shared
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -21,6 +26,8 @@
 
 # Ignore application configuration
 /config/application.yml
+# and rbenv environment vars
+.rbenv-vars
 
 .DS_Store
 .*.swp
