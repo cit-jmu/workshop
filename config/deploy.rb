@@ -1,13 +1,15 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-server '134.126.36.104', port: 80, roles: [:web, :app, :db], primary: true
+server '134.126.36.104', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url, 'git@github.com:citjmu/workshop.git'
 set :application, 'workshop_cit'
 set :user, 'deploy'
 set :puma_threads, [4, 16]
 set :puma_workers, 0
+
+set :rbenv_ruby, File.read('.ruby-version').strip
 
 # Don't change these unless you know what you're doing
 set :pty, true
