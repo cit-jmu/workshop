@@ -36,13 +36,14 @@ set :puma_init_active_record, true
 
 ## Linked Files & Directories (Default None):
 set :linked_files, %w{.rbenv-vars}
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/sockets public/system}
 
 namespace :puma do
   desc 'Create directories for Puma pids, socket, and logs'
   task :make_dirs do
     on roles(:app) do
       execute "mkdir #{shared_path}/log -p"
+      execute "mkdir #{shared_path}/public/system -p"
       execute "mkdir #{shared_path}/tmp/sockets -p"
       execute "mkdir #{shared_path}/tmp/pids -p"
     end
