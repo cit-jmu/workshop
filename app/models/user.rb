@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   # callbacks
   before_validation :setup_user_attributes, if: :new_record?
+  before_create :ensure_random_password, if: :in_ldap?
 
   def self.find_or_create(options)
     User.where(username: options[:username]).first || User.create!(options)
@@ -127,5 +128,10 @@ class User < ActiveRecord::Base
 
       # sync w/ LDAP
       sync_ldap_attributes if in_ldap?
+    end
+
+    def ensure_random_password
+      self.password = SecureRandom.base64(12)
+      self.password_confirmation = self.password
     end
 end
