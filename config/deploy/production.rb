@@ -1,1 +1,4 @@
-set :application, 'workshop'
+set :stage, :production
+
+server 'workshop.cit.jmu.edu', port: 22, roles: [:web, :app, :db], primary: true
+set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
