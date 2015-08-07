@@ -40,6 +40,16 @@ test:
   ssl: <%= ENV['ldap_ssl'] %>
   # <<: *AUTHORIZATIONS
 
+staging:
+  host: <%= ENV['ldap_host'] %>
+  port: <%= ENV['ldap_port'] %>
+  attribute: <%= ENV['ldap_attribute'] %>
+  base: <%= ENV['ldap_base'] %>
+  admin_user: <%= ENV['ldap_admin_user'] %>
+  admin_password: <%= ENV['ldap_admin_password'] %>
+  ssl: <%= ENV['ldap_ssl'] %>
+  # <<: *AUTHORIZATIONS
+
 production:
   host: <%= ENV['ldap_host'] %>
   port: <%= ENV['ldap_port'] %>
