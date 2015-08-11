@@ -9,5 +9,3 @@ set :puma_error_log, "#{release_path}/log/puma.error.log"
 set :puma_workers, 3
 set :puma_threads, [4, 16]
 set :puma_control_app, true
-
-before 'deploy:finished', 'newrelic:notice_deployment'

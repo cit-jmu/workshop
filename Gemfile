@@ -50,9 +50,6 @@ gem 'devise_ldap_authenticatable'
 # Use cancan for authorization
 gem 'cancancan', '~> 1.9'
 
-# Use figaro for app configuration
-gem 'figaro'
-
 # Use redcarpet for parsing Markdown
 gem 'redcarpet'
 
@@ -85,7 +82,6 @@ group :development do
   gem 'capistrano-bundler',     require: false
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-maintenance', require: false
-  gem 'capistrano-newrelic',    require: false
 end
 
 gem 'newrelic_rpm'
