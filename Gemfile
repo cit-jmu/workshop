@@ -76,6 +76,7 @@ gem 'nested_form'
 group :development do
   gem 'guard'
   gem 'guard-minitest'
+  gem 'hipchat'
   gem 'capistrano',             require: false
   gem 'capistrano-rbenv',       require: false
   gem 'capistrano-rails',       require: false

@@ -7,6 +7,9 @@ set :user, 'deploy'
 
 set :rbenv_ruby, File.read('.ruby-version').strip
 
+set :hipchat_token, ENV['HIPCHAT_TOKEN']
+set :hipchat_room_name, 'Developer Zone'
+
 set :pty, true
 set :use_sudo, false
 set :deploy_via, :remote_cache
