@@ -1,7 +1,7 @@
 <% if !Rails.env.production? %>
   <%= render partial: 'layouts/bootstrap_alert', locals: {
-    bootstrap_alert_class: 'alert-warning',
-    message: "Head's up! Running in the <strong>#{Rails.env}</strong> environment."
+    bootstrap_alert_class: Rails.env == 'development' ? 'alert-info' : 'alert-warning',
+    message: "Head's up! You're in the <strong>#{Rails.env}</strong> environment."
   } %>
 <% end %>
 <% if alert %>
