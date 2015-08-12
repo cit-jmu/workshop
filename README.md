@@ -29,7 +29,7 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    `rbenv` is a nice little utility for managing your installed Ruby versions
 
    ~~~ sh
-   $ brew install rbenv ruby-build
+   $ brew install rbenv ruby-build rbenv-vars
    ~~~
 
    When Homebrew has finished installing `rbenv`, add the following line to your `~/.bash_profile` script:
@@ -51,6 +51,8 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
    ~~~ sh
    $ rbenv rehash
    ~~~
+   
+   **Tip:** To avoid having to rehash, use [rbenv-gem-rehash](https://github.com/sstephenson/rbenv-gem-rehash).
 
 4. Install PostgreSQL
 
@@ -138,8 +140,6 @@ Aside from the standard gems that get installed with the default install of Rail
   * gem [devise_ldap_authenticatable](https://rubygems.org/gems/devise_ldap_authenticatable)
 * [CanCanCan](https://github.com/CanCanCommunity/cancancan)
   * gem [cancancan](https://rubygems.org/gems/cancancan)
-* [Figaro](https://github.com/laserlemon/figaro)
-  * gem [figaro](https://rubygems.org/gems/figaro)
 * [Redcarpet](https://github.com/vmg/redcarpet)
   * gem [redcarpet](https://rubygems.org/gems/redcarpet)
 * [iCalendar](https://github.com/icalendar/icalendar)
