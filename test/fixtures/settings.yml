@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+test_setting:
+  name: 'test_setting'
+  value: 'test_value'
+  last_changed_by: 'tester'

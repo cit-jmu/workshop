@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'stats/enrollments'
-
   devise_for :users
   authenticated :user do
     devise_scope :user do
@@ -26,6 +24,9 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :settings
+
+  get 'stats/enrollments'
 
   get 'catalog/index'
   get 'calendar', to: 'calendar#index'
