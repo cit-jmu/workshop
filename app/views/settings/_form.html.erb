@@ -1,29 +1,36 @@
-<%= form_for(@setting) do |f| %>
+<%= form_for(@setting)  do |f| %>
   <% if @setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
-
-      <ul>
-      <% @setting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @setting.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.select :name, @available_settings, {include_blank: true}, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :value %><br>
-    <%= f.text_field :value %>
+  <div class="form-group">
+    <%= f.label :value %>
+    <%= f.text_field :value, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :last_changed_by %><br>
-    <%= f.text_field :last_changed_by %>
-  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-primary' %>
+    <% if @setting.new_record? %>
+      <%= link_to "Cancel", settings_path, class: 'btn btn-default' %>
+    <% else %>
+      <%= link_to "Cancel", @setting, class: 'btn btn-default' %>
+    <% end %>
   </div>
 <% end %>

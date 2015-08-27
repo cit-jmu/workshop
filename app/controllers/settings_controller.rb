@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
   before_action :set_setting, only: [:show, :edit, :update, :destroy]
+  before_action :load_available_settings
 
   load_and_authorize_resource
 
@@ -63,5 +64,11 @@ class SettingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
       params.require(:setting).permit(:name, :value)
+    end
+
+    def load_available_settings
+      @available_settings = [
+        ['Evaluation URL', 'evaluation_url']
+      ]
     end
 end
