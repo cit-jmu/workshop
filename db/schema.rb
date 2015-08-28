@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826165848) do
+ActiveRecord::Schema.define(version: 20150828162410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",         limit: 255
+    t.string   "title",          limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "summary",       limit: 255
-    t.string   "course_number", limit: 8
-    t.string   "short_title",   limit: 30
+    t.string   "summary",        limit: 255
+    t.string   "course_number",  limit: 8
+    t.string   "short_title",    limit: 30
+    t.string   "evaluation_url"
   end
 
   create_table "enrollments", force: :cascade do |t|

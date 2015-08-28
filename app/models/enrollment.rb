@@ -22,6 +22,7 @@ class Enrollment < ActiveRecord::Base
     self.completed_at = Time.current unless completed?
     self.no_show = false
     save
+    send_evaluation
   end
 
   def no_show!
@@ -72,23 +73,26 @@ class Enrollment < ActiveRecord::Base
   end
 
   def send_reminder
-    UserMailer.reminder_email(self).deliver
+    UserMailer.reminder_email(self).deliver_now
+  end
+
+  def send_evaluation
+    UserMailer.evaluation_email(self).deliver_now
   end
 
   protected
 
     def notify_enroll
-      if self.section.alert_email?
-        UserMailer.alert_email(self).deliver
-      end
+      UserMailer.alert_email(self).deliver_now if section.alert_email?
+
       section.parts.each do |part|
-        UserMailer.enroll_email(self, part).deliver
+        UserMailer.enroll_email(self, part).deliver_now
       end
     end
 
     def notify_unenroll
       section.parts.each do |part|
-        UserMailer.unenroll_email(self, part).deliver
+        UserMailer.unenroll_email(self, part).deliver_now
       end
     end
 

@@ -62,6 +62,30 @@ class UserMailer < ActionMailer::Base
     mail(to: @alert_email, subject: subject)
   end
 
+  def evaluation_email(enrollment)
+    # grab the evaluation_url from either the course or main settings
+    evaluation_url = enrollment.course.evaluation_url || Setting.evaluation_url
+    # only setup and send the evaluation mail if we have a URL
+    if (evaluation_url)
+      @user = enrollment.user
+      @course = enrollment.course
+      @section = enrollment.section
+
+      # this is Embedded Data for the Qualtrics survey
+      # http://www.qualtrics.com/university/researchsuite/advanced-building/survey-flow/embedded-data/
+      embedded_data = {}
+      embedded_data[:course]        = @course.title
+      embedded_data[:instructor]    = @section.instructor.display_name
+      embedded_data[:enrollment_id] = enrollment.id
+      
+      # append the embedded data to the evaluation url as query params
+      @evaluation_url = "#{evaluation_url}&#{embedded_data.to_query}"
+
+      subject = "CIT Workshop evaluation for #{@course.title}"
+      mail(to: @user.email, subject: subject)
+    end
+  end
+
   private
   def ical_invite
     cal = Icalendar::Calendar.new
