@@ -1,6 +1,5 @@
 <div class="page-header">
   <h1>
-    <span class="glyphicon glyphicon-cog"></span>
     Settings
     <small>View an application setting</small>
   </h1>
@@ -23,5 +22,5 @@
   <%= @setting.last_changed_by %>
 </p>
 
-<%= link_to 'Edit', edit_setting_path(@setting) %> |
-<%= link_to 'Back', settings_path %>
+<%= link_to 'Edit', edit_setting_path(@setting), class: 'btn btn-primary' %>
+<%= link_to 'Back', settings_path, class: 'btn btn-default' %>

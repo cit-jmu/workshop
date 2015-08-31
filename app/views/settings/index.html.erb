@@ -1,35 +1,36 @@
 <div class="page-header">
   <h1>
-    <span class="glyphicon glyphicon-cog"></span>
-    Settings
-    <small>All application settings</small>
+    <% if can? :add, @section %>
+    <div class="admin-actions pull-right">
+      <%= link_to 'Add new setting', new_setting_path, class: 'btn btn-default' %>
+    </div>
+    <% end %>
+    Settings list
   </h1>
 </div>
 
-<div class="actions">
-  <%= link_to 'Add new setting', new_setting_path, class: 'btn btn-default' %>
-</div>
-
 <% if @settings.any? %>
-<table class="table">
+<table class="table table-striped table-hover table-responsive">
   <thead>
     <tr>
       <th>Name</th>
       <th>Value</th>
       <th>Last Changed By</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @settings.each do |setting| %>
       <tr>
-        <td><%= setting.name %></td>
+        <td><%= link_to setting.name, setting %></td>
         <td><%= setting.value %></td>
         <td><%= setting.last_changed_by %></td>
-        <td><%= link_to 'Show', setting %></td>
-        <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <ul class="list-inline">
+            <li><%= link_to 'Edit', edit_setting_path(setting) %></li>
+            <li><%= link_to 'Remove', setting, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        </td>
       </tr>
     <% end %>
   </tbody>
