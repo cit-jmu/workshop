@@ -1,0 +1,22 @@
+Hi, <%= @user.display_first %>!
+
+You have been enrolled in the CIT Workshop: <%= @course.title %>
+
+<%= @part.date_and_time %> (<%= @part.location %>)
+
+* If this is a multi-part course, then you will receive individual emails
+for each part.
+
+To unenroll from this course, please copy and paste this link into your
+browser:
+
+<%= confirm_unenroll_course_section_url(@course, @section) %>
+
+======================================================================
+<%= @course.title %>
+Duration: <%= @course.duration %>
+<% @section.parts.each do |part| %>
+  - <%= part.date_and_time %> (<%= part.location %>)
+<% end %>
+----------------------------------------------------------------------
+<%= @course.description %>

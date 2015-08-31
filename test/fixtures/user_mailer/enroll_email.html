@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><strong>Hi, <%= @user.display_first %>!</strong></p>
+    <p>
+      You have been enrolled in the CIT Workshop: <%= @course.title %>.
+    </p>
+    <p>
+      <strong><%= @part.date_and_time %> (<%= @part.location %>)</strong>
+      <br />
+      <em>
+        * If this is a multi-part course, then you will receive individual
+        emails for each part.
+      </em>
+    </p>
+    <p>
+      <%= link_to 'Click here to unenroll from this course',
+                  confirm_unenroll_course_section_url(@course, @section),
+                  method: :delete %>
+    </p>
+
+    <hr />
+
+    <h1><%= @course.title %></h1>
+    <p><strong>Duration:</strong> <%= @course.duration %> minutes</p>
+    <ul>
+    <% @section.parts.each do |part| %>
+      <li>
+        <strong><%= part.date_and_time %></strong> (<%= part.location %>)
+      </li>
+    <% end %>
+    </ul>
+    <%= @course.description_html %>
+  </body>
+</html>

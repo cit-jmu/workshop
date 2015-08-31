@@ -1,6 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 test_setting:
-  name: 'test_setting'
+  name: 'test_name'
   value: 'test_value'
   last_changed_by: 'tester'
+
+evaluation_url:
+  name: 'evaluation_url'
+  value: 'http://jmu.co1.qualtrics.com/SE/?SID=SV_82MNygLpNathnG5'
+  last_changed_by: 'admin'
