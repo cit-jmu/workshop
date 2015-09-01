@@ -1,6 +1,8 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
+set :log_level, :info
+
 set :application, 'workshop'
 set :repo_url, 'git@github.com:cit-jmu/workshop.git'
 set :user, 'deploy'
