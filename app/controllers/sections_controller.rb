@@ -65,11 +65,16 @@ class SectionsController < ApplicationController
   def enroll_user
     if params[:username].empty?
       alert = 'I need a <strong>username</strong> to enroll a user, silly.'
-      redirect_to [@course, @section], alert: alert
-      return
+      redirect_to [@course, @section], alert: alert and return
     end
 
     user = User.find_or_create(username: params[:username])
+
+    if user.enrolled? section: @section
+      notice = "The user <strong>#{user.username}</strong> is already enrolled."
+      redirect_to [@course, @section], notice: notice and return
+    end
+
     if user
       if @section.is_full? && @section.wait_list_user!(user)
         notice = "<strong>#{user.display_name}</strong>" \
@@ -83,7 +88,7 @@ class SectionsController < ApplicationController
         alert = "There was a problem enrolling" \
                 " <strong>#{user.display_name}</strong>" \
                 " in <strong>#{@course.title}</strong>"
-        redirect_to [@course, @section], notice: alert
+        redirect_to [@course, @section], alert: alert
       end
     else
       alert = "Could not find or create <strong>'#{params[:username]}'</strong>"
@@ -112,8 +117,7 @@ class SectionsController < ApplicationController
   def drop_user
     if params[:user_id].empty?
       alert = 'I need a <strong>user_id</strong> to drop a user, silly.'
-      redirect_to [@course, @section], alert: alert
-      return
+      redirect_to [@course, @section], alert: alert and return
     end
 
     user = User.find(params[:user_id])
@@ -131,8 +135,7 @@ class SectionsController < ApplicationController
   def mark_completed
     if params[:user_id].empty?
       alert = 'I need a <strong>user_id</strong> to mark a user for completion, silly.'
-      redirect_to [@course, @section], alert: alert
-      return
+      redirect_to [@course, @section], alert: alert and return
     end
 
     user = User.find(params[:user_id])
@@ -150,8 +153,7 @@ class SectionsController < ApplicationController
   def mark_no_show
     if params[:user_id].empty?
       alert = 'I need a <strong>user_id</strong> to mark a user as a no-show, silly.'
-      redirect_to [@course, @section], alert: alert
-      return
+      redirect_to [@course, @section], alert: alert and return
     end
 
     user = User.find(params[:user_id])
@@ -166,8 +168,7 @@ class SectionsController < ApplicationController
   def reset_status
     if params[:user_id].empty?
       alert = 'I need a <strong>user_id</strong> to reset a users status, silly.'
-      redirect_to [@course, @section], alert: alert
-      return
+      redirect_to [@course, @section], alert: alert and return
     end
 
     user = User.find(params[:user_id])

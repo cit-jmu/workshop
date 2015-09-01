@@ -92,6 +92,14 @@ class SectionsControllerTest < ActionController::TestCase
     assert_equal "I need a <strong>username</strong> to enroll a user, silly.", flash[:alert]
     assert_redirected_to course_section_path(section.course, section)
   end
+
+  test "users can't be enrolled in sections they are already enrolled in" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:admin)
+    post :enroll_user, id: section, course_id: section.course, username: users(:george).username
+    assert_equal "The user <strong>#{users(:george).username}</strong> is already enrolled.", flash[:notice]
+    assert_redirected_to course_section_path(section.course, section)
+  end
   
   test "drop user with empty user id redirects to course section page" do
     section = sections(:canvas113_rose)
