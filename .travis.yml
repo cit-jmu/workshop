@@ -1,9 +1,9 @@
 language: ruby
 sudo: false
 rvm:
-  - "2.2.2"
+  - "2.2.3"
 addons:
-  postgresql: "9.3"
+  postgresql: "9.4"
   code_climate:
     repo_token:
       secure: "Xcq5V0dBe/aVuXwf41o7F1knTWxbJXong6HRyLVBQ5Y0TqoHiRXS+83lKv6Jm4sF6ejvfuiuQe33qYjpbkgvJMhn1hvl5GC8h6Y1VfR5OBepHVjRdd3FsYIltXfMR5CQzIajcCwFLcZtRicIHhOMkXec2EqDVqJT9SNIDVGEezs="

@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619175712) do
+ActiveRecord::Schema.define(version: 20150828162410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",         limit: 255
+    t.string   "title",          limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "summary",       limit: 255
-    t.string   "course_number", limit: 8
-    t.string   "short_title",   limit: 30
+    t.string   "summary",        limit: 255
+    t.string   "course_number",  limit: 8
+    t.string   "short_title",    limit: 30
+    t.string   "evaluation_url"
   end
 
   create_table "enrollments", force: :cascade do |t|
@@ -55,6 +56,16 @@ ActiveRecord::Schema.define(version: 20150619175712) do
     t.integer  "instructor_id"
     t.string   "alert_email"
   end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "name",                               null: false
+    t.string   "value",                              null: false
+    t.string   "last_changed_by", default: "system"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "settings", ["name"], name: "index_settings_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false

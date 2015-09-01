@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><strong>Hi, <%= @user.display_first %>!</strong></p>
+    <p>
+    Congratulations on completing <strong><%= @course.title %></strong>!
+    We enjoyed having you participate in our workshop.
+    </p>
+    <p>
+    If you have a few moments, please let us know how we did.  Your feedback
+    is valuable to us, and helps us to improve our workshops to keep providing
+    the highest quality.  Below is a link to an evaluation survey, and it will
+    only take a few moments of your time.
+    </p>
+
+    <p>
+    <a href="<%= raw @evaluation_url %>"><%= @evaluation_url %></a>
+    </p>
+
+    <p>
+    Thanks again, and we hope you enjoyed your workshop.  You can always find
+    our latest workshops and other events at:
+    <a href="https://cit.jmu.edu/workshops">https://cit.jmu.edu/workshops</a>.
+    </p>
+
+  </body>
+</html>

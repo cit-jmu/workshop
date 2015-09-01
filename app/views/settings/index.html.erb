@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>
+    <% if can? :add, @section %>
+    <div class="admin-actions pull-right">
+      <%= link_to 'Add new setting', new_setting_path, class: 'btn btn-default' %>
+    </div>
+    <% end %>
+    Settings list
+  </h1>
+</div>
+
+<% if @settings.any? %>
+<table class="table table-striped table-hover table-responsive">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Last Changed By</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @settings.each do |setting| %>
+      <tr>
+        <td><%= link_to setting.name, setting %></td>
+        <td><%= setting.value %></td>
+        <td><%= setting.last_changed_by %></td>
+        <td>
+          <ul class="list-inline">
+            <li><%= link_to 'Edit', edit_setting_path(setting) %></li>
+            <li><%= link_to 'Remove', setting, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>There aren't any application settings at this time.</p>
+<% end %>
