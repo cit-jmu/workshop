@@ -28,6 +28,26 @@ class UserTest < ActiveSupport::TestCase
     assert !user.instructing?(:course => courses(:canvas113))
   end
 
+  test "user knows if they completed a course" do
+    user = users(:george)
+    course = courses(:canvas101)
+    assert_not user.completed? course: course
+
+    enrollment = user.enrollment_for course: course
+    enrollment.completed!
+    assert user.completed? course: course
+  end
+
+  test "user knows if they no-showed a course" do
+    user = users(:george)
+    course = courses(:canvas101)
+    assert_not user.no_show? course: course
+
+    enrollment = user.enrollment_for course: course
+    enrollment.no_show!
+    assert user.no_show? course: course
+  end
+
   test "has scope for instructors" do
     instructors = User.instructors
     assert_includes instructors, users(:instructor),

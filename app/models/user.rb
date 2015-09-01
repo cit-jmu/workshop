@@ -109,6 +109,11 @@ class User < ActiveRecord::Base
     enrollment = enrollment_for(options)
     enrollment.present? && enrollment.completed?
   end
+  
+  def no_show?(options = {})
+    enrollment = enrollment_for(options)
+    enrollment.present? && enrollment.no_show?
+  end
 
   def current_enrollments
     enrollments.select do |enrollment|

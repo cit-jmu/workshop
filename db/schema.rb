@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828162410) do
+ActiveRecord::Schema.define(version: 20150901190029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20150828162410) do
     t.boolean  "waiting",        default: false
     t.boolean  "no_show",        default: false
   end
+
+  add_index "enrollments", ["section_id", "user_id"], name: "index_enrollments_on_section_id_and_user_id", unique: true, using: :btree
 
   create_table "parts", force: :cascade do |t|
     t.integer  "section_id"
