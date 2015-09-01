@@ -63,7 +63,11 @@ class SectionsController < ApplicationController
   end
 
   def enroll_user
-    redirect_to [@course, @section] unless params[:username].present?
+    if params[:username].empty?
+      alert = 'I need a <strong>username</strong> to enroll a user, silly.'
+      redirect_to [@course, @section], alert: alert
+      return
+    end
 
     user = User.find_or_create(username: params[:username])
     if user
@@ -106,7 +110,11 @@ class SectionsController < ApplicationController
   end
 
   def drop_user
-    redirect_to [@course, @section] unless params[:user_id].present?
+    if params[:user_id].empty?
+      alert = 'I need a <strong>user_id</strong> to drop a user, silly.'
+      redirect_to [@course, @section], alert: alert
+      return
+    end
 
     user = User.find(params[:user_id])
     if user
@@ -121,7 +129,11 @@ class SectionsController < ApplicationController
   end
 
   def mark_completed
-    redirect_to [@course, @section] unless params[:user_id].present?
+    if params[:user_id].empty?
+      alert = 'I need a <strong>user_id</strong> to mark a user for completion, silly.'
+      redirect_to [@course, @section], alert: alert
+      return
+    end
 
     user = User.find(params[:user_id])
     if user
@@ -136,7 +148,11 @@ class SectionsController < ApplicationController
   end
 
   def mark_no_show
-    redirect_to [@course, @section] unless params[:user_id].present?
+    if params[:user_id].empty?
+      alert = 'I need a <strong>user_id</strong> to mark a user as a no-show, silly.'
+      redirect_to [@course, @section], alert: alert
+      return
+    end
 
     user = User.find(params[:user_id])
     if user
@@ -148,7 +164,11 @@ class SectionsController < ApplicationController
   end
 
   def reset_status
-    redirect_to [@course, @section] unless params[:user_id].present?
+    if params[:user_id].empty?
+      alert = 'I need a <strong>user_id</strong> to reset a users status, silly.'
+      redirect_to [@course, @section], alert: alert
+      return
+    end
 
     user = User.find(params[:user_id])
     if user

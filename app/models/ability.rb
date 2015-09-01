@@ -47,7 +47,7 @@ class Ability
         # and mark folks as a no-show for a section
         can :mark_no_show, Section, instructor_id: @user.id
         # and and reset the state
-        can :reset_state, Section, instructor_id: @user.id
+        can :reset_status, Section, instructor_id: @user.id
       end
     end
 

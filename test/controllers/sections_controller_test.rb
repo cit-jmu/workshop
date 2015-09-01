@@ -85,6 +85,22 @@ class SectionsControllerTest < ActionController::TestCase
                 :as => users(:instructor)
   end
 
+  test "enroll user with blank username redirects to course section page" do
+    section = sections(:canvas113_rose)
+    sign_in users(:admin)
+    post :enroll_user, id: section, course_id: section.course, username: ''
+    assert_equal "I need a <strong>username</strong> to enroll a user, silly.", flash[:alert]
+    assert_redirected_to course_section_path(section.course, section)
+  end
+  
+  test "drop user with empty user id redirects to course section page" do
+    section = sections(:canvas113_rose)
+    sign_in users(:admin)
+    post :drop_user, id: section, course_id: section.course, user_id: ''
+    assert_equal "I need a <strong>user_id</strong> to drop a user, silly.", flash[:alert]
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
   test "should drop course sections" do
     sign_in users(:bill)
     assert_difference('Enrollment.count', -1) do
@@ -102,6 +118,83 @@ class SectionsControllerTest < ActionController::TestCase
     drop_user :section => sections(:canvas101_carrier),
               :as => users(:professor_wiseman)
   end
+
+  test "admins can mark users as completing a section" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:admin)
+    post :mark_completed, id: section, course_id: section.course, user_id: users(:george).id
+    assert users(:george).completed? section: section
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "instructors can mark users as completing their sections" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:professor_wiseman)
+    post :mark_completed, id: section, course_id: section.course, user_id: users(:george).id
+    assert users(:george).completed? section: section
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "mark complete with empty user id redirects to course section page" do
+    section = sections(:canvas113_rose)
+    sign_in users(:admin)
+    post :mark_completed, id: section, course_id: section.course, user_id: ''
+    assert_equal "I need a <strong>user_id</strong> to mark a user for completion, silly.", flash[:alert]
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "admins can mark users as a no show for a section" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:admin)
+    post :mark_no_show, id: section, course_id: section.course, user_id: users(:george)
+    assert users(:george).no_show? section: section
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "instructors can mark users as a no show for a section" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:professor_wiseman)
+    post :mark_no_show, id: section, course_id: section.course, user_id: users(:george)
+    assert users(:george).no_show? section: section
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "mark no show with empty user id redirects to course section page" do
+    section = sections(:canvas113_rose)
+    sign_in users(:admin)
+    post :mark_no_show, id: section, course_id: section.course, user_id: ''
+    assert_equal "I need a <strong>user_id</strong> to mark a user as a no-show, silly.", flash[:alert]
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
+  test "admins can reset a users status for a section" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:admin)
+    enrollments(:george_canvas101_carrier).completed!
+    assert users(:george).completed? section: section
+    
+    post :reset_status, id: section, course_id: section.course, user_id: users(:george)
+    assert_not users(:george).completed? section: section
+  end
+
+  test "instructors can reset a users status for their sections" do
+    section = sections(:canvas101_carrier)
+    sign_in users(:professor_wiseman)
+    enrollments(:george_canvas101_carrier).completed!
+    assert users(:george).completed? section: section
+    
+    post :reset_status, id: section, course_id: section.course, user_id: users(:george)
+    assert_not users(:george).completed? section: section
+  end
+
+  test "resetting a users status requires a user id" do
+    section = sections(:canvas113_rose)
+    sign_in users(:admin)
+    post :reset_status, id: section, course_id: section.course, user_id: ''
+    assert_equal "I need a <strong>user_id</strong> to reset a users status, silly.", flash[:alert]
+    assert_redirected_to course_section_path(section.course, section)
+  end
+
 
   private
   def enroll_user(options = {})
