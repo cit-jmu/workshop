@@ -10,6 +10,9 @@ class UserMailerTest < ActionMailer::TestCase
       duration: 30
     )
     @enrollment.section.parts << @part
+
+    # clear action mailer deliveries
+    ActionMailer::Base.deliveries.clear
   end
 
 
@@ -167,7 +170,6 @@ class UserMailerTest < ActionMailer::TestCase
     Setting.expects(:evaluation_url).returns(nil)
     @enrollment.course.evaluation_url = nil;
     email = UserMailer.evaluation_email(@enrollment).deliver_now
-    p email
     assert_nil email
     assert_empty ActionMailer::Base.deliveries
   end
@@ -176,7 +178,6 @@ class UserMailerTest < ActionMailer::TestCase
     Setting.expects(:evaluation_url).returns("")
     @enrollment.course.evaluation_url = nil;
     email = UserMailer.evaluation_email(@enrollment).deliver_now
-    p email
     assert_nil email
     assert_empty ActionMailer::Base.deliveries
   end
@@ -184,7 +185,6 @@ class UserMailerTest < ActionMailer::TestCase
   test "evaluation email is not sent when the course evaluation url is an empty string" do
     @enrollment.course.evaluation_url = "";
     email = UserMailer.evaluation_email(@enrollment).deliver_now
-    p email
     assert_nil email
     assert_empty ActionMailer::Base.deliveries
   end
