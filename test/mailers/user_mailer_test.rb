@@ -136,7 +136,7 @@ class UserMailerTest < ActionMailer::TestCase
 
   end
 
-  test "evaluation email" do
+  test "evaluation email is sent when there is an evaluation url" do
     email = UserMailer.evaluation_email(@enrollment).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
@@ -162,4 +162,25 @@ class UserMailerTest < ActionMailer::TestCase
       assert body.include?('http://jmu.co1.qualtrics.com/SE/?SID=SV_82MNygLpNathnG5&course=Canvas+101%3A+The+Philosophy&enrollment_id=428823752&instructor=Professor+Wiseman'), 'body should include enrollment url'
     end
   end
+
+  test "evaluation email is not sent when there is no evaluation url" do
+    Setting.expects(:evaluation_url).returns(nil)
+    @enrollment.course.evaluation_url = nil;
+    UserMailer.evaluation_email(@enrollment).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
+  test "evaluation email is not sent when the Setting evaluation url is an empty string" do
+    Setting.expects(:evaluation_url).returns("")
+    @enrollment.course.evaluation_url = nil;
+    UserMailer.evaluation_email(@enrollment).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
+  test "evaluation email is not sent when the course evaluation url is an empty string" do
+    @enrollment.course.evaluation_url = "";
+    UserMailer.evaluation_email(@enrollment).deliver_now
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
 end

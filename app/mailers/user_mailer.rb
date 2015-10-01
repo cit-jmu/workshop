@@ -66,7 +66,7 @@ class UserMailer < ActionMailer::Base
     # grab the evaluation_url from either the course or main settings
     evaluation_url = enrollment.course.evaluation_url || Setting.evaluation_url
     # only setup and send the evaluation mail if we have a URL
-    if (evaluation_url)
+    if !evaluation_url.blank?
       @user = enrollment.user
       @course = enrollment.course
       @section = enrollment.section

@@ -59,8 +59,6 @@ gem 'icalendar'
 # Use simple_calendar for calendar generation
 gem 'simple_calendar', '~> 1.1.5'
 
-# For CodeClimate test coverate analysis
-gem 'codeclimate-test-reporter', group: :test, require: nil
 
 # Provides inflector-like functionality to make nouns posessive
 gem 'possessive'
@@ -72,7 +70,15 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 # Easy nested forms
 gem 'nested_form'
 
-# Guard does things when stuff happens
+# testing related items
+group :test do
+  gem 'mocha'
+
+  # For CodeClimate test coverate analysis
+  gem 'codeclimate-test-reporter', require: nil
+end
+
+# development items
 group :development do
   gem 'guard'
   gem 'guard-minitest'
