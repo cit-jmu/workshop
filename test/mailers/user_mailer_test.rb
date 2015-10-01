@@ -166,21 +166,27 @@ class UserMailerTest < ActionMailer::TestCase
   test "evaluation email is not sent when there is no evaluation url" do
     Setting.expects(:evaluation_url).returns(nil)
     @enrollment.course.evaluation_url = nil;
-    UserMailer.evaluation_email(@enrollment).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    email = UserMailer.evaluation_email(@enrollment).deliver_now
+    p email
+    assert_nil email
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test "evaluation email is not sent when the Setting evaluation url is an empty string" do
     Setting.expects(:evaluation_url).returns("")
     @enrollment.course.evaluation_url = nil;
-    UserMailer.evaluation_email(@enrollment).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    email = UserMailer.evaluation_email(@enrollment).deliver_now
+    p email
+    assert_nil email
+    assert_empty ActionMailer::Base.deliveries
   end
 
   test "evaluation email is not sent when the course evaluation url is an empty string" do
     @enrollment.course.evaluation_url = "";
-    UserMailer.evaluation_email(@enrollment).deliver_now
-    assert ActionMailer::Base.deliveries.empty?
+    email = UserMailer.evaluation_email(@enrollment).deliver_now
+    p email
+    assert_nil email
+    assert_empty ActionMailer::Base.deliveries
   end
 
 end
