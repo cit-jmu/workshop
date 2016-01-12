@@ -86,12 +86,12 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2015-12-09 14:00:00',
+        starts_at: '2016-02-09 14:00:00',
         duration: 60
       },
       {
         location: 'Carrier Library Room 37',
-        starts_at: '2015-12-11 09:00:00',
+        starts_at: '2016-02-11 09:00:00',
         duration: 60
       }]
     },
@@ -101,11 +101,11 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2015-12-16 09:00:00',
+        starts_at: '2016-02-16 09:00:00',
         duration: 60
       },{
         location: 'Rose Library Room 5308',
-        starts_at: '2015-12-17 14:00:00',
+        starts_at: '2016-02-17 14:00:00',
         duration: 60
       }]
     }
@@ -139,7 +139,7 @@ canvas113.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2015-12-10 14:00:00',
+        starts_at: '2016-03-10 14:00:00',
         duration: 60
       }]
     },
@@ -149,7 +149,7 @@ canvas113.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2015-12-17 09:00:00',
+        starts_at: '2016-03-17 09:00:00',
         duration: 60
       }]
     }
@@ -226,7 +226,7 @@ canvas234.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2015-12-12 14:00:00',
+        starts_at: '2016-02-12 14:00:00',
         duration: 120
       }]
     },
@@ -236,7 +236,7 @@ canvas234.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2015-12-19 09:00:00',
+        starts_at: '2016-02-19 09:00:00',
         duration: 120
       }]
     }
@@ -288,7 +288,7 @@ canvas_content_worksession.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2015-12-10 15:15:00',
+        starts_at: '2016-02-10 15:15:00',
         duration: 60
       }]
     },
@@ -298,7 +298,7 @@ canvas_content_worksession.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2015-12-17 10:15:00',
+        starts_at: '2016-02-17 10:15:00',
         duration: 60
       }]
     }
