@@ -1,0 +1,28 @@
+#	This file containes site-specific settings for the application
+#	Don't include sensitive data here (use environment variables instead)
+#	Change values by environment as needed (e.g a development email account)
+
+default: &default
+  identity:
+    site-name: My Workshops
+    site-owner: Workshop site-owner
+    replyto: email@yourdomain.com
+    site-owner-link: "http://mydomain.com"
+    site-owner-link-text: My Home Page
+
+  #	This allows you to map new terminology onto the existing models for displaying
+  # in views.
+  terminology:
+    course: Course
+    instructor: Instructor 
+    workshop: Workshop
+    section: Section
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
