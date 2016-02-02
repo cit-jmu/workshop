@@ -1,3 +1,4 @@
+<% terminology = Rails.application.config.x["terminology"] %>
 <h1><%= link_to @course.title, @course %></h1>
-<h2>Editing section</h2>
+<h2>Editing <%= terminology["section"] %></h2>
 <%= render 'form' %>

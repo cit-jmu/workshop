@@ -1,3 +1,4 @@
+<% terminology = Rails.application.config.x["terminology"] %>
 <div class="panel-body-section <%= css_classes_for_section_row(section) %>">
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title">
@@ -12,7 +13,7 @@
       <% end %>
     </h4>
     <p>
-      <strong>Instructor:</strong>
+      <strong><%= terminology["instructor"] %>:</strong>
       <%= section.instructor.display_name %>
     </p>
   </div>
