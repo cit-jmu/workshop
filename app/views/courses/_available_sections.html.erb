@@ -3,14 +3,14 @@
   <div class="panel-heading">
     <% if can? :create, Section %>
     <div class="admin-actions pull-right">
-      <%= link_to "Add section", new_course_section_path(@course) %>
+      <%= link_to "Add #{section}", new_course_section_path(@course) %>
     </div>
     <% end %>
     <h3 class="panel-title">
       <% if can? :read, Section %>
-      <%= link_to "Available sections", course_sections_path(@course) %>
+      <%= link_to "Available #{section.pluralize}", course_sections_path(@course) %>
       <% else %>
-      Available sections
+      Available <%= section.pluralize %>
       <% end %>
     </h3>
   </div>
