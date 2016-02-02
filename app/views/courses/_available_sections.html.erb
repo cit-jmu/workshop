@@ -1,3 +1,4 @@
+<% section = Rails.application.config.x["terminology"]["section"] %>
 <div class="panel panel-default panel-with-sections">
   <div class="panel-heading">
     <% if can? :create, Section %>
@@ -17,7 +18,7 @@
   <% if @available_sections.any? %>
     <%= render @available_sections %>
   <% else %>
-    <p>There aren't any sections available at this time.  Please check back later.</p>
+    <p>There aren't any <%= section.pluralize %> available at this time.  Please check back later.</p>
   <% end %>
   </div>
 </div>
