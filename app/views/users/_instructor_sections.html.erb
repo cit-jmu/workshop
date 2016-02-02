@@ -1,15 +1,16 @@
+<% terminology = Rails.application.config.x["terminology"] %>
 <div class="panel panel-default instructor-sections">
   <div class="panel-heading">
     <h3 class="panel-title instructing">
       <%= render 'shared/instructing_icon' %>
       <%= @user == current_user ? 'My' : @user.display_first.possessive %>
-      Courses
+      <%= terminology["course"].pluralize %>
     </h3>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <th>Course Name</th>
+        <th><%= terminology["course"] %> Name</th>
         <th>Date and Time</th>
         <th>Location</th>
         <th></th>
@@ -23,7 +24,7 @@
           <td><%= section.parts.first.date_and_time %></td>
           <td><%= section.parts.first.location %></td>
         <% else %>
-          <td colspan="2">(No parts found for this section)</td>
+          <td colspan="2">(No parts found for this <%= terminology["section"] %>)</td>
         <% end %>
         <td class="text-right">
           <%= link_to course_section_path(section.course, section),

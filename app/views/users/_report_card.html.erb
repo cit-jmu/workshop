@@ -1,3 +1,4 @@
+<% terminology = Rails.application.config.x["terminology"] %>
 <div class="panel panel-default report-card">
   <div class="panel-heading">
     <h3 class="panel-title">
@@ -13,11 +14,11 @@
     <br />
 
     <strong><%= @user.completed_enrollments.count %></strong>
-    completed  <%= "course".pluralize(@user.completed_enrollments.count) %>
+    completed  <%= terminology["course"].downcase.pluralize(@user.completed_enrollments.count) %>
   </div>
 
   <% if @user.completed_enrollments.any? %>
-  <h4 class="text-center">Completed Courses</h4>
+  <h4 class="text-center">Completed <%= terminology["course"].pluralize %></h4>
   <div class="list-group">
     <% @user.completed_enrollments.each do |enrollment| %>
       <%= link_to enrollment.course.title, enrollment.course,
