@@ -1,7 +1,8 @@
+<% course = Rails.application.config.x["terminology"]["course"] %>
 <div class="page-header">
   <h1>
-    Courses
-    <small>Add a new course</small>
+    <%= course.pluralize %>
+    <small>Add a new <%= course %></small>
   </h1>
 </div>
 
