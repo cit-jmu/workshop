@@ -1,8 +1,8 @@
-<% course = Rails.application.config.x["terminology"]["course"] %>
+<% terminology = Rails.application.config.x["terminology"] %>
 <div class="page-header">
   <h1>
-    <%= course.pluralize %>
-    <small>Add a new <%= course %></small>
+    <%= terminology["course"].pluralize %>
+    <small>Add a new <%= terminology["course"] %></small>
   </h1>
 </div>
 

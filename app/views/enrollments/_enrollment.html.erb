@@ -1,3 +1,5 @@
+<% terminology = Rails.application.config.x["terminology"] %>
+
 <div class="panel-body-section enrollment">
   <div class="panel-body-section-heading">
     <h4 class="panel-body-section-title course-title">
@@ -5,7 +7,7 @@
       <%= link_to enrollment.course.title, course_path(enrollment.course) %>
     </h4>
     <p>
-      <strong>Instructor:</strong>
+      <strong><%= terminology["instructor"] %>:</strong>
       <%= enrollment.section.instructor.display_name %>
     </p>
   </div>
@@ -26,9 +28,9 @@
   <div class="actions">
     <%
     link_text = if enrollment.waiting?
-      'Stop waiting'
+      "Stop waiting"
     else
-      'Drop course'
+      "Drop #{Rails.application.config.x["terminology"]["course"]}"
     end
     %>
     <% if enrollment.user == current_user %>

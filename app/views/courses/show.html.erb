@@ -1,4 +1,4 @@
-<% course = Rails.application.config.x["terminology"]["course"] %>
+<% terminology = Rails.application.config.x["terminology"] %>
 <% content_for :course_title_actions do %>
   <% if can?(:update, @course) %>
     <%= link_to edit_course_path(@course), title: 'Edit', class: 'btn btn-default' do %>
@@ -16,7 +16,7 @@
 
 <% if @course.duration %>
   <p class="lead">
-    <strong><%= course %> Duration:</strong> <%= @course.duration_in_words %>
+    <strong><%= terminology["course"] %> Duration:</strong> <%= @course.duration_in_words %>
     <% if @course.multi_session? %>
       total across multiple sessions
     <% end %>
