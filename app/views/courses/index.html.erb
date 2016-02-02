@@ -1,17 +1,24 @@
+<% 
+course = Rails.application.config.x["terminology"]["course"]
+instructor = Rails.application.config.x["terminology"]["instructor"]
+workshop = Rails.application.config.x["terminology"]["workshop"]
+section = Rails.application.config.x["terminology"]["section"]
+%>
+
 <div class="page-header">
-  <h1>Browse Workshops</h1>
+  <h1>Browse <%= workshop.pluralize %></h1>
 </div>
 <div class="actions">
   <% if can? :create, Course %>
-    <%= link_to 'Add new course', new_course_path, class: 'btn btn-default' %>
+    <%= link_to "Add new #{course}", new_course_path, class: 'btn btn-default' %>
   <% end %>
 </div>
 
 <% if @current_courses.empty? %>
 <p>
-  There are no courses available at this time.
+  There are no <%= course.pluralize %> available at this time.
   <% if can? :create, Course %>
-    Consider <%= link_to "adding some courses", new_course_path %>.
+    Consider <%= link_to "adding some #{course}.pluralize", new_course_path %>.
   <% end %>
 </p>
 <% else %>
@@ -23,8 +30,8 @@
 <div class="panel panel-default past-course-list">
   <div class="panel-heading">
     <h2 class="panel-title">
-      Past Courses
-      <small>These are courses that have no current sections</small>
+      Past <%= course.pluralize %>
+      <small>These are <%= course.pluralize %> that have no current <%= section.pluralize %></small>
     </h2>
   </div>
   <div class="panel-body">
