@@ -1,11 +1,13 @@
+<% identity = Rails.application.config.x["identity"] %>
+<% terminology = Rails.application.config.x["terminology"] %>
 <div class="jumbotron">
-  <h1>CIT Workshops</h1>
+  <h1><%= identity["site_name"] %></h1>
   <p>
-    Welcome to the CIT Workshop Registration System.  Browse our available
-    courses, find the ones that you like, and get yourself signed up for
+    Welcome to the <%= identity["site_owner"] %> Registration System.  Browse our available
+    <%= terminology["course"].downcase.pluralize %>, find the ones that you like, and get yourself signed up for
     one already!
   </p>
   <p>
-    <%= link_to 'Browse available courses', courses_path, class: 'btn btn-lg btn-primary' %>
+    <%= link_to "Browse available #{terminology["course"].downcase.pluralize}", courses_path, class: 'btn btn-lg btn-primary' %>
   </p>
 </div>
