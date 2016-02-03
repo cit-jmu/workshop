@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'catalog/index'
   get 'calendar', to: 'calendar#index'
 
-  # routes for feed integration to CIT website
+  # routes for RSS feeds
   get 'feed', to: 'feed#index'
   get 'feed/upcoming'
 
