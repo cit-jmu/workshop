@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "no-reply@jmu.edu"
+  default from: "#{Rails.application.config.x["identity"]["replyto"]}"
 
   def enroll_email(enrollment, part)
     @enrollment = enrollment
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
       content: ical_invite
     }
 
-    subject = "CIT Workshop enrollment for #{@course.title}"
+    subject = "#{Rails.application.config.x["terminology"]["workshop"]} enrollment for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
@@ -33,7 +33,7 @@ class UserMailer < ActionMailer::Base
       content: ical_cancel
     }
 
-    subject = "CIT Workshop course drop for #{@course.title}"
+    subject = "#{Rails.application.config.x["terminology"]["workshop"]} course drop for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
@@ -47,7 +47,7 @@ class UserMailer < ActionMailer::Base
     @course = enrollment.section.course
     @user = enrollment.user
 
-    subject = "CIT Workshop reminder for #{@course.title}"
+    subject = "#{Rails.application.config.x["terminology"]["workshop"]} reminder for #{@course.title}"
     mail(to: @user.email, subject: subject)
   end
 
@@ -58,7 +58,7 @@ class UserMailer < ActionMailer::Base
     @user = enrollment.user
     @alert_email = enrollment.section.alert_email
 
-    subject = "CIT Enrollment Alert for #{@course.title}"
+    subject = "Enrollment Alert for #{@course.title}"
     mail(to: @alert_email, subject: subject)
   end
 
@@ -81,7 +81,7 @@ class UserMailer < ActionMailer::Base
       # append the embedded data to the evaluation url as query params
       @evaluation_url = "#{evaluation_url}&#{embedded_data.to_query}"
 
-      subject = "CIT Workshop evaluation for #{@course.title}"
+      subject = "#{Rails.application.config.x["terminology"]["workshop"]} evaluation for #{@course.title}"
       mail(to: @user.email, subject: subject)
     end
   end
@@ -89,18 +89,18 @@ class UserMailer < ActionMailer::Base
   private
   def ical_invite
     cal = Icalendar::Calendar.new
-    cal.prodid = "-//James Madison University//CIT Workshop//EN"
+    cal.prodid = "-//James Madison University//#{Rails.application.config.x["identity"]["site_name"]}//EN"
     cal.ip_method = "REQUEST"
     cal.event do |e|
-      e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}@cit.jmu.edu"
+      e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}-#{Rails.application.config.x["identity"]["replyto"]}"
       e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
       e.dtend = @part.ends_at.strftime("%Y%m%dT%H%M%S")
       e.summary = @course.title
       e.description = @course.summary
       e.location = @part.location
       e.status = "CONFIRMED"
-      e.organizer = Icalendar::Values::CalAddress.new("mailto:cit@jmu.edu",
-                      cn: "Center for Instructional Technology")
+      e.organizer = Icalendar::Values::CalAddress.new("mailto:#{Rails.application.config.x["identity"]["replyto"]}",
+                      cn: "#{Rails.application.config.x["identity"]["site_owner"]}")
       e.attendee = Icalendar::Values::CalAddress.new("mailto:#{@user.email}",
                      cn: @user.full_name,
                      cutype: "INDIVIDUAL",
@@ -110,7 +110,7 @@ class UserMailer < ActionMailer::Base
       # schedule an alarm for 1 day prior to workshop
       e.alarm do |a|
         a.action = "DISPLAY"
-        a.summary = "CIT Workshop reminder"
+        a.summary = "#{Rails.application.config.x["terminology"]["workshop"]} reminder"
         a.trigger = '-P1DT0H0M0S'
       end
     end
@@ -119,16 +119,16 @@ class UserMailer < ActionMailer::Base
 
   def ical_cancel
     cal = Icalendar::Calendar.new
-    cal.prodid = "-//James Madison University//CIT Workshop//EN"
+    cal.prodid = "-//James Madison University//#{Rails.application.config.x["identity"]["site_name"]}//EN"
     cal.ip_method = "CANCEL"
     cal.event do |e|
-      e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}@cit.jmu.edu"
+      e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}-#{Rails.application.config.x["identity"]["replyto"]}"
       e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
       e.dtend = @part.ends_at.strftime("%Y%m%dT%H%M%S")
       e.location = @part.location
       e.status = "CANCELLED"
-      e.organizer = Icalendar::Values::CalAddress.new("mailto:cit@jmu.edu",
-                      cn: "Center for Instructional Technology")
+      e.organizer = Icalendar::Values::CalAddress.new("mailto:#{Rails.application.config.x["identity"]["replyto"]}",
+                      cn: "#{Rails.application.config.x["identity"]["site_owner"]}")
       e.attendee = Icalendar::Values::CalAddress.new("mailto:#{@user.email}",
                      cn: @user.full_name,
                      cutype: "INDIVIDUAL",
