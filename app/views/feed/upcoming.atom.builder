@@ -1,5 +1,6 @@
+identity = Rails.application.config.x["identity"]
 atom_feed do |feed|
-  feed.title "CIT Workshops"
+  feed.title "#{identity["site_name"]}"
   @parts.each do |part|
     feed.entry(part, url: course_url(part.section.course)) do |entry|
       entry.title part.section.course.title

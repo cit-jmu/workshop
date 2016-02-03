@@ -1,8 +1,10 @@
+identity = Rails.application.config.x["identity"]
+terminology = Rails.application.config.x["terminology"]
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title "CIT Workshops"
-    xml.description "Available CIT Workshops"
+    xml.title "#{identity["site_name"]}"
+    xml.description "Available #{terminology["workshop"].pluralize}"
     xml.link courses_url
 
     @courses.each do |course|
