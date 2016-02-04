@@ -10,8 +10,8 @@ local_defaults = {
     "events_link" => "http://mydomain.com/events"
   },
   "terminology" => {
-    "course" => 'Course',
     "workshop" => 'Workshop',
+    "course" => 'Course',
     "section" => 'Section',
     "part" => 'Part',
     "instructor" => 'Instructor'
