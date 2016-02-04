@@ -22,7 +22,7 @@
       <% end %>
       <% if course.instructors.any? %>
       <li>
-        <strong>Instructed by:</strong>
+        <strong><%= Rails.application.config.x["terminology"]["instructor"].pluralize(course.instructors.count) %>:</strong>
         <%= course.instructors.to_sentence %>
       </li>
       <% end %>

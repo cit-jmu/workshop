@@ -10,6 +10,6 @@
     <%= render "shared/completed_icon" %> Completed
   </li>
   <li class="instructing">
-    <%= render "shared/instructing_icon" %> Instructing
+    <%= render "shared/instructing_icon" %> <%= Rails.application.config.x["terminology"]["instructor"] %>
   </li>
 </ul>
