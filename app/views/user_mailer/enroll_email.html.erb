@@ -6,13 +6,13 @@
   <body>
     <p><strong>Hi, <%= @user.display_first %>!</strong></p>
     <p>
-      You have been enrolled in the CIT Workshop: <%= @course.title %>.
+      You have been enrolled in the <%= Rails.application.config.x["terminology"]["workshop"] %>: <%= @course.title %>.
     </p>
     <p>
       <strong><%= @part.date_and_time %> (<%= @part.location %>)</strong>
       <br />
       <em>
-        * If this is a multi-part course, then you will receive individual
+        * If this is a multi-part <%= Rails.application.config.x["terminology"]["course"] %>, then you will receive individual
         emails for each part.
       </em>
     </p>

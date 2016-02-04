@@ -6,7 +6,7 @@
   <body>
     <p><strong>Hi, <%= @user.display_first %>!</strong></p>
     <p>
-      This is a reminder that you are enrolled in the CIT Workshop
+      This is a reminder that you are enrolled in the <%= Rails.application.config.x["terminology"]["workshop"].downcase %>
       <%= link_to @course.title, course_section_url(@course, @section) %>!
     </p>
     <p>
@@ -14,7 +14,7 @@
     </p>
 
     <p>
-      <%= link_to 'Click here to unenroll from this course',
+      <%= link_to "Click here to unenroll from this #{Rails.application.config.x["terminology"]["course"].downcase}",
                   confirm_unenroll_course_section_url(@course, @section) %>
     </p>
 

@@ -5,7 +5,7 @@
   </head>
   <body>
     <p>Hi <%= @user.display_first %>,</p>
-    <p>You have dropped the course, "<%= @course.title %>".   We are sorry to
+    <p>You have dropped the <%= Rails.application.config.x["terminology"]["course"].downcase %>, "<%= @course.title %>".   We are sorry to
       see you go.</p>
   </body>
 </html>
