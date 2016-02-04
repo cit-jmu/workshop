@@ -22,7 +22,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@jmu.edu'], email.from
     assert_equal ['george@test.com'], email.to
-    assert_equal 'CIT Workshop enrollment for Canvas 101: The Philosophy',
+    assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} enrollment for Canvas 101: The Philosophy",
                  email.subject
 
     assert email.multipart?
@@ -58,7 +58,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@jmu.edu'], email.from
     assert_equal ['george@test.com'], email.to
-    assert_equal 'CIT Workshop course drop for Canvas 101: The Philosophy',
+    assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} course drop for Canvas 101: The Philosophy",
                  email.subject
 
     assert email.multipart?
@@ -92,7 +92,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@jmu.edu'], email.from
     assert_equal ['george@test.com'], email.to
-    assert_equal 'CIT Workshop reminder for Canvas 101: The Philosophy',
+    assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} reminder for Canvas 101: The Philosophy",
                  email.subject
 
     assert email.multipart?
@@ -117,7 +117,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@jmu.edu'], email.from
     assert_equal ['notify@test.com'], email.to
-    assert_equal 'CIT Enrollment Alert for Canvas 101: The Philosophy',
+    assert_equal 'Enrollment Alert for Canvas 101: The Philosophy',
                  email.subject
 
     assert email.multipart?
@@ -145,7 +145,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@jmu.edu'], email.from
     assert_equal ['george@test.com'], email.to
-    assert_equal 'CIT Workshop evaluation for Canvas 101: The Philosophy',
+    assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} evaluation for Canvas 101: The Philosophy",
                  email.subject
 
     assert email.multipart?

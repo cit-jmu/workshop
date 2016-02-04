@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "#{Rails.application.config.x["identity"]["replyto"]}"
+  default from: "no-reply@jmu.edu"
 
   def enroll_email(enrollment, part)
     @enrollment = enrollment
