@@ -1,9 +1,8 @@
-<% terminology = Rails.application.config.x["terminology"] %>
 <div class="panel panel-default panel-with-sections">
   <div class="panel-heading">
     <h3 class="panel-title">
-      Past <%= terminology["section"].pluralize %>
-      <small>Archive <%= terminology["section"].pluralize %> that are no longer current</small>
+      Past <%= Rails.application.config.x["terminology"]["section"].pluralize %>
+      <small>Archive <%= Rails.application.config.x["terminology"]["section"].pluralize %> that are no longer current</small>
     </h3>
   </div>
   <div class="panel-body">

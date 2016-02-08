@@ -1,13 +1,12 @@
-<% terminology = Rails.application.config.x["terminology"] %>
 <%= render partial: 'courses/title_heading',
            locals: { course: @course, link_title: false } %>
 
 <h3>
-  Are you sure you want to drop the <%= terminology["course"] %>, <em><%= @course.title %></em>?
+  Are you sure you want to drop the <%= Rails.application.config.x["terminology"]["course"] %>, <em><%= @course.title %></em>?
 </h3>
 
 <p style="margin-top:25px">
-<%= link_to "Yes, I want to drop this #{terminology["course"]}",
+<%= link_to "Yes, I want to drop this #{Rails.application.config.x["terminology"]["course"]}",
             drop_course_section_path(@course, @section),
             method: :delete, class: "btn btn-default" %>
 <%= link_to "Nevermind", course_section_path(@course, @section),

@@ -1,4 +1,3 @@
-<% terminology = Rails.application.config.x["terminology"] %>
 <% content_for :course_title_actions do %>
   <% if user_signed_in? %>
     <%= render 'signed_in_user_actions' %>
@@ -21,22 +20,22 @@
 <div class="summary">
   <ul class="list-inline">
     <li>
-      <strong><%= terminology["course"] %>:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["course"] %>:</strong>
       <%= @section.course.course_number %>
     </li>
     <li>
-      <strong><%= terminology["section"] %>:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["section"] %>:</strong>
       <%= @section.section_number %>
     </li>
 
     <li>
-      <strong><%= terminology["instructor"] %>:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["instructor"] %>:</strong>
       <%= @section.instructor.display_name %>
     </li>
 
     <li class="hidden-print">
       <% if @section.is_full? %>
-        <span class="label label-danger"><%= terminology["section"] %> full</span>
+        <span class="label label-danger"><%= Rails.application.config.x["terminology"]["section"] %> full</span>
       <% else %>
         <span class="label label-success">
           <%= pluralize(@section.open_seats, 'open seat', 'open seats') %>

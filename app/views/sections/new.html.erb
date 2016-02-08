@@ -1,7 +1,6 @@
-<% terminology = Rails.application.config.x["terminology"] %>
 <div class="page-header">
   <h1><%= link_to @course.title, @course %></h1>
 </div>
-<h2>Create a new <%= terminology["section"] %></h2>
+<h2>Create a new <%= Rails.application.config.x["terminology"]["section"] %></h2>
 
 <%= render 'form' %>

@@ -1,19 +1,17 @@
-<% terminology = Rails.application.config.x["terminology"] %>
-
 <div class="page-header">
-  <h1>Browse <%= terminology["workshop"].pluralize %></h1>
+  <h1>Browse <%= Rails.application.config.x["terminology"]["workshop"].pluralize %></h1>
 </div>
 <div class="actions">
   <% if can? :create, Course %>
-    <%= link_to "Add New #{terminology["course"]}", new_course_path, class: 'btn btn-default' %>
+    <%= link_to "Add New #{Rails.application.config.x["terminology"]["course"]}", new_course_path, class: 'btn btn-default' %>
   <% end %>
 </div>
 
 <% if @current_courses.empty? %>
 <p>
-  There are no <%= terminology["course"].pluralize %> available at this time.
+  There are no <%= Rails.application.config.x["terminology"]["course"].pluralize %> available at this time.
   <% if can? :create, Course %>
-    Consider <%= link_to "adding some #{terminology["course"]}.pluralize", new_course_path %>.
+    Consider <%= link_to "adding some #{Rails.application.config.x["terminology"]["course"]}.pluralize", new_course_path %>.
   <% end %>
 </p>
 <% else %>
@@ -25,8 +23,8 @@
 <div class="panel panel-default past-course-list">
   <div class="panel-heading">
     <h2 class="panel-title">
-      Past <%= terminology["course"].pluralize %>
-      <small>These are <%= terminology["course"].pluralize %> that have no current <%= terminology["section"].pluralize %></small>
+      Past <%= Rails.application.config.x["terminology"]["course"].pluralize %>
+      <small>These are <%= Rails.application.config.x["terminology"]["course"].pluralize %> that have no current <%= Rails.application.config.x["terminology"]["section"].pluralize %></small>
     </h2>
   </div>
   <div class="panel-body">

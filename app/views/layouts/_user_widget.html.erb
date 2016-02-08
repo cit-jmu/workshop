@@ -1,9 +1,8 @@
-<% identity = Rails.application.config.x["identity"] %>
 <ul id="user_widget" class="nav navbar-nav navbar-right">
   <li>
-    <a href=<%= identity["site_navbar_link"] %>>
+    <a href=<%= Rails.application.config.x["identity"]["site_navbar_link"] %>>
       <span class="glyphicon glyphicon-home"></span>
-      <%= identity["site_navbar_link_text"] %>
+      <%= Rails.application.config.x["identity"]["site_navbar_link_text"] %>
     </a>
   </li>
 <% if user_signed_in? %>
