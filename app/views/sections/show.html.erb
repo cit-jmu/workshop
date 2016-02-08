@@ -20,22 +20,22 @@
 <div class="summary">
   <ul class="list-inline">
     <li>
-      <strong>Course:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["course"] %>:</strong>
       <%= @section.course.course_number %>
     </li>
     <li>
-      <strong>Section:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["section"] %>:</strong>
       <%= @section.section_number %>
     </li>
 
     <li>
-      <strong>Instructor:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["instructor"] %>:</strong>
       <%= @section.instructor.display_name %>
     </li>
 
     <li class="hidden-print">
       <% if @section.is_full? %>
-        <span class="label label-danger">Section full</span>
+        <span class="label label-danger"><%= Rails.application.config.x["terminology"]["section"] %> full</span>
       <% else %>
         <span class="label label-success">
           <%= pluralize(@section.open_seats, 'open seat', 'open seats') %>

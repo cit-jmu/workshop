@@ -5,14 +5,16 @@ local_defaults = {
     "site_name" => "My Workshops",
     "site_owner" => "Workshop Site Owner",
     "replyto" => "email@yourdomain.com",
-    "site_owner_link" => "http://mydomain.com",
-    "site_owner_link_text" => "My Home Page"
+    "site_navbar_link" => "http://mydomain.com",
+    "site_navbar_link_text" => "My Home Page",
+    "events_link" => "http://mydomain.com/events"
   },
   "terminology" => {
-    "course" => 'Course',
-    "instructor" => 'Instructor',
     "workshop" => 'Workshop',
-    "section" => 'Section'
+    "course" => 'Course',
+    "section" => 'Section',
+    "part" => 'Part',
+    "instructor" => 'Instructor'
   }
 }
 

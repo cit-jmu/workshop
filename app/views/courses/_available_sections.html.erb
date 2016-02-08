@@ -2,14 +2,14 @@
   <div class="panel-heading">
     <% if can? :create, Section %>
     <div class="admin-actions pull-right">
-      <%= link_to "Add section", new_course_section_path(@course) %>
+      <%= link_to "Add #{Rails.application.config.x["terminology"]["section"]}", new_course_section_path(@course) %>
     </div>
     <% end %>
     <h3 class="panel-title">
       <% if can? :read, Section %>
-      <%= link_to "Available sections", course_sections_path(@course) %>
+      <%= link_to "Available #{Rails.application.config.x["terminology"]["section"].pluralize}", course_sections_path(@course) %>
       <% else %>
-      Available sections
+      Available <%= Rails.application.config.x["terminology"]["section"].pluralize %>
       <% end %>
     </h3>
   </div>
@@ -17,7 +17,7 @@
   <% if @available_sections.any? %>
     <%= render @available_sections %>
   <% else %>
-    <p>There aren't any sections available at this time.  Please check back later.</p>
+    <p>There aren't any <%= Rails.application.config.x["terminology"]["section"].pluralize %> available at this time.  Please check back later.</p>
   <% end %>
   </div>
 </div>

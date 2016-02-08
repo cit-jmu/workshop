@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Course Roster</h3>
+    <h3 class="panel-title"><%= Rails.application.config.x["terminology"]["course"] %> Roster</h3>
   </div>
   <% if @section.enrollments.active.any? %>
   <div class="table-responsive">
@@ -115,7 +115,7 @@
   </div>
   <% else %>
   <div class="panel-body">
-    <p>There isn't anyone enrolled in this section.</p>
+    <p>There isn't anyone enrolled in this <%= Rails.application.config.x["terminology"]["section"] %>.</p>
   </div>
   <% end %>
 </div>

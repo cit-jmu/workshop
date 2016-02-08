@@ -1,9 +1,9 @@
 Hi, <%= @user.display_first %>!
 
-This is a reminder that you are enrolled in the CIT Workshop
+This is a reminder that you are enrolled in the <%= Rails.application.config.x["terminology"]["workshop"].downcase %>
 "<%= @course.title %>"!
 
-To unenroll from this course, please copy and paste this link into your
+To unenroll from this <%= Rails.application.config.x["terminology"]["course"].downcase %>, please copy and paste this link into your
 browser:
 
 <%= confirm_unenroll_course_section_url(@course, @section) %>

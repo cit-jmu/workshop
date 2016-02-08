@@ -5,6 +5,6 @@
   </head>
   <body>
     <p>Enrollment Alert</p>
-    <p><%= @user.display_name %> ( <%= @user.email %> ) has enrolled in the course, "<%= @course.title %>".</p>
+    <p><%= @user.display_name %> ( <%= @user.email %> ) has enrolled in the <%= Rails.application.config.x["terminology"]["course"] %>, "<%= @course.title %>".</p>
   </body>
 </html>

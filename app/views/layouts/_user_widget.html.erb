@@ -1,8 +1,8 @@
 <ul id="user_widget" class="nav navbar-nav navbar-right">
   <li>
-    <a href="http://cit.jmu.edu">
+    <a href=<%= Rails.application.config.x["identity"]["site_navbar_link"] %>>
       <span class="glyphicon glyphicon-home"></span>
-      CIT Homepage
+      <%= Rails.application.config.x["identity"]["site_navbar_link_text"] %>
     </a>
   </li>
 <% if user_signed_in? %>

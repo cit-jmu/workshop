@@ -1,5 +1,5 @@
 Hello <%= @user.display_first %>,
 
-You have successfully dropped the CIT Workshop "<%= @course.title %>".
+You have successfully dropped the <%= Rails.application.config.x["terminology"]["workshop"].downcase %> "<%= @course.title %>".
 
 We are sorry to see you go!
