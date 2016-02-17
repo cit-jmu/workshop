@@ -24,8 +24,9 @@
 *.sublime-project
 *.sublime-workspace
 
-# Ignore application configuration
+# Ignore application configuration 
 /config/application.yml
+/config/local_settings.yml
 # and rbenv environment vars
 .rbenv-vars
 

@@ -12,7 +12,7 @@
       <% end %>
     </h4>
     <p>
-      <strong>Instructor:</strong>
+      <strong><%= Rails.application.config.x["terminology"]["instructor"] %>:</strong>
       <%= section.instructor.display_name %>
     </p>
   </div>

@@ -13,7 +13,7 @@
     <p>
     <% if @user == current_user %>
       You don't have any current enrollments.  Why not
-      <%= link_to "find some courses to take", courses_path %>?
+      <%= link_to "find some #{Rails.application.config.x["terminology"]["course"].downcase.pluralize} to take", courses_path %>?
     <% else %>
       <%= @user.display_first %> doesn't have any enrollments.
     <% end %>

@@ -6,18 +6,18 @@
   <body>
     <p><strong>Hi, <%= @user.display_first %>!</strong></p>
     <p>
-      You have been enrolled in the CIT Workshop: <%= @course.title %>.
+      You have been enrolled in the <%= Rails.application.config.x["terminology"]["workshop"] %>: <%= @course.title %>.
     </p>
     <p>
       <strong><%= @part.date_and_time %> (<%= @part.location %>)</strong>
       <br />
       <em>
-        * If this is a multi-part course, then you will receive individual
-        emails for each part.
+        * If this is a multi-<%= Rails.application.config.x["terminology"]["part"].downcase %> <%= Rails.application.config.x["terminology"]["course"] %>, then you will receive individual
+        emails for each <%= Rails.application.config.x["terminology"]["part"].downcase %>.
       </em>
     </p>
     <p>
-      <%= link_to 'Click here to unenroll from this course',
+      <%= link_to "Click here to unenroll from this #{Rails.application.config.x["terminology"]["course"]}",
                   confirm_unenroll_course_section_url(@course, @section),
                   method: :delete %>
     </p>

@@ -15,9 +15,9 @@
 
 <% if @course.duration %>
   <p class="lead">
-    <strong>Course Duration:</strong> <%= @course.duration_in_words %>
+    <strong><%= Rails.application.config.x["terminology"]["course"] %> Duration:</strong> <%= @course.duration_in_words %>
     <% if @course.multi_session? %>
-      total across multiple sessions
+      total across multiple <%= Rails.application.config.x["terminology"]["part"].downcase.pluralize %>
     <% end %>
   </p>
 <% end %>

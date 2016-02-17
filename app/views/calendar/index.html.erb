@@ -1,5 +1,5 @@
 <div class="page-header hidden-xs">
-  <h1>Workshop Calendar</h1>
+  <h1><%= Rails.application.config.x["terminology"]["workshop"] %> Calendar</h1>
 </div>
 
 <div class="cal hidden-xs">
@@ -89,7 +89,7 @@
           <strong>Location:</strong> <%= part.location %>
         </p>
         <p class="instructor">
-          <strong>Instructor:</strong> <%= part.section.instructor.display_name %>
+          <strong><%= Rails.application.config.x["terminology"]["instructor"] %>:</strong> <%= part.section.instructor.display_name %>
         </p>
       </div>
       <div class="course-actions">

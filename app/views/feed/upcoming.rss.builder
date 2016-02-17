@@ -1,8 +1,8 @@
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title "Upcoming CIT Workshops"
-    xml.description "Upcoming CIT Workshops"
+    xml.title "Upcoming #{Rails.application.config.x["terminology"]["workshop"].pluralize}"
+    xml.description "Upcoming #{Rails.application.config.x["terminology"]["workshop"].pluralize}"
     xml.link courses_url
 
     @parts.each do |part|

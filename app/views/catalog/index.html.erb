@@ -1,11 +1,11 @@
 <div class="jumbotron">
-  <h1>CIT Workshops</h1>
+  <h1><%= Rails.application.config.x["identity"]["site_name"] %></h1>
   <p>
-    Welcome to the CIT Workshop Registration System.  Browse our available
-    courses, find the ones that you like, and get yourself signed up for
+    Welcome to the <%= Rails.application.config.x["identity"]["site_owner"] %> Registration System.  Browse our available
+    <%= Rails.application.config.x["terminology"]["course"].downcase.pluralize %>, find the ones that you like, and get yourself signed up for
     one already!
   </p>
   <p>
-    <%= link_to 'Browse available courses', courses_path, class: 'btn btn-lg btn-primary' %>
+    <%= link_to "Browse available #{Rails.application.config.x["terminology"]["course"].downcase.pluralize}", courses_path, class: 'btn btn-lg btn-primary' %>
   </p>
 </div>
