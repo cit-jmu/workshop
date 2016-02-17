@@ -4,8 +4,8 @@ You have been enrolled in the <%= Rails.application.config.x["terminology"]["wor
 
 <%= @part.date_and_time %> (<%= @part.location %>)
 
-* If this is a multi-part <%= Rails.application.config.x["terminology"]["course"] %>, then you will receive individual emails
-for each part.
+* If this is a multi-<%= Rails.application.config.x["terminology"]["part"].downcase %> <%= Rails.application.config.x["terminology"]["course"] %>, then you will receive individual emails
+for each <%= Rails.application.config.x["terminology"]["part"].downcase %>.
 
 To unenroll from this <%= Rails.application.config.x["terminology"]["course"] %>, please copy and paste this link into your
 browser:

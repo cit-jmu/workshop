@@ -20,7 +20,7 @@ class UserMailerTest < ActionMailer::TestCase
     email = UserMailer.enroll_email(@enrollment, @part).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['no-reply@jmu.edu'], email.from
+    assert_equal ["#{Rails.application.config.x["identity"]["replyto"]}"], email.from
     assert_equal ['george@test.com'], email.to
     assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} enrollment for Canvas 101: The Philosophy",
                  email.subject
@@ -56,7 +56,7 @@ class UserMailerTest < ActionMailer::TestCase
     email = UserMailer.unenroll_email(@enrollment, @part).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['no-reply@jmu.edu'], email.from
+    assert_equal ["#{Rails.application.config.x["identity"]["replyto"]}"], email.from
     assert_equal ['george@test.com'], email.to
     assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} course drop for Canvas 101: The Philosophy",
                  email.subject
@@ -90,7 +90,7 @@ class UserMailerTest < ActionMailer::TestCase
     email = UserMailer.reminder_email(@enrollment).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['no-reply@jmu.edu'], email.from
+    assert_equal ["#{Rails.application.config.x["identity"]["replyto"]}"], email.from
     assert_equal ['george@test.com'], email.to
     assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} reminder for Canvas 101: The Philosophy",
                  email.subject
@@ -115,7 +115,7 @@ class UserMailerTest < ActionMailer::TestCase
     email = UserMailer.alert_email(@enrollment).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['no-reply@jmu.edu'], email.from
+    assert_equal ["#{Rails.application.config.x["identity"]["replyto"]}"], email.from
     assert_equal ['notify@test.com'], email.to
     assert_equal 'Enrollment Alert for Canvas 101: The Philosophy',
                  email.subject
@@ -143,7 +143,7 @@ class UserMailerTest < ActionMailer::TestCase
     email = UserMailer.evaluation_email(@enrollment).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['no-reply@jmu.edu'], email.from
+    assert_equal ["#{Rails.application.config.x["identity"]["replyto"]}"], email.from
     assert_equal ['george@test.com'], email.to
     assert_equal "#{Rails.application.config.x["terminology"]["workshop"]} evaluation for Canvas 101: The Philosophy",
                  email.subject
