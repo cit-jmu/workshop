@@ -6,7 +6,7 @@ default: &default
   identity:
     site_name: My Workshops
     site_owner: Workshop site-owner
-    replyto: email@yourdomain.com
+    replyto: no-reply@yourdomain.com
     site_navbar_link: "http://mydomain.com"
     site_navbar_link_text: My Home Page
     events_link: "http://mydomain.com/events"
