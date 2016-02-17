@@ -46,13 +46,13 @@
   </div>
 
   <fieldset>
-    <legend>Section parts</legend>
+    <legend><%= Rails.application.config.x["terminology"]["part"].pluralize %></legend>
     <%= f.fields_for :parts %>
-    <p><%= f.link_to_add "Add #{Rails.application.config.x["terminology"]["section"]} part", :parts, :class => 'btn btn-default' %></p>
+    <p><%= f.link_to_add "Add #{Rails.application.config.x["terminology"]["part"]}", :parts, :class => 'btn btn-default' %></p>
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit class: 'btn btn-primary' %>
+    <%= f.submit "Save #{Rails.application.config.x["terminology"]["section"]}", class: 'btn btn-primary' %>
     <% if @section.new_record? %>
       <%= link_to "Cancel", course_sections_path, class: 'btn btn-default' %>
     <% else %>

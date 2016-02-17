@@ -17,7 +17,7 @@
       <% end %>
       <% if course.multi_session? %>
       <li>
-        <strong>Multiple Sessions</strong>
+        <strong>Multiple <%= Rails.application.config.x["terminology"]["part"].pluralize %></strong>
       </li>
       <% end %>
       <% if course.instructors.any? %>
