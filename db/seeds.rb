@@ -23,10 +23,10 @@ User.create!([
     role: :admin
   },
   {
-    username: 'shanklt',
-    first_name: 'Leighton',
-    last_name: 'Shank',
-    email:'shanklt@jmu.edu',
+    username: 'short2jw',
+    first_name: 'Jennifer',
+    last_name: 'Short',
+    email:'short2jw@jmu.edu',
     role: :admin
   }
 ])
