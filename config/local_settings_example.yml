@@ -28,3 +28,6 @@ development:
 
 test:
   <<: *default
+
+staging:
+  <<: *default
