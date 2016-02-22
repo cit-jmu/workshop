@@ -22,7 +22,7 @@ set :ssh_options, {
 }
 
 ## Linked Files & Directories (Default None):
-set :linked_files, fetch(:linked_files, []).push('.rbenv-vars')
+set :linked_files, fetch(:linked_files, []).push('.rbenv-vars', 'config/local_settings.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache',
                                                'tmp/sockets', 'public/system')
 

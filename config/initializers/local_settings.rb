@@ -19,7 +19,7 @@ local_defaults = {
 }
 
 if File.exist?(File.join("config", "local_settings.yml"))
-  Rails.application.config.x = Rails.application.config_for(:local_settings);
+  Rails.application.config.x = Rails.application.config_for(:local_settings)
 else
   Rails.application.config.x = local_defaults
 end
