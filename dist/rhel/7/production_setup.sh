@@ -1,5 +1,7 @@
 #!/bin/bash
 current=/home/deploy/app/workshop/current
-ln -s $current/dist/rhel/7/backup-db /usr/local/bin/backup-db
-ln -s $current/dist/rhel/7/puma-init /usr/local/bin/puma-init
-ln -s $current/dist/rhel/7/puma.service /usr/lib/systemd/system/puma.service
+cp -a $current/dist/rhel/7/backup-db /usr/local/bin/
+cp -a $current/dist/rhel/7/puma-init /usr/local/bin/
+cp -a $current/dist/rhel/7/puma.service /usr/lib/systemd/system/
+systemctl daemon-reload
+chmod a+x /usr/local/bin/backup-db /usr/local/bin/puma-init

@@ -6,7 +6,6 @@ puma_config=$app/shared/puma.rb
 # Export rbenv path.
 export rbenv=/home/$user/.rbenv
 export PATH="$rbenv/bin:$rbenv/shims:$PATH"
-echo $PATH
 
 status() {
     echo "Reporting status of the Puma HTTP server."
