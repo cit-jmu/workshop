@@ -1,0 +1,24 @@
+# based on https://gist.github.com/twtw/5494223
+# create systemd service file for rails/puma startup
+# 0. [if required: rvm use ruby@default]
+# 1. rvm wrapper default systemd rails
+# 2. put this file in /etc/systemd/system/rails-puma.service
+# 3. systemctl enable rails-puma
+# 4. systemctl start rails-puma
+[Unit]
+Description=Rails-Puma Webserver
+
+[Service]
+Type=oneshot
+User=deploy
+PIDFile=/home/deploy/apps/workshop/shared/tmp/pids/puma.pid
+WorkingDirectory=/home/deploy/apps/workshop/current/
+ExecStart=/usr/local/bin/puma-init start
+ExecStop=/usr/local/bin/puma-init stop
+ExecStatus=/usr/local/bin/puma-init status
+ExecRestart=/usr/local/bin/puma-init restart
+RemainAfterExit=yes
+TimeoutSec=15
+
+[Install]
+WantedBy=multi-user.target

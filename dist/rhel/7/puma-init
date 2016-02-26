@@ -1,0 +1,33 @@
+#!/bin/bash
+app=/home/deploy/apps/workshop
+user=deploy
+puma_config=$app/shared/puma.rb
+
+# Export rbenv path.
+export rbenv=/home/$user/.rbenv
+export PATH="$rbenv/bin:$rbenv/shims:$PATH"
+echo $PATH
+
+status() {
+    echo "Reporting status of the Puma HTTP server."
+    pumactl -F "$puma_config" status
+}
+
+start() {
+    echo "Starting the Puma HTTP server."
+    pumactl -F "$puma_config" start &
+}
+
+stop() {
+    echo "Stopping the Puma HTTP server."
+    pumactl -F "$puma_config" stop
+}
+
+restart() {
+    echo "Restarting the Puma HTTP server."
+    pumactl -F "$puma_config" restart
+}
+
+case $1 in
+  status|start|stop|restart) "$1" ;;
+esac
