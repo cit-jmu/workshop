@@ -1,0 +1,26 @@
+NEW_RELIC_LICENSE_KEY=
+HIPCHAT_TOKEN=
+
+ldap_admin_user="CN=BIND_USER,OU=Service Accounts,DC=ad,DC=yourdomain,DC=edu"
+ldap_admin_password=BIND_PASSWORD
+
+ldap_use_admin_to_bind=true
+ldap_ssl=yes
+
+ldap_host=ldap.yourdomain.edu
+ldap_port=636
+ldap_base=OU=Users,DC=ad,DC=yourdomain,DC=edu
+ldap_attribute=sAMAccountName
+
+ldap_email=mail
+ldap_first_name=givenName
+ldap_last_name=sn
+ldap_employee_id=employeeID
+ldap_phone_number=telephoneNumber
+ldap_department=ou
+ldap_mailbox=postOfficeBox
+ldap_nickname=nickname
+
+mail_server=mail.yourdomain.edu
+mail_port=25
+mail_domain=yourdomain.edu
