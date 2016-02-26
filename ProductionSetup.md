@@ -106,7 +106,7 @@ scp <path to local\_settings.yml on local machine> deploy@<servername>:~/apps/wo
 ```
 ln -s /home/deploy/apps/workshop/current/dist/nginx/production.conf /etc/nginx/conf.d/
 ```
-12.  You need a few utility/startup scripts to help manage the server in production. They need to be symlinked to the appropriate locations on your server.
+12.  You need a few utility/startup scripts to help manage the server in production. They need to be copied to the appropriate locations on your server.
 
     1. A short script is included to do this for RHEL7, stored in the repository as `<workshop root>/dist/rhel/7/production_setup.sh`. 
     
