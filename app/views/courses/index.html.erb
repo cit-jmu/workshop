@@ -9,9 +9,9 @@
 
 <% if @current_courses.empty? %>
 <p>
-  There are no <%= Rails.application.config.x["terminology"]["course"].pluralize %> available at this time.
+  There are no <%= Rails.application.config.x["terminology"]["course"].downcase.pluralize %> available at this time.
   <% if can? :create, Course %>
-    Consider <%= link_to "adding some #{Rails.application.config.x["terminology"]["course"]}.pluralize", new_course_path %>.
+    Consider <%= link_to "adding some #{Rails.application.config.x["terminology"]["course"].downcase.pluralize}", new_course_path %>.
   <% end %>
 </p>
 <% else %>
