@@ -1,6 +1,7 @@
 set :stage, :staging
+set :rails_env, :staging
 
-server 'it-cfiprog.jmu.edu', port: 22, roles: [:web, :app, :db], primary: true
+server 'workshop.cit.jmu.edu', port: 22, roles: [:app, :web, :db], primary: true
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}_staging"
 
 set :puma_access_log, "#{shared_path}/log/puma.access.log"
