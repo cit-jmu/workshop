@@ -21,6 +21,7 @@ Setting Up the Environment
     sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
     ```
 6.  Install rbenv and ruby-build by cloning their repositories into the deploy user’s home directory.
+
     ```
     cd ~
     git clone git://github.com/sstephenson/rbenv.git .rbenv
