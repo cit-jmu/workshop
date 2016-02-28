@@ -84,9 +84,9 @@ Initial App Deployment
 
 1.  Clone the workshop repository onto your local machine.
 
-    ```
+    ~~~ sh
     git clone <git@github.com:cit-jmu/workshop.git>
-    ```
+    ~~~
 
 2.  Navigate to `<workshop root>/config/deploy` and update `production.rb` and `staging.rb` with the name of the server which will be running the application.
 
@@ -114,10 +114,10 @@ Initial App Deployment
 
 8.  On your local machine, run the following commands to upload these files to your server.
 
-    ```
+    ~~~ sh
     scp <path to .rbenv-vars on local machine> deploy@<servername>:~/apps/workshop/shared/
     scp <path to local\_settings.yml on local machine> deploy@<servername>:~/apps/workshop/shared/config/
-    ```
+    ~~~
 
 9.  Log in to your server as the deploy user and navigate to `/home/deploy/apps/workshop/releases/<timestamped directory>`. From there, you can run `rake db:create` to initialize the database for the application. It will be called `workshop`.
 
@@ -125,9 +125,9 @@ Initial App Deployment
 
 11.  On your server, run the following command to create a symlink for your nginx configuration files. If you have multiple environments (e.g. production and production\_cfi) you will need to do this for each one.
 
-    ```
+    ~~~ sh
     ln -s /home/deploy/apps/workshop/current/dist/nginx/production.conf /etc/nginx/conf.d/
-    ```
+    ~~~
 
 12.  You need a few utility/startup scripts to help manage the server in production. They need to be symlinked to the appropriate locations on your server.
 
@@ -141,7 +141,7 @@ Initial App Deployment
 
 13.  Currently, there is no admin user for the application. To set that up, log in to the application (in your browser) to create a user. Then run the following commands on the server command line to set that user to admin role:
 
-    ```
+    ~~~ sh
     sudo –u posgres psql workshop
     update users set role=2 where username = '<your username>';
-    ```
+    ~~~
