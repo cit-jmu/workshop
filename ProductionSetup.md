@@ -1,5 +1,4 @@
-Workshop Registration App Setup
-===============================
+## Production Setup
 
 Setting Up the Environment
 --------------------------
