@@ -1,4 +1,5 @@
-## Production Setup
+Production Setup
+===================
 
 Setting Up the Environment
 --------------------------
