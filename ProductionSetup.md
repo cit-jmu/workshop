@@ -10,9 +10,9 @@ Setting Up the Environment
 
 3.  Install and configure git. You can setup user.name and user.email, but it isn’t necessary.
 
-    ```
+    ~~~ sh
     sudo yum install git
-    ```
+    ~~~
 
 4.  Follow GitHub’s instructions for generating an SSH key and setting it up for the deploy user: <https://help.github.com/articles/generating-an-ssh-key/>
 
