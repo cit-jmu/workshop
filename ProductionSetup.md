@@ -20,13 +20,13 @@ Setting Up the Environment
 
 5.  Install dependencies for rbenv and Ruby:
 
-    ```
+    ~~~ sh
     sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
-    ```
+    ~~~
 
 6.  Install rbenv and ruby-build by cloning their repositories into the deploy user’s home directory.
 
-    ```
+    ~~~ sh
     cd ~
     git clone git://github.com/sstephenson/rbenv.git .rbenv
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash\_profile
@@ -34,50 +34,50 @@ Setting Up the Environment
     git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash\_profile
     source ~/.bash\_profile
-    ```
+    ~~~
 
 7.  Install Ruby using rbenv and set the global Ruby version. Note: rbenv rehash is necessary to ensure that the OS picks up the correct version of Ruby.
 
-    ```
+    ~~~ sh
     rbenv install -v 2.2.3
     rbenv rehash
     rbenv global 2.2.3
-    ```
+    ~~~
 
 8.  Install Bundler to manage application dependencies
 
-    ```
+    ~~~ sh
     gem install bundler
-    ```
+    ~~~
 
 9.  Install the `rbenv/rbenv-vars` repo into the `.rbenv/plugins` directory
 
-    ```
+    ~~~ sh
     cd ~/.rbenv/plugins && git clone git@github.com:rbenv/rbenv-vars.git
-    ```
+    ~~~
 
 10.  Install and set up PostgreSQL
 
-    ```
+    ~~~ sh
     sudo yum install postgresql-server postgresql-contrib postgresql-devel
-    ```
+    ~~~
 
 11.  Create a role in PostgreSQL called workshop that has createdb permissions
 
-    ```
+    ~~~ sh
     sudo -u postgres psql
     create role workshop with createdb login password ‘<enter your password here>’;
-    ```
+    ~~~
 
 12.  Ensure that `/home/deploy` is set to be readable/executable by all users.
 
 13.  If your server does not have nginx installed, you will need to install that as well. For RHEL 7:
 
-    ```
+    ~~~ sh
     rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     rpm -Uvh <https://mirror.webtatic.com/yum/el7/webtatic-release.rpm>
     yum install nginx18
-    ```
+    ~~~
 
 Initial App Deployment
 ----------------------
