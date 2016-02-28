@@ -10,8 +10,9 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 ## Setup Instructions
 
-[a relative link](DevelopmentSetup.md)
-[a relative link](ProductionSetup.md)
+* [Development Setup](DevelopmentSetup.md)
+* [Production Setup](ProductionSetup.md)
+
 
 ## What's in the box?
 
