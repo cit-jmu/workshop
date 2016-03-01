@@ -1,10 +1,7 @@
-# based on https://gist.github.com/twtw/5494223
-# create systemd service file for rails/puma startup
-# 0. [if required: rvm use ruby@default]
-# 1. rvm wrapper default systemd rails
-# 2. put this file in /etc/systemd/system/rails-puma.service
-# 3. systemctl enable rails-puma
-# 4. systemctl start rails-puma
+# systemd service file for puma startup
+# 1. put this file in /etc/systemd/system/puma.service
+# 3. systemctl enable puma
+# 4. systemctl start puma
 [Unit]
 Description=Rails-Puma Webserver
 
