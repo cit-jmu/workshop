@@ -98,7 +98,12 @@
    workshop $ rbenv rehash
    ~~~
 
-7. Setup the database
+7.  On your local machine, navigate to `<workshop root>` and rename the `.rbenv-vars_example_dev` file to `.rbenv-vars` then update it with values for your setup. This file is where your sensitive server account information will go for things like LDAP authentication, mail server set up, database setup, etc.
+
+8.  Then navigate to `<workshop root>/config` and rename `local_settings_example.yml` to `local_settings.yml` and update it with values for your setup. This file contains information that will be displayed in the public interface and allows for custom terminology usage for specific parts of the application (e.g. refer to a Workshop as a Program).
+
+
+9. Setup the database
 
    We will use `db:setup` rake task to create and initialize our database
 
@@ -106,7 +111,7 @@
    workshop $ bin/rake db:setup
    ~~~
 
-8. Make sure it all works
+10. Make sure it all works
 
    Let's fire up the Rails development server and test to make sure things are working
 
