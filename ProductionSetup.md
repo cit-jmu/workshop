@@ -108,7 +108,7 @@ Initial App Deployment
 
     b.  Note: this initial deploy with end with an error, which we will resolve in the next step.
 
-6.  On your local machine, navigate to `<workshop root>` and rename the `.rbenv-vars-example` file to `.rbenv-vars` then update it with values for your setup. This file is where your sensitive server account information will go for things like LDAP authentication, mail server set up, database setup, etc.
+6.  On your local machine, navigate to `<workshop root>` and rename the `.rbenv-vars_example_prod` file to `.rbenv-vars` then update it with values for your setup. This file is where your sensitive server account information will go for things like LDAP authentication, mail server set up, database setup, etc.
 
 7.  Then navigate to `<workshop root>/config` and rename `local_settings_example.yml` to `local_settings.yml` and update it with values for your setup. This file contains information that will be displayed in the public interface and allows for custom terminology usage for specific parts of the application (e.g. refer to a Workshop as a Program).
 
