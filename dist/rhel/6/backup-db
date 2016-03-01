@@ -1,0 +1,53 @@
+#!/bin/bash
+
+DATABASE=$1
+
+# make sure we were given a database to backup
+if [ "$DATABASE" == "" ]
+then
+  echo "error: please specify a database to backup!"
+  echo "usage: $(basename $0) <database name>"
+  echo
+  exit
+fi
+
+TIMESTAMP=`date +%Y%m%d%H%M%S`
+BACKUP_DIR=/var/lib/pgsql/current/backups/$DATABASE
+ARCHIVE="${TIMESTAMP}_${DATABASE}.tar.gz"
+BACKUP="$DATABASE.dump"
+MD5="$DATABASE.md5"
+
+# ensure the backup directory exists
+[[ ! -d $BACKUP_DIR ]] && mkdir -p $BACKUP_DIR
+cd $BACKUP_DIR
+
+echo "[$(date -R)]  Starting database backup"
+echo "[$(date -R)]  > Directory: $BACKUP_DIR" 
+echo "[$(date -R)]  > Database:  $DATABASE" 
+echo "[$(date -R)]  > Target:    $BACKUP" 
+
+# dump the db
+/usr/bin/pg_dump -U postgres -Fc -f $BACKUP $DATABASE
+
+# create an archive to send to db1 to be backedup
+echo "[$(date -R)]  Creating backup archive"
+echo "[$(date -R)]  > Target:   $BACKUP" 
+echo "[$(date -R)]  > Checksum: $MD5" 
+echo "[$(date -R)]  > Archive:  $ARCHIVE" 
+
+md5sum $BACKUP > $MD5
+tar -czf $ARCHIVE $BACKUP $MD5
+
+echo "[$(date -R)]  Copying latest backup to /backup"
+cp -a $ARCHIVE /backup/postgresql/$DATABASE.tar.gz
+
+# symlink to the latest archive
+echo "[$(date -R)]  Linking to latest backup"
+rm -f latest && ln -s $ARCHIVE latest
+
+# clean up
+echo "[$(date -R)]  Cleaning up"
+rm -f $BACKUP $MD5
+find $BACKUP_DIR -mtime +30 -exec rm -f {} \;
+
+echo "[$(date -R)]  Backup finished"

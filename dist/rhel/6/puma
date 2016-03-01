@@ -1,0 +1,230 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          puma 
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: start and stop puma servers
+### END INIT INFO
+
+# Author: Darío Javier Cravero <dario@exordo.com>
+#
+# Do NOT "set -e"
+#
+# Modified: Leighton Shank <shanklt@jmu.edu> (2015-08-04)
+#
+# The original script was based around Debian systems and is not
+# compatible with Centos 6.6.  This version works on Centos 6.6
+# using rbenv to manage rubies
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/usr/local/bin:/usr/local/sbin/:/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Puma rack web server"
+NAME=puma
+DAEMON=$NAME
+SCRIPTNAME=/etc/init.d/$NAME
+CONFIG=/etc/puma.conf
+JUNGLE=`cat $CONFIG`
+RUNPUMA=/usr/local/bin/run-puma
+
+
+###
+# SO I STARTED PUTTING BACK IN THE LOG FILE STUFF
+# WILL NEED TO UPDATE run-puma
+# AND DOUBLE CHECK THAT I GOT EVERYTHING
+###
+
+#
+# Function that starts the jungle 
+#
+start() {
+  for i in $JUNGLE; do
+    dir=`echo $i | cut -d , -f 1`
+    user=`echo $i | cut -d , -f 2`
+    config_file=`echo $i | cut -d , -f 3`
+    if [ "$config_file" = "" ]; then
+      config_file="$dir/shared/puma.rb"
+    fi
+    log_file=`echo $i | cut -d , -f 4`
+    if [ "$log_file" = "" ]; then
+      log_file="$dir/shared/log/puma.console.log"
+    fi
+    environment=`echo $i | cut -d , -f 5`
+
+    # guard that this puma isn't running wild already
+    puma_status $dir > /dev/null 2>&1 && return 0
+    start_puma $dir $user $config_file $log_file $environment
+  done
+}
+
+start_puma() {
+  app_path=$1
+  user=$2
+  config_path=$3
+  log_path=$4
+  environment=$5
+
+  echo -n $"Starting puma $app_path: "
+
+  if [ ! -z "$environment" ]; then
+    for e in $(echo "$environment" | tr ';' '\n'); do
+        v=${e%%\=*} ;  eval "$e" ; export $v
+    done
+  fi
+
+  # update path for rbenv.  we're assuming that the user specified has
+  # rbenv installed (it *should* be the 'deploy' user anyways)
+  path=$PATH
+  if [ -d /home/$user/.rbenv/bin ]; then
+    rbenv=/home/$user/.rbenv
+    export PATH=$rbenv/shims:$rbenv/bin:$PATH
+  fi
+
+  pidfile=$app_path/shared/tmp/pids/puma.pid
+
+  daemon --user=${user} --pidfile=${pidfile} $RUNPUMA ${app_path} ${config_path} ${log_path}
+  RETVAL=$?
+  echo
+
+  # reset PATH
+  export PATH=$path
+
+  return $RETVAL
+}
+
+#
+# Function that stops the jungle
+#
+stop() {
+  for i in $JUNGLE; do
+    dir=`echo $i | cut -d , -f 1`
+    stop_puma $dir
+  done
+}
+#
+# Function that stops the daemon/service
+#
+stop_puma() {
+  app_path=$1
+
+  echo -n $"Stopping puma $app_path: "
+
+  pidfile=$app_path/shared/tmp/pids/puma.pid
+  statefile=$app_path/shared/tmp/pids/puma.state
+  socketfile=$app_path/shared/tmp/sockets/puma.sock
+  puma=$app_path/current/bin/puma
+
+  killproc -p ${pidfile} ${puma} -INT
+  RETVAL=$?
+  echo
+  [ $RETVAL = 0 ] && rm -f ${pidfile} ${statefile} ${socketfile}
+}
+
+#
+# Function that restarts the jungle 
+#
+restart() {
+  for i in $JUNGLE; do
+    dir=`echo $i | cut -d , -f 1`
+    restart_puma $dir
+  done
+}
+
+#
+# Function that sends a SIGUSR2 to the daemon/service
+#
+restart_puma() {
+  app_path=$1
+
+  echo -n "Restarting puma $app_path: "
+
+  pidfile=$app_path/shared/tmp/pids/puma.pid
+  puma=$app_path/current/bin/puma
+
+  killproc -p ${pidfile} ${puma} -USR2
+  RETVAL=$?
+  echo
+}
+
+#
+# Function that statuss the jungle 
+#
+rh_status() {
+  for i in $JUNGLE; do
+    dir=`echo $i | cut -d , -f 1`
+    puma_status $dir
+  done
+}
+
+#
+# Function that sends a SIGUSR2 to the daemon/service
+#
+puma_status() {
+  app_path=$1
+  pidfile=$app_path/shared/tmp/pids/puma.pid
+  puma=$app_path/current/bin/puma  
+  
+
+  status -p ${pidfile} ${puma}
+}
+
+
+case "$1" in
+  start)
+    if [ "$#" -eq 1 ]; then
+      start
+    else
+      i=`grep $2 $CONFIG`
+      dir=`echo $i | cut -d , -f 1`
+      user=`echo $i | cut -d , -f 2`
+      config_file=`echo $i | cut -d , -f 3`
+      if [ "$config_file" = "" ]; then
+        config_file="$dir/shared/puma.rb"
+      fi
+      log_file=`echo $i | cut -d , -f 4`
+      if [ "$log_file" = "" ]; then
+        log_file="$dir/shared/log/puma.console.log"
+      fi
+      environment=`echo $i | cut -d , -f 4`
+      start_puma $dir $user $config_file $log_file $environment
+    fi
+  ;;
+  stop)
+    if [ "$#" -eq 1 ]; then
+      stop
+    else
+      i=`grep $2 $CONFIG`
+      dir=`echo $i | cut -d , -f 1`
+      stop_puma $dir
+    fi
+  ;;
+  status)
+    if [ "$#" -eq 1 ]; then
+      rh_status
+    else
+      i=`grep $2 $CONFIG`
+      dir=`echo $i | cut -d , -f 1`
+      puma_status $dir
+    fi
+  ;;
+  restart)
+    if [ "$#" -eq 1 ]; then
+      restart
+    else
+      i=`grep $2 $CONFIG`
+      dir=`echo $i | cut -d , -f 1`
+      restart_puma $dir
+    fi
+  ;;
+  *)
+    echo "Usage:" >&2
+    echo "  Run the jungle: $SCRIPTNAME {start|stop|status|restart}" >&2
+    echo "  On a Puma: $SCRIPTNAME {start|stop|status|restart} PUMA-NAME" >&2
+    exit 3
+  ;;
+esac
+:

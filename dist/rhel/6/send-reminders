@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export HOME="/home/deploy"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export WORKSHOP="$HOME/apps/workshop/current"
+
+cd $HOME
+eval "$(rbenv init -)"
+
+cd $WORKSHOP
+RAILS_ENV=production bin/rake workshop:send_reminders
