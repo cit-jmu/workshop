@@ -4,9 +4,9 @@
       <% if @user.enrolled?(section: section, scope: :waiting) %>
         <%= render 'shared/waiting_icon' %>
       <% end %>
-      <%= link_to "Section #{section.section_number}", course_section_path(section.course, section) %>
+      <%= link_to "#{Rails.application.config.x["terminology"]["section"]} #{section.section_number}", course_section_path(section.course, section) %>
       <% if section.is_full? %>
-        <span class="label label-danger">Section full</span>
+        <span class="label label-danger"><%= Rails.application.config.x["terminology"]["section"] %> full</span>
       <% else %>
         <span class="label label-success"><%= section.open_seats %> open seats</span>
       <% end %>
