@@ -34,6 +34,7 @@
 
    ~~~ sh
    $ rbenv install 2.2.3
+   $ rbenv global 2.2.3
    ~~~
 
    If you already had `rbenv` installed, then you will need to rehash after installing a new ruby version
