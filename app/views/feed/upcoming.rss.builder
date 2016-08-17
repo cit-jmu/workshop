@@ -8,9 +8,9 @@ xml.rss version: "2.0" do
     @parts.each do |part|
       course = part.section.course
       xml.item do
-        xml.title course.title
-        xml.description part.date_and_time
-        xml.pubDate course.created_at.to_s(:rfc822)
+        xml.title part.feed_title
+        xml.description part.feed_description
+        xml.pubDate part.feed_pubdate
         xml.link course_url(course)
         xml.guid course_url(course)
       end

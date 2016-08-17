@@ -38,6 +38,26 @@ class Part < ActiveRecord::Base
     starts_at.to_s(:time_12h)
   end
 
+  def end_time
+    ends_at.to_s(:time_12h)
+  end
+
+  def feed_title
+    "#{starts_at.strftime('%b %d')}: #{section.course.title}"
+  end
+
+  def feed_description
+    if online?
+      "#{starts_at.strftime("%-m/%-d/%Y")}"
+    else
+      "#{start_time} - #{end_time}"
+    end
+  end
+
+  def feed_pubdate
+    starts_at.strftime('%a, %d %b %Y %H:%M:%S %Z')
+  end
+
   def online?
     start_time == '12:00am'
   end
