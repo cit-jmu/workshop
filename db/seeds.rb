@@ -86,12 +86,12 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Carrier Library Room 37',
-        starts_at: '2016-09-09 14:00:00',
+        starts_at: '2016-09-09 00:00:00',
         duration: 60
       },
       {
         location: 'Carrier Library Room 37',
-        starts_at: '2016-09-11 09:00:00',
+        starts_at: '2016-09-11 00:00:00',
         duration: 60
       }]
     },
@@ -101,11 +101,11 @@ canvas101.sections.create!([
       instructor: test_instructor,
       parts_attributes: [{
         location: 'Rose Library Room 5308',
-        starts_at: '2016-09-16 09:00:00',
+        starts_at: '2016-09-16 00:00:00',
         duration: 60
       },{
         location: 'Rose Library Room 5308',
-        starts_at: '2016-09-17 14:00:00',
+        starts_at: '2016-09-17 00:00:00',
         duration: 60
       }]
     }
