@@ -43,7 +43,7 @@ class Part < ActiveRecord::Base
   end
 
   def feed_title
-    "#{starts_at.strftime('%b %d')}: #{section.course.title}"
+    "#{starts_at.strftime('%b %-d')}: #{section.course.title}"
   end
 
   def feed_description
