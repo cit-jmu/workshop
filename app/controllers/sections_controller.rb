@@ -75,6 +75,11 @@ class SectionsController < ApplicationController
       redirect_to [@course, @section], notice: notice and return
     end
 
+    if user.enrolled? course: @course
+      notice = "The user <strong>#{user.username}</strong> is already enrolled in #{@course.title}."
+      redirect_to [@course, @section], notice: notice and return
+    end
+
     if user
       if @section.is_full? && @section.wait_list_user!(user)
         notice = "<strong>#{user.display_name}</strong>" \
