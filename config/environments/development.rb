@@ -40,5 +40,5 @@ Rails.application.configure do
     port: ENV['mail_port'],
     domain: ENV['mail_domain']
   }
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_deliveries = false
 end
