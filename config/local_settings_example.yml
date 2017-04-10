@@ -1,12 +1,14 @@
 #	This file containes site-specific settings for the application
 #	Don't include sensitive data here (use environment variables instead)
 #	Change values by environment as needed (e.g a development email account)
+# If you need all emails to cc to a single account, uncomment the ccto line
 
 default: &default
   identity:
     site_name: My Workshops
     site_owner: Workshop site-owner
     replyto: no-reply@yourdomain.com
+    ccto: email@yourdomain.com
     site_navbar_link: "http://mydomain.com"
     site_navbar_link_text: My Home Page
     events_link: "http://mydomain.com/events"
