@@ -9,16 +9,16 @@ class UserMailer < ActionMailer::Base
     @section = enrollment.section
     @course = enrollment.section.course
 
-    attachments['workshop.ics'] = {
-      content_type: 'application/ics; name="workshop.ics"',
-      content: ical_invite
-    }
+    # attachments['workshop.ics'] = {
+    #   content_type: 'application/ics; name="workshop.ics"',
+    #   content: ical_invite
+    # }
 
     subject = "#{Rails.application.config.x["terminology"]["workshop"]} enrollment for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
-      format.ics { render text: ical_invite, content_type: "text/calendar; method=REQUEST"}
+      # format.ics { render text: ical_invite, content_type: "text/calendar; method=REQUEST"}
     end
   end
 
@@ -29,16 +29,16 @@ class UserMailer < ActionMailer::Base
     @section = enrollment.section
     @course = enrollment.section.course
 
-    attachments['workshop.ics'] = {
-      content_type: 'application/ics; name="workshop.ics"',
-      content: ical_cancel
-    }
+    # attachments['workshop.ics'] = {
+    #   content_type: 'application/ics; name="workshop.ics"',
+    #   content: ical_cancel
+    # }
 
     subject = "#{Rails.application.config.x["terminology"]["workshop"]} course drop for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
-      format.ics { render text: ical_cancel, content_type: "text/calendar; method=CANCEL"}
+      # format.ics { render text: ical_cancel, content_type: "text/calendar; method=CANCEL"}
     end
   end
 
