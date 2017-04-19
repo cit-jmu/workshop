@@ -9,16 +9,16 @@ class UserMailer < ActionMailer::Base
     @section = enrollment.section
     @course = enrollment.section.course
 
-    # attachments['workshop.ics'] = {
-    #   content_type: 'application/ics; name="workshop.ics"',
-    #   content: ical_invite
-    # }
+    attachments['workshop.ics'] = {
+      content_type: 'application/ics; name="workshop.ics"',
+      content: ical_invite
+    }
 
     subject = "#{Rails.application.config.x["terminology"]["workshop"]} enrollment for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
-      # format.ics { render text: ical_invite, content_type: "text/calendar; method=REQUEST"}
+      format.ics { render text: ical_invite, content_type: "text/calendar; method=REQUEST"}
     end
   end
 
@@ -29,16 +29,16 @@ class UserMailer < ActionMailer::Base
     @section = enrollment.section
     @course = enrollment.section.course
 
-    # attachments['workshop.ics'] = {
-    #   content_type: 'application/ics; name="workshop.ics"',
-    #   content: ical_cancel
-    # }
+    attachments['workshop.ics'] = {
+      content_type: 'application/ics; name="workshop.ics"',
+      content: ical_cancel
+    }
 
     subject = "#{Rails.application.config.x["terminology"]["workshop"]} course drop for #{@course.title}"
     mail(to: @user.email, subject: subject) do |format|
       format.text
       format.html
-      # format.ics { render text: ical_cancel, content_type: "text/calendar; method=CANCEL"}
+      format.ics { render text: ical_cancel, content_type: "text/calendar; method=CANCEL"}
     end
   end
 
@@ -92,6 +92,28 @@ class UserMailer < ActionMailer::Base
     cal = Icalendar::Calendar.new
     cal.prodid = "-//James Madison University//#{Rails.application.config.x["identity"]["site_name"]}//EN"
     cal.ip_method = "REQUEST"
+
+    # Set timezone to Eastern
+    cal.timezone do |t|
+      t.tzid = "America/New_York"
+
+      t.daylight do |d|
+        d.tzoffsetfrom = "-0500"
+        d.tzoffsetto   = "-0400"
+        d.tzname       = "EDT"
+        d.dtstart      = "19700308T020000"
+        d.rrule        = "FREQ=YEARLY;BYMONTH=3;BYDAY=2SU"
+      end
+
+      t.standard do |s|
+        s.tzoffsetfrom = "-0400"
+        s.tzoffsetto   = "-0500"
+        s.tzname       = "EST"
+        s.dtstart      = "19701101T020000"
+        s.rrule        = "FREQ=YEARLY;BYMONTH=11;BYDAY=1SU"
+      end   
+    end
+
     cal.event do |e|
       e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}-#{Rails.application.config.x["identity"]["replyto"]}"
       e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
@@ -108,7 +130,7 @@ class UserMailer < ActionMailer::Base
                      partstat: "NEEDS-ACTION",
                      role: "REQ-PARTICIPANT")
 
-      # schedule an alarm for 1 day prior to workshop
+       # schedule an alarm for 1 day prior to workshop
       e.alarm do |a|
         a.action = "DISPLAY"
         a.summary = "#{Rails.application.config.x["terminology"]["workshop"]} reminder"
@@ -122,6 +144,27 @@ class UserMailer < ActionMailer::Base
     cal = Icalendar::Calendar.new
     cal.prodid = "-//James Madison University//#{Rails.application.config.x["identity"]["site_name"]}//EN"
     cal.ip_method = "CANCEL"
+    
+    # Set timezone to Eastern
+    cal.timezone do |t|
+      t.tzid = "America/New_York"
+
+      t.daylight do |d|
+        d.tzoffsetfrom = "-0500"
+        d.tzoffsetto   = "-0400"
+        d.tzname       = "EDT"
+        d.dtstart      = "19700308T020000"
+        d.rrule        = "FREQ=YEARLY;BYMONTH=3;BYDAY=2SU"
+      end
+
+      t.standard do |s|
+        s.tzoffsetfrom = "-0400"
+        s.tzoffsetto   = "-0500"
+        s.tzname       = "EST"
+        s.dtstart      = "19701101T020000"
+        s.rrule        = "FREQ=YEARLY;BYMONTH=11;BYDAY=1SU"
+      end   
+    end    
     cal.event do |e|
       e.uid = "#{@enrollment.ical_event_uid}-#{@part.id}-#{Rails.application.config.x["identity"]["replyto"]}"
       e.dtstart = @part.starts_at.strftime("%Y%m%dT%H%M%S")
