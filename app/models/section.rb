@@ -28,7 +28,9 @@ class Section < ActiveRecord::Base
   def enrollable_for?(user)
     case
     when user.enrolled?(:section => self, scope: :all) then false
-    when user.enrolled?(:course => course, scope: :all) then false
+    # customer requested that users be able to enroll in multiple sections for a course
+    # so we no longer make this check -jws 8/1/17      
+    #when user.enrolled?(:course => course, scope: :all) then false
     when user.instructing?(:section => self) then false
     else true
     end
@@ -36,8 +38,11 @@ class Section < ActiveRecord::Base
 
   def enroll_user!(user)
     # don't enroll if they are already enrolled in the course
+    # customer requested that users be able to enroll in multiple sections for a course
+    # so we no longer make this check -jws 8/1/17
     # or if the section is full
-    return nil if user.enrolled?(course: course) || is_full?
+    #return nil if user.enrolled?(course: course) || is_full?
+    return nil if is_full?
     self.enrollments << Enrollment.new(user: user)
     save
   end

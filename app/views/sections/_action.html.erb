@@ -6,7 +6,8 @@
   <% when user.waiting?(section: section) %>
     <%= link_to 'Stop waiting', drop_course_section_path(section.course, section),
                 method: :delete, class: 'btn btn-primary' %>
-  <% when user.enrolled?(course: section.course) || user.waiting?(course: section.course) %>
+  <% # when user.enrolled?(course: section.course) || user.waiting?(course: section.course) %>
+  <% when user.waiting?(course: section.course) %>
     <button class="btn btn-default" disabled>
       <% if section.is_full? %>
         Add to waiting list
