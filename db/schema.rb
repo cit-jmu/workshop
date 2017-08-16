@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901190029) do
+ActiveRecord::Schema.define(version: 20170816221807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150901190029) do
     t.string   "course_number",  limit: 8
     t.string   "short_title",    limit: 30
     t.string   "evaluation_url"
+    t.boolean  "institute",                  default: false
   end
 
   create_table "enrollments", force: :cascade do |t|
