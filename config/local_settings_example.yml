@@ -28,6 +28,10 @@ production:
 development:
   <<: *default
 
+# Change authtype to local to disable ldap authentication if needed.  Any other value will use ldap
+  settings:
+    authtype: ldap
+
 test:
   <<: *default
 

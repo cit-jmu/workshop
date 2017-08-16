@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   # devise modules
-  devise :ldap_authenticatable, :database_authenticatable, :rememberable, :trackable
+  # enable local authentication for development if needed
+  if Rails.application.config.x["settings"]["authtype"] == "local"
+    devise :database_authenticatable, :rememberable, :trackable
+  else
+    devise :ldap_authenticatable, :database_authenticatable, :rememberable, :trackable
+  end
 
   has_many :enrollments, dependent: :destroy
   has_many :sections, foreign_key: 'instructor_id'

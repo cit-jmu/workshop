@@ -20,6 +20,8 @@ User.create!([
     first_name: 'Jon',
     last_name: 'Short',
     email:'shortjw@jmu.edu',
+    password: 'testadmin',
+    password_confirmation: 'testadmin',
     role: :admin
   },
   {
@@ -27,6 +29,8 @@ User.create!([
     first_name: 'Jennifer',
     last_name: 'Short',
     email:'short2jw@jmu.edu',
+    password: 'testadmin',
+    password_confirmation: 'testadmin',
     role: :admin
   }
 ])
