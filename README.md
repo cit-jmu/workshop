@@ -10,7 +10,8 @@ This app was created for the Faculty Development staff in [JMU's Center for Inst
 
 ## Setup Instructions
 
-* [Development Setup](DevelopmentSetup.md)
+* [Development Setup (OSX)](DevelopmentSetupOSX.md)
+* [Development Setup (Windows 10)](DevelopmentSetupWin10.md)
 * [Production Setup](ProductionSetup.md)
 
 
