@@ -59,7 +59,7 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(
         :title, :summary, :description, :instructor, :course_number,
-        :short_title, :evaluation_url
+        :short_title, :evaluation_url, :institute
       )
     end
 

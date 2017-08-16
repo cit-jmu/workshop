@@ -53,6 +53,14 @@
     <%= f.text_field :summary, class: 'form-control' %>
   </div>
 
+  <div class="form-group<%= " has-error" if @course.errors[:institute].any? %>">
+    <%= f.label :institute %>
+    <%= f.check_box :institute %>
+    <span class="help-block">
+      An institute cannot have enrollments.  If unchecked, the course will behave as normal.
+    </span>
+  </div>
+  
   <div class="form-group<%= " has-error" if @course.errors[:description].any? %>">
     <%= render "shared/markdown_help_trigger" %>
     <%= f.label :description, class: 'control-label'%>

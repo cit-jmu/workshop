@@ -56,6 +56,9 @@ class Course < ActiveRecord::Base
     @past_sections ||= sections.reject { |s| s.current? }
   end
 
+  def institute?
+    self.institute
+  end
 
   protected
     def ensure_course_has_short_title
