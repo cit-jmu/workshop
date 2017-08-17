@@ -15,6 +15,9 @@ local_defaults = {
     "section" => 'Section',
     "part" => 'Part',
     "instructor" => 'Instructor'
+  },
+  "settings" => {
+    "authtype" => 'ldap'
   }
 }
 

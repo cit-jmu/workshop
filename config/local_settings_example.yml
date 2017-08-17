@@ -22,16 +22,17 @@ default: &default
     part: Part
     instructor: Instructor 
 
+# Change authtype to local to disable ldap authentication if needed.  Any other value will use ldap
+  settings:
+    authtype: ldap
+
 production:
   <<: *default
 
 development:
   <<: *default
 
-# Change authtype to local to disable ldap authentication if needed.  Any other value will use ldap
-  settings:
-    authtype: ldap
-
+#    authtype: ldap
 test:
   <<: *default
 
