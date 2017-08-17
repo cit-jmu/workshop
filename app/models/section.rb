@@ -28,6 +28,7 @@ class Section < ActiveRecord::Base
   def enrollable_for?(user)
     case
     when user.enrolled?(:section => self, scope: :all) then false
+    when self.course.institute? then false
     # customer requested that users be able to enroll in multiple sections for a course
     # so we no longer make this check -jws 8/1/17      
     #when user.enrolled?(:course => course, scope: :all) then false

@@ -1,4 +1,5 @@
 <% content_for :course_title_actions do %>
+  <% if !(@course.institute?) %>
   <% if user_signed_in? %>
     <%= render 'signed_in_user_actions' %>
   <% else %>
@@ -11,6 +12,7 @@
                   method: :post,
                   class: 'btn btn-primary' %>
     <% end %>
+  <% end %>
   <% end %>
 <% end %>
 
@@ -33,6 +35,7 @@
       <%= @section.instructor.display_name %>
     </li>
 
+    <% if !(@course.institute?) %>
     <li class="hidden-print">
       <% if @section.is_full? %>
         <span class="label label-danger"><%= Rails.application.config.x["terminology"]["section"] %> full</span>
@@ -42,6 +45,7 @@
         </span>
       <% end %>
     </li>
+    <% end %>
   </ul>
 
   <div class="hidden-print">
@@ -55,9 +59,11 @@
   </div>
 </div>
 
+<% if !(@course.institute?) %>
 <% if can? :view_enrollments, @section %>
   <%= render 'course_roster' %>
   <div class="hidden-print">
     <%= render 'wait_list' if @section.is_full? %>
   </div>
+<% end %>
 <% end %>

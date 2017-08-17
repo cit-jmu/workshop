@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-8">
-  <%= render partial: 'action', locals: {section: @section, user: @user} %>
+  <%= render partial: 'action', locals: {section: @section, user: @user, course: @course} %>
 
   <% if can? :update, @section %>
     <%= link_to edit_course_section_path(@course, @section),
@@ -15,19 +15,22 @@
     <% end %>
   <% end %>
   </div>
-  <% if can? :enroll_user, @section %>
-  <div class="col-sm-4 text-right">
-    <%= form_tag enroll_user_course_section_path, :role => 'form' do %>
-      <div class="form-group">
-        <div class="input-group">
-          <%= text_field_tag :username, nil, placeholder: 'Username or eID',
+  <% if !(@course.institute?) %>
+    <% if can? :enroll_user, @section %>
+    <div class="col-sm-4 text-right">
+      <%= form_tag enroll_user_course_section_path, :role => 'form' do %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= text_field_tag :username, nil, placeholder: 'Username or eID',
                              class: 'form-control' %>
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">Enroll user</button>
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">Enroll user</button>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
+  <% # end %>
   <% end %>
 </div>

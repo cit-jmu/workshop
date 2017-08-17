@@ -1,3 +1,4 @@
+<% if !(@course.institute?) %>
 <% if user_signed_in? %>
   <% case %>
   <% when user.enrolled?(section: section) %>
@@ -44,4 +45,5 @@
     <%= link_to 'Enroll', enroll_course_section_path(section.course, section),
         method: :post, class: 'btn btn-primary' %>
   <% end %>
+<% end %>
 <% end %>

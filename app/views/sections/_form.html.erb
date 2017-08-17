@@ -31,12 +31,16 @@
                                 class: 'form-control' %>
       </div>
     </div>
+    <% if !(@course.institute?) %>
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:seats].any? %>">
         <%= f.label :seats, class: 'control-label' %>
         <%= f.number_field :seats, class: 'form-control' %>
       </div>
     </div>
+    <% else %>
+      <%= f.hidden_field :seats, :value => 1 %>
+    <% end %>
     <div class="col-sm-3">
       <div class="form-group<%= " has-error" if @section.errors[:alert_email].any? %>">
         <%= f.label :alert_email, class: 'control-label' %>
