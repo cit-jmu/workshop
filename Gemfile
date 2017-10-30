@@ -90,5 +90,3 @@ group :development do
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-maintenance', require: false
 end
-
-gem 'newrelic_rpm'
